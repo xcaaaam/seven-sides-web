@@ -9,24 +9,22 @@
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='100 117 300 265'%3E%3Crect x='100' y='117' width='300' height='265' rx='40' fill='%230d9944'/%3E%3Cg fill='white'%3E%3Cpolygon points='123,140 299,140 180,359 125,359 221,187 123,187'/%3E%3Cpolygon points='319,140 373,140 267,334 376,334 376,359 200,359'/%3E%3C/g%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Poppins:wght@500;600&family=Sora:wght@200;300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
 :root{
   --green:#0d9944;
+  --green-hi:#0b8a3d;   /* resaltados sobre fondo claro */
   --green-deep:#0a5c2c;
   --ink:#0d120f;
   --bg-top:#c3c8c4;
   --bg-mid:#9ca39e;
   --bg-bot:#262c28;
   --text:#f4f6f4;
-  --text-dim:rgba(244,246,244,.62);
   --card:clamp(150px, 15vw, 230px);
   --gap:clamp(14px, 1.6vw, 24px);
   --radius:14px;
   --ease:cubic-bezier(.2,.8,.2,1);
-  --font-brand:"Poppins", system-ui, sans-serif;
-  --font-body:"Sora", system-ui, sans-serif;
-  --font-mono:"JetBrains Mono", ui-monospace, monospace;
+  --font:"Sora", system-ui, sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -34,277 +32,270 @@ body{
   background:linear-gradient(180deg,var(--bg-top) 0%,var(--bg-mid) 46%,#5b625d 76%,var(--bg-bot) 100%);
   background-color:var(--bg-mid);
   color:var(--text);
-  font-family:var(--font-body);
+  font-family:var(--font);
   overflow:hidden;
   -webkit-font-smoothing:antialiased;
 }
 button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+.label{font-size:10px;font-weight:400;letter-spacing:.14em;text-transform:uppercase}
 
-/* grain */
-body::after{
+body::after{ /* grano */
   content:"";position:fixed;inset:0;pointer-events:none;opacity:.07;mix-blend-mode:overlay;z-index:50;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.stage{position:relative;height:100svh;display:grid;grid-template-rows:auto 1fr auto;}
+.stage{position:relative;height:100svh;display:grid;grid-template-rows:auto 1fr auto}
 
 /* ---------- top ---------- */
-.top{
-  display:flex;justify-content:space-between;align-items:flex-start;gap:24px;
-  padding:clamp(18px,3.2vh,34px) clamp(16px,3vw,44px) 0;
-}
-.claim{
-  font-weight:200;color:var(--ink);
-  font-size:clamp(22px,2.6vw,40px);line-height:1.08;letter-spacing:-.02em;max-width:15ch;
-}
-.claim em{font-style:normal;font-weight:400}
-.meta{
-  font-family:var(--font-mono);font-size:11px;letter-spacing:.04em;color:rgba(13,18,15,.62);
-  text-align:right;line-height:1.7;white-space:nowrap;
-}
-.meta b{font-weight:500;color:var(--ink)}
-.meta .idx{display:inline-block;min-width:4.5ch}
+.top{padding:clamp(18px,3.2vh,34px) clamp(16px,3vw,44px) 0}
+.claim{font-weight:200;color:var(--ink);font-size:clamp(22px,2.6vw,40px);line-height:1.08;letter-spacing:-.02em;max-width:15ch}
+.claim em{font-style:normal;font-weight:400;color:var(--green-hi)}
 
-/* ---------- carousel ---------- */
-.rail{position:relative;align-self:center;overflow:hidden;padding:24px 0;
+/* ---------- carrusel de proyectos ---------- */
+.rail{position:relative;align-self:center;overflow:hidden;padding:30px 0;
   -webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);
-          mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);}
+          mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}
 .track{display:flex;gap:var(--gap);width:max-content;will-change:transform;align-items:center}
 .card{
   position:relative;flex:none;height:var(--card);width:var(--card);
-  border-radius:var(--radius);overflow:hidden;
-  transition:width .8s var(--ease), filter .6s var(--ease), opacity .6s var(--ease), transform .8s var(--ease);
-  background:var(--bgc);
-  box-shadow:0 20px 40px -24px rgba(0,0,0,.45);
-  outline:none;
+  border-radius:var(--radius);overflow:hidden;background:var(--bgc);
+  box-shadow:0 20px 40px -24px rgba(0,0,0,.45);outline:none;
+  transition:width .8s var(--ease), filter .7s var(--ease), opacity .7s var(--ease), transform .8s var(--ease);
 }
-.rail.has-open .card:not(.is-open){filter:blur(1.5px) saturate(.7);opacity:.72;transform:scale(.97)}
-.card.is-open{width:calc(var(--card)*2.25)}
+.rail.has-open .card:not(.is-open){filter:blur(5px) saturate(.6) brightness(.95);opacity:.75;transform:scale(.95)}
+.card.is-open{width:calc(var(--card)*2.4)}
 .card video,.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-
-.card .ph{position:absolute;inset:0;width:var(--card);display:grid;place-items:center}
-.card .ph svg{width:44%;height:44%;color:rgba(255,255,255,.88);stroke-width:1.1}
-.card.light .ph svg{color:rgba(13,18,15,.8)}
-.card .num{position:absolute;left:12px;top:10px;font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:rgba(255,255,255,.75)}
-.card.light .num{color:rgba(13,18,15,.6)}
-.card .slot{
-  position:absolute;left:10px;bottom:10px;font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;text-transform:uppercase;
-  padding:4px 7px;white-space:nowrap;border-radius:999px;border:1px dashed rgba(255,255,255,.45);color:rgba(255,255,255,.75)
-}
-.card.light .slot{border-color:rgba(13,18,15,.35);color:rgba(13,18,15,.6)}
 .card .orb{position:absolute;width:140%;aspect-ratio:1;left:-20%;top:-20%;border-radius:50%;
-  background:radial-gradient(closest-side,rgba(255,255,255,.22),transparent 70%);
-  animation:drift 14s ease-in-out infinite alternate;}
+  background:radial-gradient(closest-side,rgba(255,255,255,.2),transparent 70%);animation:drift 14s ease-in-out infinite alternate}
 @keyframes drift{to{transform:translate(18%,22%) scale(.8)}}
+.card .num{position:absolute;left:12px;top:11px;font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.8)}
+.card .slot{position:absolute;left:12px;bottom:12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:6px}
+.card .slot::before{content:"";width:0;height:0;border-left:6px solid currentColor;border-top:4px solid transparent;border-bottom:4px solid transparent}
+.card.light .num,.card.light .slot{color:rgba(13,18,15,.6)}
 
-/* glass layer that slides in when the card opens */
+/* capa de vidrio que entra al abrir la tarjeta */
 .card .layer{
   position:absolute;top:0;bottom:0;left:calc(var(--card) - 22px);right:0;
   padding:clamp(14px,1.4vw,22px);
-  display:flex;flex-direction:column;justify-content:space-between;
-  border-radius:var(--radius);
-  background:linear-gradient(135deg,rgba(255,255,255,.78),rgba(255,255,255,.52));
-  -webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.7), inset 1px 0 0 rgba(255,255,255,.35), -18px 0 40px -20px rgba(0,0,0,.35);
-  color:var(--ink);
+  display:flex;flex-direction:column;justify-content:space-between;gap:10px;
+  border-radius:var(--radius);color:var(--ink);
+  background:linear-gradient(135deg,rgba(255,255,255,.72),rgba(255,255,255,.48));
+  -webkit-backdrop-filter:blur(16px) saturate(170%);backdrop-filter:blur(16px) saturate(170%);
+  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.95),inset -1px -1px 1px -.5px rgba(255,255,255,.5),inset 0 0 0 1px rgba(255,255,255,.35),-18px 0 40px -20px rgba(0,0,0,.35);
   opacity:0;transform:translateX(30px);transition:opacity .5s .15s var(--ease), transform .7s .1s var(--ease);
 }
 .card.is-open .layer{opacity:1;transform:none}
+.layer .label{color:rgba(13,18,15,.55)}
 .layer h3{font-weight:300;font-size:clamp(17px,1.5vw,24px);line-height:1.12;letter-spacing:-.01em}
-.layer p{font-size:clamp(11px,.85vw,13px);line-height:1.5;color:rgba(13,18,15,.72);font-weight:300}
-.layer .tag{font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;color:rgba(13,18,15,.55)}
+.layer h3 em{font-style:normal;font-weight:400;color:var(--green-hi)}
+.layer .tags{display:flex;flex-wrap:wrap;gap:5px}
+.layer .tags span{font-size:10px;padding:4px 8px;border-radius:999px;background:rgba(13,153,68,.12);color:var(--green-deep)}
+.layer p{font-size:11px;line-height:1.5;color:rgba(13,18,15,.6);font-weight:300}
 
-/* ---------- bottom bar ---------- */
-.bar{
-  display:grid;grid-template-columns:1fr auto;align-items:end;gap:20px;
-  padding:0 clamp(16px,3vw,44px) calc(clamp(16px,3vh,30px) + env(safe-area-inset-bottom));
-}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:var(--text)}
-.brand svg{width:30px;height:auto}
-.brand span{font-family:var(--font-brand);font-weight:600;font-size:13px;letter-spacing:.32em}
+/* ---------- barra inferior ---------- */
+.bar{display:grid;grid-template-columns:1fr auto;align-items:end;gap:20px;
+  padding:0 clamp(16px,3vw,44px) calc(clamp(16px,3vh,30px) + env(safe-area-inset-bottom))}
+.brand{display:flex;align-items:center;gap:16px;text-decoration:none;color:var(--text)}
+.brand svg{width:clamp(42px,3.6vw,54px);height:auto}
+.brand img{height:clamp(14px,1.15vw,17px);width:auto}
 .actions{display:flex;gap:10px;align-items:center;justify-self:end}
 @media (min-width:1000px){
   .bar{grid-template-columns:1fr auto 1fr}
   .actions{justify-self:center;grid-column:2}
-  .bar .foot{justify-self:end}
 }
-.foot{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.06em;color:var(--text-dim)}
 
 /* ---------- liquid glass ---------- */
+/* Base: vidrio casi transparente con borde de luz. En Chromium se añade refracción real (ver JS). */
 .glass{
   --mx:50%;--my:0%;
-  position:relative;isolation:isolate;
-  border-radius:999px;
-  background:linear-gradient(160deg,rgba(255,255,255,.26),rgba(255,255,255,.07) 55%,rgba(255,255,255,.13));
-  -webkit-backdrop-filter:blur(14px) saturate(180%);backdrop-filter:blur(14px) saturate(180%);
+  position:relative;isolation:isolate;border-radius:999px;
+  background:rgba(255,255,255,.035);
+  -webkit-backdrop-filter:blur(2px) saturate(160%) brightness(1.06);backdrop-filter:blur(2px) saturate(160%) brightness(1.06);
   box-shadow:
-    inset 0 1px 0 rgba(255,255,255,.65),
-    inset 0 -1px 0 rgba(255,255,255,.12),
-    inset 0 0 0 1px rgba(255,255,255,.18),
-    0 10px 30px -10px rgba(0,0,0,.4);
-  transition:transform .35s var(--ease), box-shadow .35s var(--ease), background .35s var(--ease);
+    inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.85),
+    inset -1px -1px 1px -.5px rgba(255,255,255,.45),
+    inset 0 0 0 1px rgba(255,255,255,.22),
+    inset 0 0 16px rgba(255,255,255,.10),
+    0 8px 24px -10px rgba(0,0,0,.35);
+  transition:transform .4s var(--ease), box-shadow .4s var(--ease), background .4s var(--ease);
 }
-.glass::before{ /* specular highlight following the pointer */
+.glass::before{ /* brillo especular que sigue al puntero */
   content:"";position:absolute;inset:0;border-radius:inherit;z-index:-1;pointer-events:none;
-  background:radial-gradient(120px 60px at var(--mx) var(--my),rgba(255,255,255,.45),transparent 70%);
-  opacity:0;transition:opacity .3s;
+  background:radial-gradient(90px 46px at var(--mx) var(--my),rgba(255,255,255,.28),transparent 70%);
+  opacity:0;transition:opacity .35s;
+}
+.glass::after{ /* reflejo superior */
+  content:"";position:absolute;left:12%;right:12%;top:1px;height:42%;border-radius:999px;z-index:-1;pointer-events:none;
+  background:linear-gradient(180deg,rgba(255,255,255,.09),transparent);
 }
 .glass:hover::before{opacity:1}
-.glass:hover{transform:translateY(-2px)}
-.glass:active{transform:translateY(0) scale(.98)}
-.glass.tint{background:linear-gradient(160deg,rgba(32,190,96,.55),rgba(13,153,68,.35) 55%,rgba(10,92,44,.45))}
-.btn{padding:12px 20px;font-size:13px;font-weight:400;letter-spacing:.01em;white-space:nowrap;display:inline-flex;align-items:center;gap:8px}
-.btn .dot{width:6px;height:6px;border-radius:50%;background:currentColor;opacity:.8}
-.btn:focus-visible,.card:focus-visible,.chip:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.glass:hover{transform:translateY(-2px) scale(1.02);background:rgba(255,255,255,.06)}
+.glass:active{transform:scale(.97)}
+.glass.tint{background:rgba(13,153,68,.22);
+  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(190,255,215,.9),inset -1px -1px 1px -.5px rgba(160,240,190,.5),inset 0 0 0 1px rgba(120,230,160,.3),inset 0 0 18px rgba(13,153,68,.25),0 8px 24px -10px rgba(0,0,0,.35)}
+.glass.tint:hover{background:rgba(13,153,68,.3)}
+.btn{padding:13px 22px;font-size:13px;font-weight:400;letter-spacing:.01em;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;text-shadow:0 1px 8px rgba(0,0,0,.25)}
+.btn:focus-visible,.card:focus-visible,.chip:focus-visible,.acc-h:focus-visible{outline:2px solid #fff;outline-offset:3px}
 
-/* ---------- cursor follower ---------- */
-.cursor{position:fixed;left:0;top:0;width:22px;height:22px;margin:-11px 0 0 -11px;border-radius:50%;
-  background:rgba(40,46,42,.55);pointer-events:none;z-index:60;
-  transition:width .4s var(--ease),height .4s var(--ease),margin .4s var(--ease),background .4s;
-  display:grid;place-items:center;font-family:var(--font-mono);font-size:9px;letter-spacing:.08em;color:transparent}
-.cursor.big{width:58px;height:58px;margin:-29px 0 0 -29px;background:rgba(13,153,68,.75);color:#fff}
-@media (hover:none){.cursor{display:none}}
-
-/* ---------- sheets ---------- */
+/* ---------- paneles ---------- */
 .scrim{position:fixed;inset:0;z-index:70;background:rgba(15,20,17,.25);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
-  opacity:0;pointer-events:none;transition:opacity .45s var(--ease)}
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);opacity:0;pointer-events:none;transition:opacity .45s var(--ease)}
 .scrim.on{opacity:1;pointer-events:auto}
 .sheet{
   position:fixed;z-index:80;left:50%;bottom:clamp(12px,3vh,28px);
-  width:min(620px,calc(100vw - 24px));max-height:calc(100svh - 40px);overflow:auto;
+  width:min(620px,calc(100vw - 24px));max-height:calc(100svh - 40px);overflow:auto;overscroll-behavior:contain;
   transform:translate(-50%,40px);opacity:0;pointer-events:none;
   transition:transform .6s var(--ease),opacity .45s var(--ease);
-  border-radius:26px;padding:clamp(22px,3vw,34px);
-  background:linear-gradient(160deg,rgba(255,255,255,.62),rgba(255,255,255,.38));
+  border-radius:26px;padding:clamp(22px,3vw,34px);color:var(--ink);
+  background:linear-gradient(160deg,rgba(255,255,255,.66),rgba(255,255,255,.44));
   -webkit-backdrop-filter:blur(28px) saturate(170%);backdrop-filter:blur(28px) saturate(170%);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.9),inset 0 0 0 1px rgba(255,255,255,.4),0 30px 80px -20px rgba(0,0,0,.45);
-  color:var(--ink);
-  scrollbar-width:thin;
+  box-shadow:inset 2px 2px 1px -1px rgba(255,255,255,.95),inset -1px -1px 1px -.5px rgba(255,255,255,.6),inset 0 0 0 1px rgba(255,255,255,.4),0 30px 80px -20px rgba(0,0,0,.45);
+  scrollbar-width:thin;scrollbar-color:rgba(13,18,15,.25) transparent;
 }
 .sheet.on{transform:translate(-50%,0);opacity:1;pointer-events:auto}
 .sheet header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px}
-.sheet .kicker{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:rgba(13,18,15,.55);margin-bottom:8px}
+.kicker{color:rgba(13,18,15,.55);margin-bottom:8px}
 .sheet h2{font-weight:300;font-size:clamp(24px,2.4vw,32px);letter-spacing:-.02em;line-height:1.08}
-.sheet h2 b{font-weight:400;color:var(--green-deep)}
-.sheet p.lead{font-size:14px;line-height:1.6;color:rgba(13,18,15,.75);font-weight:300;margin-bottom:20px}
-.close{width:38px;height:38px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:18px;color:var(--ink)}
-.close.glass{background:rgba(255,255,255,.45)}
+.sheet h2 b{font-weight:400;color:var(--green-hi)}
+.lead{font-size:14px;line-height:1.6;color:rgba(13,18,15,.75);font-weight:300;margin-bottom:20px}
+.lead b{font-weight:400;color:var(--green-hi)}
+.close{width:38px;height:38px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:16px;color:var(--ink);text-shadow:none}
+.close.glass{background:rgba(255,255,255,.35)}
 
 form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .f{display:flex;flex-direction:column;gap:6px}
 .f.full{grid-column:1/-1}
-.f label,.f legend{font-family:var(--font-mono);font-size:10.5px;letter-spacing:.05em;color:rgba(13,18,15,.6)}
+.f label,.f legend{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(13,18,15,.6)}
 .f input,.f select,.f textarea{
-  font:inherit;font-size:14px;font-weight:300;color:var(--ink);
-  padding:11px 14px;border-radius:14px;border:0;outline:none;
-  background:rgba(255,255,255,.55);
-  box-shadow:inset 0 1px 2px rgba(0,0,0,.08),inset 0 0 0 1px rgba(255,255,255,.7);
-  transition:box-shadow .25s;
-}
+  font:inherit;font-size:14px;font-weight:300;color:var(--ink);padding:11px 14px;border-radius:14px;border:0;outline:none;
+  background:rgba(255,255,255,.55);box-shadow:inset 0 1px 2px rgba(0,0,0,.08),inset 0 0 0 1px rgba(255,255,255,.7);transition:box-shadow .25s}
 .f textarea{min-height:84px;resize:vertical}
 .f input:focus,.f select:focus,.f textarea:focus{box-shadow:inset 0 0 0 1.5px var(--green),0 0 0 4px rgba(13,153,68,.15)}
 fieldset{border:0}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-.chip{padding:7px 12px;border-radius:999px;font-size:12px;font-weight:300;
-  background:rgba(255,255,255,.45);box-shadow:inset 0 0 0 1px rgba(255,255,255,.75);transition:background .2s,color .2s}
+.chip{padding:7px 12px;border-radius:999px;font-size:12px;font-weight:300;background:rgba(255,255,255,.45);box-shadow:inset 0 0 0 1px rgba(255,255,255,.75);transition:background .2s,color .2s}
 .chip[aria-pressed="true"]{background:var(--green);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
 .check{grid-column:1/-1;display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.5;font-weight:300;color:rgba(13,18,15,.78)}
 .check input{margin-top:3px;accent-color:var(--green)}
 .submit{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:6px}
-.submit small{font-family:var(--font-mono);font-size:10px;color:rgba(13,18,15,.5);letter-spacing:.04em}
-.submit .glass{color:#fff}
-.done{display:none;text-align:left;padding:8px 0}
+.submit small{font-size:10px;color:rgba(13,18,15,.5);letter-spacing:.06em}
+.solid{padding:13px 22px;border-radius:999px;font-size:13px;color:#fff;background:var(--green);
+  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.6),inset 0 0 0 1px rgba(255,255,255,.15),0 8px 20px -8px rgba(13,153,68,.6);transition:transform .3s var(--ease)}
+.solid:hover{transform:translateY(-1px)}
+.ghost{padding:13px 22px;border-radius:999px;font-size:13px;color:var(--ink);background:rgba(255,255,255,.5);box-shadow:inset 0 0 0 1px rgba(255,255,255,.8)}
+.done{display:none;padding:8px 0}
 .done.on{display:block}
 .done h3{font-weight:300;font-size:24px;margin-bottom:8px}
+.done h3 b{font-weight:400;color:var(--green-hi)}
 .done p{font-size:14px;line-height:1.6;font-weight:300;color:rgba(13,18,15,.75)}
 
-/* about sheet */
-.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;align-items:center}
-.hepta{width:100%;max-width:260px;justify-self:center;overflow:visible}
-.hepta .side{stroke:var(--ink);stroke-width:1.2;fill:none;transition:stroke .3s,stroke-width .3s}
-.hepta .side.on{stroke:var(--green);stroke-width:3}
-.hepta text{font-family:var(--font-mono);font-size:8.5px;fill:rgba(13,18,15,.7)}
-.hepta .core{fill:var(--green);filter:drop-shadow(0 0 14px rgba(13,153,68,.8));animation:breathe 4s ease-in-out infinite}
-@keyframes breathe{50%{r:15}}
-.pillars{list-style:none;display:grid;gap:4px;counter-reset:p}
-.pillars li{font-size:13px;font-weight:300;padding:5px 0;border-bottom:1px solid rgba(13,18,15,.08);display:flex;gap:10px;cursor:default;transition:color .2s}
-.pillars li::before{counter-increment:p;content:"0" counter(p);font-family:var(--font-mono);font-size:10px;color:rgba(13,18,15,.45);padding-top:3px}
-.pillars li:hover{color:var(--green-deep)}
-.eighth{grid-column:1/-1;font-size:13px;font-weight:300;line-height:1.6;color:rgba(13,18,15,.75);
-  padding:12px 16px;border-radius:16px;background:rgba(13,153,68,.08);box-shadow:inset 0 0 0 1px rgba(13,153,68,.2)}
-.steps{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:4px}
-.step{padding:14px;border-radius:16px;background:rgba(255,255,255,.45);box-shadow:inset 0 0 0 1px rgba(255,255,255,.7)}
-.step b{display:block;font-family:var(--font-mono);font-weight:500;font-size:10px;color:var(--green-deep);margin-bottom:6px;letter-spacing:.06em}
-.step span{font-size:12.5px;line-height:1.45;font-weight:300}
-.about-cta{grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap}
-.about-cta .glass:not(.tint){color:var(--ink);background:rgba(255,255,255,.5)}
-.about-cta .glass.tint{color:#fff}
+/* ---------- ¿Qué es? (desplazamiento vertical) ---------- */
+#about{width:min(720px,calc(100vw - 24px));height:calc(100svh - 40px);padding:0}
+.about-head{position:sticky;top:0;z-index:2;padding:clamp(22px,3vw,30px) clamp(22px,3vw,34px) 14px;
+  background:linear-gradient(180deg,rgba(236,240,237,.98) 75%,rgba(236,240,237,.9));
+  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-radius:26px 26px 0 0}
+.about-head header{margin-bottom:14px}
+.nature{display:flex;gap:14px;align-items:center;padding:12px 16px;border-radius:16px;
+  background:linear-gradient(135deg,#d3e6d9,#e1ece4);box-shadow:inset 0 0 0 1px rgba(13,153,68,.25)}
+.nature .seed{width:12px;height:12px;flex:none;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(13,153,68,.15),0 0 18px rgba(13,153,68,.7);animation:pulse 4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 9px rgba(13,153,68,.08),0 0 26px rgba(13,153,68,.8)}}
+.nature strong{display:block;font-weight:400;font-size:13px;color:var(--green-deep)}
+.nature span{font-size:12px;font-weight:300;line-height:1.45;color:rgba(13,18,15,.75)}
+.about-body{padding:8px clamp(22px,3vw,34px) clamp(26px,3vw,34px)}
+.intro{display:grid;grid-template-columns:1fr 150px;gap:22px;align-items:center;margin:8px 0 22px}
+.intro .lead{margin:0}
+.hepta{width:150px;overflow:visible}
+.hepta .side{stroke:rgba(13,18,15,.75);stroke-width:1.4;fill:none;stroke-linecap:round;transition:stroke .35s,stroke-width .35s}
+.hepta .side.on{stroke:var(--green);stroke-width:4}
+.hepta text{font-size:9px;fill:rgba(13,18,15,.55);font-family:var(--font)}
+.hepta .core{fill:var(--green);filter:drop-shadow(0 0 10px rgba(13,153,68,.8))}
+.sec-t{color:rgba(13,18,15,.5);margin:6px 0 10px}
+
+.acc{border-top:1px solid rgba(13,18,15,.1)}
+.acc-i{border-bottom:1px solid rgba(13,18,15,.1)}
+.acc-h{width:100%;display:flex;align-items:center;gap:14px;padding:16px 4px;text-align:left;color:var(--ink);border-radius:10px}
+.acc-h .n{font-size:11px;letter-spacing:.1em;color:rgba(13,18,15,.45);width:22px}
+.acc-h .t{flex:1;font-size:clamp(16px,1.5vw,19px);font-weight:300;letter-spacing:-.01em;transition:color .25s}
+.acc-h .pm{width:26px;height:26px;border-radius:50%;position:relative;box-shadow:inset 0 0 0 1px rgba(13,18,15,.2);transition:background .3s,box-shadow .3s}
+.acc-h .pm::before,.acc-h .pm::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:1.4px;background:currentColor;transform:translate(-50%,-50%);transition:transform .35s var(--ease)}
+.acc-h .pm::after{transform:translate(-50%,-50%) rotate(90deg)}
+.acc-h:hover .t,.acc-i.open .acc-h .t{color:var(--green-hi)}
+.acc-i.open .pm{background:var(--green);color:#fff;box-shadow:none}
+.acc-i.open .pm::after{transform:translate(-50%,-50%) rotate(0)}
+.acc-p{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
+.acc-i.open .acc-p{grid-template-rows:1fr}
+.acc-p > div{overflow:hidden}
+.acc-p .in{padding:0 4px 18px 40px}
+.acc-p p{font-size:14px;line-height:1.65;font-weight:300;color:rgba(13,18,15,.78)}
+.acc-p p b{font-weight:400;color:var(--green-hi)}
+.acc-p .ex{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.acc-p .ex span{font-size:11.5px;font-weight:300;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.55);box-shadow:inset 0 0 0 1px rgba(255,255,255,.8)}
+
+.steps{list-style:none;display:grid;gap:0;margin:8px 0 22px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:40px 1fr;gap:4px;padding:14px 4px;border-bottom:1px solid rgba(13,18,15,.08)}
+.steps li::before{counter-increment:s;content:"0" counter(s);font-size:11px;letter-spacing:.1em;color:var(--green-hi);padding-top:3px}
+.steps b{display:block;font-weight:400;font-size:14px;margin-bottom:2px}
+.steps span{font-size:13px;font-weight:300;line-height:1.5;color:rgba(13,18,15,.7)}
+.about-cta{display:flex;gap:10px;flex-wrap:wrap}
 
 /* ---------- responsive ---------- */
 @media (max-width:760px){
   :root{--card:clamp(130px,38vw,170px)}
-  .meta{display:none}
   .bar{grid-template-columns:1fr;gap:14px}
   .actions{justify-self:stretch;flex-wrap:wrap}
-  .actions .btn{flex:1 1 auto;justify-content:center;padding:12px 14px}
+  .actions .btn{flex:1 1 auto;justify-content:center;padding:13px 14px}
   .actions .btn.about{flex-basis:100%}
-  .foot{display:none}
-  form,.about-grid{grid-template-columns:1fr}
-  .steps{grid-template-columns:1fr 1fr}
-  .card.is-open{width:calc(var(--card)*2)}
-  .card .slot{font-size:8px;letter-spacing:.04em}
+  form{grid-template-columns:1fr}
+  .intro{grid-template-columns:1fr}
+  .hepta{justify-self:center;width:130px}
+  .card.is-open{width:calc(var(--card)*2.05)}
+  .acc-p .in{padding-left:4px}
 }
 @media (prefers-reduced-motion:reduce){
-  .card,.card .layer,.sheet,.glass{transition:none}
-  .card .orb,.hepta .core{animation:none}
+  .card,.card .layer,.sheet,.glass,.acc-p{transition:none}
+  .card .orb,.nature .seed{animation:none}
 }
 </style>
 </head>
 <body>
-<div class="stage">
+<!-- filtros SVG para la refracción del liquid glass (se generan en JS) -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs id="lgDefs"></defs></svg>
 
+<div class="stage">
   <header class="top">
     <h1 class="claim">Cooperación internacional, <em>sin burocracia.</em></h1>
-    <div class="meta" aria-live="polite">
-      <div><b>07</b> pilares · <b>01</b> naturaleza</div>
-      <div><span class="idx" id="idx">01/07</span> <span id="idxName">Pobreza y crecimiento económico</span></div>
-      <div>LATAM ⇄ EUROPA</div>
-    </div>
   </header>
 
-  <section class="rail" id="rail" aria-label="Los siete pilares de Seven Sides">
+  <section class="rail" id="rail" aria-label="Proyectos y comunidades">
     <div class="track" id="track"></div>
   </section>
 
   <footer class="bar">
     <a class="brand" href="#" aria-label="Seven Sides — inicio">
       <svg viewBox="120 137 260 225" fill="currentColor" aria-hidden="true"><polygon points="123,140 299,140 180,359 125,359 221,187 123,187"/><polygon points="319,140 373,140 267,334 376,334 376,359 200,359"/></svg>
-      <span>SEVEN SIDES</span>
+      <img src="assets/brand/wordmark-blanco.png" alt="Seven Sides">
     </a>
     <nav class="actions" aria-label="Acciones principales">
-      <button class="glass tint btn" data-open="coop"><span class="dot"></span>Unirme como cooperante</button>
+      <button class="glass tint btn" data-open="coop">Unirme como cooperante</button>
       <button class="glass btn" data-open="apply">Postular mi proyecto</button>
       <button class="glass btn about" data-open="about">¿Qué es Seven Sides?</button>
     </nav>
-    <div class="foot">Shared value · 2026</div>
   </footer>
 </div>
 
-<div class="cursor" id="cursor">VER</div>
 <div class="scrim" id="scrim"></div>
 
 <!-- ============ Cooperante ============ -->
 <section class="sheet" id="coop" role="dialog" aria-modal="true" aria-labelledby="coopT">
   <header>
     <div>
-      <div class="kicker">Para empresas · Cooperantes</div>
+      <div class="kicker label">Para empresas · Cooperantes</div>
       <h2 id="coopT">Invierte donde tu empresa <b>también crece.</b></h2>
     </div>
     <button class="glass close" data-close aria-label="Cerrar">✕</button>
   </header>
   <div class="formwrap">
-    <p class="lead">Cuéntanos quién eres. Revisamos tu perfil y te mostramos proyectos y comunidades alineados con tus pilares. No es filantropía: es valor compartido.</p>
+    <p class="lead">Cuéntanos quién eres. Revisamos tu perfil y te mostramos proyectos y comunidades alineados con tus pilares. No es filantropía: es <b>valor compartido.</b></p>
     <form data-form>
       <div class="f"><label for="c1">Empresa</label><input id="c1" required placeholder="Nombre de la empresa"></div>
       <div class="f"><label for="c2">País</label><input id="c2" required placeholder="Italia, España, Alemania…"></div>
@@ -322,11 +313,11 @@ fieldset{border:0}
       </fieldset>
       <label class="check"><input type="checkbox" required> Declaro que mi empresa no realiza actividades extractivistas ni contrarias a los pilares de Seven Sides.</label>
       <label class="check"><input type="checkbox" required> Acepto el tratamiento de mis datos para fines de evaluación y contacto (RGPD).</label>
-      <div class="submit"><small>Prototipo · el envío aún no está conectado</small><button class="glass tint btn" type="submit">Enviar perfil</button></div>
+      <div class="submit"><small>Prototipo · el envío aún no está conectado</small><button class="solid" type="submit">Enviar perfil</button></div>
     </form>
   </div>
   <div class="done">
-    <h3>Perfil recibido.</h3>
+    <h3>Perfil <b>recibido.</b></h3>
     <p>Evaluaremos tu empresa frente a los siete pilares. Si es aprobada, verás los proyectos y comunidades alineados con tus intereses.</p>
   </div>
 </section>
@@ -335,13 +326,13 @@ fieldset{border:0}
 <section class="sheet" id="apply" role="dialog" aria-modal="true" aria-labelledby="applyT">
   <header>
     <div>
-      <div class="kicker">Para proyectos · Comunidades · Organizaciones</div>
+      <div class="kicker label">Para proyectos · Comunidades · Organizaciones</div>
       <h2 id="applyT">Tu proyecto merece <b>un socio, no un trámite.</b></h2>
     </div>
     <button class="glass close" data-close aria-label="Cerrar">✕</button>
   </header>
   <div class="formwrap">
-    <p class="lead">Postula tu necesidad, sea una idea o un proyecto en marcha. La evaluamos y, cuando una empresa acepta el match, las conectamos.</p>
+    <p class="lead">Postula tu necesidad, sea una idea o un proyecto en marcha. La evaluamos y, cuando una empresa acepta el match, <b>las conectamos.</b></p>
     <form data-form>
       <div class="f"><label for="a1">Nombre del proyecto</label><input id="a1" required placeholder="Ej. Bosque comunitario"></div>
       <div class="f"><label for="a2">Organización o comunidad</label><input id="a2" required placeholder="Quién lo impulsa"></div>
@@ -357,138 +348,193 @@ fieldset{border:0}
       <div class="f full"><label for="a8">Correo de contacto</label><input id="a8" type="email" required placeholder="contacto@proyecto.org"></div>
       <label class="check"><input type="checkbox" required> Confirmo que el proyecto respeta, conserva y preserva la naturaleza.</label>
       <label class="check"><input type="checkbox" required> Acepto el tratamiento de mis datos para fines de evaluación y contacto. La información del proyecto sigue siendo de quienes lo impulsan.</label>
-      <div class="submit"><small>Prototipo · el envío aún no está conectado</small><button class="glass tint btn" type="submit">Postular</button></div>
+      <div class="submit"><small>Prototipo · el envío aún no está conectado</small><button class="solid" type="submit">Postular</button></div>
     </form>
   </div>
   <div class="done">
-    <h3>Postulación recibida.</h3>
+    <h3>Postulación <b>recibida.</b></h3>
     <p>Tu proyecto pasa a evaluación. Te contactaremos cuando una empresa alineada acepte el match.</p>
   </div>
 </section>
 
-<!-- ============ Qué es ============ -->
-<section class="sheet" id="about" role="dialog" aria-modal="true" aria-labelledby="aboutT" style="width:min(760px,calc(100vw - 24px))">
-  <header>
-    <div>
-      <div class="kicker">¿Qué es Seven Sides?</div>
-      <h2 id="aboutT">Un puente entre empresas y comunidades, <b>con valor compartido.</b></h2>
+<!-- ============ ¿Qué es Seven Sides? ============ -->
+<section class="sheet" id="about" role="dialog" aria-modal="true" aria-labelledby="aboutT">
+  <div class="about-head">
+    <header>
+      <div>
+        <div class="kicker label">¿Qué es Seven Sides?</div>
+        <h2 id="aboutT">Un puente entre empresas y comunidades, <b>con valor compartido.</b></h2>
+      </div>
+      <button class="glass close" data-close aria-label="Cerrar">✕</button>
+    </header>
+    <div class="nature">
+      <i class="seed" aria-hidden="true"></i>
+      <div><strong>Naturaleza · el octavo lado</strong>
+      <span>No se nombra entre los siete porque está en todos: respeto, conservación y preservación. Es condición para entrar.</span></div>
     </div>
-    <button class="glass close" data-close aria-label="Cerrar">✕</button>
-  </header>
-  <p class="lead">Seven Sides une a empresas que quieren invertir con impacto y a proyectos de Latinoamérica que necesitan un socio. Evaluamos a ambos lados frente a siete pilares y acompañamos el primer paso, para que la cooperación internacional deje de depender de años de papeleo.</p>
-  <div class="about-grid">
-    <svg class="hepta" viewBox="-130 -130 260 260" id="hepta" aria-label="Heptágono de los siete pilares con la naturaleza al centro"></svg>
-    <ol class="pillars" id="pillarList"></ol>
-    <div class="eighth">El octavo lado no se nombra porque está en todos: el respeto, la conservación y la preservación de la naturaleza. Ningún proyecto ni empresa entra si no lo cumple.</div>
-    <div class="steps">
-      <div class="step"><b>01 · POSTULA</b><span>Proyectos y empresas envían su perfil.</span></div>
-      <div class="step"><b>02 · EVALUAMOS</b><span>Revisamos ambos lados frente a los pilares.</span></div>
-      <div class="step"><b>03 · MATCH</b><span>La empresa ve proyectos alineados y acepta.</span></div>
-      <div class="step"><b>04 · ACOMPAÑAMOS</b><span>Seguimiento cercano hacia una etapa en territorio.</span></div>
+  </div>
+
+  <div class="about-body">
+    <div class="intro">
+      <p class="lead">Seven Sides une a empresas que quieren invertir con impacto y a proyectos de Latinoamérica que necesitan un socio. Evaluamos a ambos lados frente a <b>siete pilares</b> y acompañamos el primer paso, para que la cooperación internacional deje de depender de años de papeleo.</p>
+      <svg class="hepta" viewBox="-125 -125 250 250" id="hepta" aria-hidden="true"></svg>
     </div>
+
+    <div class="sec-t label">Los siete pilares</div>
+    <div class="acc" id="acc"></div>
+
+    <div class="sec-t label" style="margin-top:26px">Cómo funciona</div>
+    <ol class="steps">
+      <li><div><b>Postula</b><span>Proyectos y empresas envían su perfil.</span></div></li>
+      <li><div><b>Evaluamos</b><span>Revisamos a ambos lados frente a los pilares y la naturaleza.</span></div></li>
+      <li><div><b>Match</b><span>La empresa ve los proyectos alineados y acepta; ahí se da el contacto.</span></div></li>
+      <li><div><b>Acompañamos</b><span>Seguimiento cercano para preparar una etapa más profunda en territorio.</span></div></li>
+    </ol>
+
     <div class="about-cta">
-      <button class="glass tint btn" data-open="coop">Unirme como cooperante</button>
-      <button class="glass btn" data-open="apply">Postular mi proyecto</button>
+      <button class="solid" data-open="coop">Unirme como cooperante</button>
+      <button class="ghost" data-open="apply">Postular mi proyecto</button>
     </div>
   </div>
 </section>
 
 <script>
-/* ===== Pilares. Para añadir una animación: media: "assets/media/archivo.mp4" ===== */
+/* ===== Proyectos del carrusel =====
+   Para poner un video: copia el archivo en assets/media/ y cambia media:null por media:"assets/media/archivo.mp4"
+   Los títulos son ejemplos provisionales hasta tener los proyectos reales. */
+const PROJECTS = [
+  { title:"Bosque comunitario",      place:"Comunidad · Latinoamérica", pillars:["Alimentación","Salud"],         bg:"linear-gradient(160deg,#3c5a45,#0f1a13)", media:null },
+  { title:"Energía solar rural",      place:"Proyecto · Latinoamérica",  pillars:["Energía","Infraestructura"],    bg:"linear-gradient(160deg,#b9b49c,#6f6b55)", media:null, light:true },
+  { title:"Escuela conectada",        place:"Comunidad · Latinoamérica", pillars:["Educación","Innovación"],       bg:"linear-gradient(160deg,#0d9944,#0a3d22)", media:null },
+  { title:"Agua para la comunidad",   place:"Proyecto · Latinoamérica",  pillars:["Infraestructura","Salud"],      bg:"linear-gradient(160deg,#47646a,#152225)", media:null },
+  { title:"Agricultura regenerativa", place:"Cooperativa · Latinoamérica",pillars:["Alimentación","Economía"],     bg:"linear-gradient(160deg,#e8ebe8,#c1c8c2)", media:null, light:true },
+  { title:"Turismo comunitario",      place:"Comunidad · Latinoamérica", pillars:["Economía","Educación"],         bg:"linear-gradient(160deg,#7b705e,#2e2820)", media:null },
+  { title:"Conservación marina",      place:"Proyecto · Latinoamérica",  pillars:["Innovación","Economía"],        bg:"linear-gradient(160deg,#5e7d86,#1d2c31)", media:null },
+];
+
+/* ===== Pilares (panel ¿Qué es?) ===== */
 const PILLARS = [
-  { name:"Pobreza y crecimiento económico", short:"Economía", text:"Empleo digno y cadenas de valor que se quedan en la comunidad.", bg:"linear-gradient(160deg,#5f6862,#2b302d)", media:null,
-    icon:'<path d="M4 20h16M7 16v-4M12 16V8M17 16V5"/><path d="M5 10l5-4 4 3 5-5"/>' },
-  { name:"Innovación y tecnología", short:"Innovación", text:"Tecnología apropiada que cierra brechas en lugar de abrirlas.", bg:"linear-gradient(160deg,#0d9944,#0a3d22)", media:null,
-    icon:'<circle cx="12" cy="12" r="3"/><circle cx="4.5" cy="6" r="1.5"/><circle cx="19.5" cy="6" r="1.5"/><circle cx="4.5" cy="18" r="1.5"/><circle cx="19.5" cy="18" r="1.5"/><path d="M6 7l3.5 3M18 7l-3.5 3M6 17l3.5-3M18 17l-3.5-3"/>' },
-  { name:"Acceso a educación", short:"Educación", text:"Conocimiento y capacidades para decidir el propio futuro.", bg:"linear-gradient(160deg,#eef0ee,#c9cec9)", light:true, media:null,
-    icon:'<path d="M3 6c3-1.5 6-1.5 9 0v13c-3-1.5-6-1.5-9 0zM21 6c-3-1.5-6-1.5-9 0v13c3-1.5 6-1.5 9 0z"/>' },
-  { name:"Infraestructura", short:"Infraestructura", text:"Agua, conectividad y caminos que sostienen la vida diaria.", bg:"linear-gradient(160deg,#1a1f1c,#060807)", media:null,
-    icon:'<path d="M2 17h20M4 17V11M20 17V11M2 11c4 0 6-5 10-5s6 5 10 5M8 17v-4.5M12 17v-6M16 17v-4.5"/>' },
-  { name:"Energía sostenible", short:"Energía", text:"Energía limpia y accesible, generada cerca de quien la usa.", bg:"linear-gradient(160deg,#a9b2ab,#6d766f)", media:null,
-    icon:'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1L7 17M17 7l2.1-2.1"/>' },
-  { name:"Acceso a salud", short:"Salud", text:"Atención de calidad, también lejos de las ciudades.", bg:"linear-gradient(160deg,#f5f6f5,#d8dcd8)", light:true, media:null,
-    icon:'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/><path d="M12 9v5M9.5 11.5h5"/>' },
-  { name:"Sostenibilidad alimentaria", short:"Alimentación", text:"Producir y comer bien sin agotar la tierra.", bg:"linear-gradient(160deg,#127a3c,#0b1f13)", media:null,
-    icon:'<path d="M12 21V11"/><path d="M12 11C12 7 9 4 4 4c0 4 3 7 8 7zM12 14c0-3 2.5-5.5 7-5.5 0 3-2.5 5.5-7 5.5z"/>' },
+  { name:"Pobreza y crecimiento económico", short:"Economía",
+    text:"Proyectos que generan ingresos dignos y dejan el valor en la comunidad. Para la empresa significa <b>proveedores confiables y nuevos mercados</b>; para la comunidad, trabajo que no depende de la ayuda externa.",
+    ex:["Cooperativas de productores","Comercio justo","Microemprendimientos"] },
+  { name:"Innovación y tecnología", short:"Innovación",
+    text:"Tecnología apropiada al contexto, que la comunidad pueda operar y mantener. Es el corazón de Seven Sides: <b>innovar para cerrar la brecha</b>, no para ampliarla.",
+    ex:["Conectividad rural","Herramientas digitales","Sensores para cultivos"] },
+  { name:"Acceso a educación", short:"Educación",
+    text:"Formación básica, técnica y digital para niños, jóvenes y adultos, para que <b>las capacidades se queden en el territorio</b>.",
+    ex:["Escuelas conectadas","Capacitación técnica","Becas"] },
+  { name:"Infraestructura", short:"Infraestructura",
+    text:"Las bases de la vida diaria: agua, saneamiento, caminos, vivienda y espacios comunitarios, <b>construidos con criterios sostenibles</b>.",
+    ex:["Sistemas de agua","Centros comunitarios","Mejora de vías"] },
+  { name:"Energía sostenible", short:"Energía",
+    text:"Energía limpia y asequible, <b>generada cerca de quien la usa</b>, que reemplaza fuentes contaminantes y abre nuevas actividades productivas.",
+    ex:["Solar rural","Biodigestores","Microrredes"] },
+  { name:"Acceso a salud", short:"Salud",
+    text:"Atención de calidad también lejos de las ciudades, con prevención y, cuando la comunidad lo pide, <b>integrando saberes ancestrales</b>.",
+    ex:["Telemedicina","Brigadas médicas","Medicina tradicional"] },
+  { name:"Sostenibilidad alimentaria", short:"Alimentación",
+    text:"Producir y comer bien <b>sin agotar la tierra</b>: soberanía alimentaria, agricultura regenerativa y menos desperdicio.",
+    ex:["Huertos comunitarios","Agroecología","Bancos de semillas"] },
 ];
 
 const $ = (s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
 const track=$("#track"), rail=$("#rail");
 
-/* ----- build cards (3 copies for a seamless loop) ----- */
+/* ----- tarjetas (3 copias para un bucle continuo) ----- */
 function cardHTML(p,i){
   const n=String(i+1).padStart(2,"0");
   const media = p.media
-    ? (p.media.match(/\.(mp4|webm)$/i) ? `<video src="${p.media}" autoplay muted loop playsinline></video>` : `<img src="${p.media}" alt="">`)
-    : `<div class="orb"></div><div class="ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">${p.icon}</svg></div><span class="slot">Espacio para animación</span>`;
-  return `<article class="card${p.light?" light":""}" tabindex="0" data-i="${i}" style="--bgc:${p.bg}" aria-label="${n} ${p.name}">
-    ${media}<span class="num">${n} / 07</span>
-    <div class="layer"><span class="tag">PILAR ${n}</span><div><h3>${p.name}</h3></div><p>${p.text}</p></div>
+    ? (/\.(mp4|webm|mov)$/i.test(p.media) ? `<video src="${p.media}" autoplay muted loop playsinline preload="metadata"></video>` : `<img src="${p.media}" alt="">`)
+    : `<div class="orb"></div><span class="slot">Espacio para video</span>`;
+  return `<article class="card${p.light&&!p.media?" light":""}" tabindex="0" data-i="${i}" style="--bgc:${p.bg}" aria-label="${p.title}">
+    ${media}<span class="num">${n}</span>
+    <div class="layer"><span class="label">${p.place}</span><h3>${p.title}</h3>
+      <div><div class="tags">${p.pillars.map(t=>`<span>${t}</span>`).join("")}</div>
+      ${p.media?"":`<p style="margin-top:8px">Ejemplo provisional</p>`}</div></div>
   </article>`;
 }
-const set = PILLARS.map(cardHTML).join("");
+const set = PROJECTS.map(cardHTML).join("");
 track.innerHTML = set+set+set;
-const cards=$$(".card",track);
+const cards=$$(".card",track), N=PROJECTS.length;
 
-/* ----- motion ----- */
+/* ----- movimiento ----- */
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-let x=0, speed=0, target=reduce?0:0.45, last=performance.now(), open=null, setW=0;
-function measure(){ setW = cards[7].offsetLeft - cards[0].offsetLeft; }
+const CRUISE = reduce?0:0.45, SLOW = reduce?0:0.05;
+let x=0, speed=0, target=CRUISE, last=performance.now(), open=null;
 function loop(t){
   const dt=Math.min(48,t-last); last=t;
   speed += (target-speed)*0.06;
   x -= speed*dt/16;
-  measure();
+  const setW = cards[N].offsetLeft - cards[0].offsetLeft;
   if(-x >= setW) x += setW;
   if(x > 0) x -= setW;
   track.style.transform=`translate3d(${x}px,0,0)`;
-  if(!open) updateIndex();
   requestAnimationFrame(loop);
 }
-function updateIndex(){
-  const cx=innerWidth/2; let best=null,d=1e9;
-  for(const c of cards){const r=c.getBoundingClientRect();const dd=Math.abs(r.left+r.width/2-cx);if(dd<d){d=dd;best=c}}
-  if(best) setIndex(+best.dataset.i);
-}
-let curIdx=-1;
-function setIndex(i){ if(i===curIdx) return; curIdx=i;
-  $("#idx").textContent=String(i+1).padStart(2,"0")+"/07"; $("#idxName").textContent=PILLARS[i].name; }
-
 function openCard(c){
   if(open===c) return;
   open?.classList.remove("is-open"); open=c;
-  c.classList.add("is-open"); rail.classList.add("has-open"); target=reduce?0:0.06; setIndex(+c.dataset.i);
+  c.classList.add("is-open"); rail.classList.add("has-open"); target=SLOW;
 }
-function closeCard(){
-  open?.classList.remove("is-open"); open=null; rail.classList.remove("has-open"); target=reduce?0:0.45;
-}
+function closeCard(){ open?.classList.remove("is-open"); open=null; rail.classList.remove("has-open"); target=CRUISE; }
+const touch = matchMedia("(hover:none)").matches;
 cards.forEach(c=>{
   c.addEventListener("mouseenter",()=>openCard(c));
   c.addEventListener("focus",()=>openCard(c));
-  c.addEventListener("click",()=> open===c && matchMedia("(hover:none)").matches ? closeCard() : openCard(c));
+  c.addEventListener("click",()=> (touch && open===c) ? closeCard() : openCard(c));
 });
 rail.addEventListener("mouseleave",closeCard);
 track.addEventListener("focusout",e=>{ if(!track.contains(e.relatedTarget)) closeCard(); });
 requestAnimationFrame(loop);
 
-/* ----- cursor + glass highlight ----- */
-const cur=$("#cursor"); let mx=-100,my=-100,cx=-100,cy=-100;
-addEventListener("pointermove",e=>{mx=e.clientX;my=e.clientY;
-  const g=e.target.closest?.(".glass"); if(g){const r=g.getBoundingClientRect();g.style.setProperty("--mx",(e.clientX-r.left)+"px");g.style.setProperty("--my",(e.clientY-r.top)+"px");}
-  cur.classList.toggle("big", !!e.target.closest?.(".card") && !document.body.classList.contains("modal"));
+/* ----- brillo especular de los botones ----- */
+addEventListener("pointermove",e=>{
+  const g=e.target.closest?.(".glass"); if(!g) return;
+  const r=g.getBoundingClientRect(); g.style.setProperty("--mx",(e.clientX-r.left)+"px"); g.style.setProperty("--my",(e.clientY-r.top)+"px");
 });
-(function follow(){cx+=(mx-cx)*.18;cy+=(my-cy)*.18;cur.style.transform=`translate3d(${cx}px,${cy}px,0)`;requestAnimationFrame(follow)})();
 
-/* ----- sheets ----- */
+/* ----- liquid glass: refracción en los bordes (Chromium) -----
+   Se genera un mapa de desplazamiento por botón: el fondo se curva cerca del borde, como una lente. */
+const supportsSvgBackdrop = !!(navigator.userAgentData) && CSS.supports("backdrop-filter","url(#a)");
+function buildLiquid(){
+  if(!supportsSvgBackdrop) return;
+  const defs=$("#lgDefs"); defs.innerHTML="";
+  $$(".bar .glass").forEach((el,k)=>{
+    const w=Math.round(el.offsetWidth), h=Math.round(el.offsetHeight); if(!w||!h) return;
+    const cv=document.createElement("canvas"); cv.width=w; cv.height=h;
+    const ctx=cv.getContext("2d"), img=ctx.createImageData(w,h), d=img.data;
+    const r=h/2, band=Math.min(h*.42,20), hx=w/2, hy=h/2;
+    for(let y=0;y<h;y++) for(let x=0;x<w;x++){
+      const px=x+.5-hx, py=y+.5-hy, qx=Math.abs(px)-(hx-r), qy=Math.abs(py)-(hy-r);
+      let dist, nx=0, ny=0;
+      if(qx>0&&qy>0){ const L=Math.hypot(qx,qy)||1; dist=r-L; nx=qx/L*Math.sign(px); ny=qy/L*Math.sign(py); }
+      else if(qx>qy){ dist=r-qx; nx=Math.sign(px); } else { dist=r-qy; ny=Math.sign(py); }
+      let s=0; if(dist<band&&dist>=0){ const t=1-dist/band; s=t*t*(3-2*t); }
+      const i=(y*w+x)*4; d[i]=128+nx*s*127; d[i+1]=128+ny*s*127; d[i+2]=128; d[i+3]=255;
+    }
+    ctx.putImageData(img,0,0);
+    const id="lg"+k;
+    defs.insertAdjacentHTML("beforeend",
+      `<filter id="${id}" x="0" y="0" width="${w}" height="${h}" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+         <feImage href="${cv.toDataURL()}" x="0" y="0" width="${w}" height="${h}" result="map" preserveAspectRatio="none"/>
+         <feDisplacementMap in="SourceGraphic" in2="map" scale="-26" xChannelSelector="R" yChannelSelector="G"/>
+       </filter>`);
+    el.style.backdropFilter=el.style.webkitBackdropFilter=`url(#${id}) blur(.6px) saturate(165%) brightness(1.07)`;
+  });
+}
+document.fonts?.ready.then(buildLiquid); addEventListener("load",buildLiquid);
+let rz; addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(buildLiquid,200)});
+
+/* ----- paneles ----- */
 const scrim=$("#scrim"); let lastFocus=null;
 function openSheet(id){
   $$(".sheet.on").forEach(s=>s.classList.remove("on"));
   const s=$("#"+id); lastFocus=lastFocus||document.activeElement;
-  s.classList.add("on"); scrim.classList.add("on"); document.body.classList.add("modal");
-  setTimeout(()=>$("input,select,button",s)?.focus({preventScroll:true}),250);
+  s.classList.add("on"); scrim.classList.add("on"); s.scrollTop=0;
+  setTimeout(()=>$("[data-close]",s)?.focus({preventScroll:true}),250);
 }
 function closeSheets(){
-  $$(".sheet.on").forEach(s=>s.classList.remove("on")); scrim.classList.remove("on"); document.body.classList.remove("modal");
+  $$(".sheet.on").forEach(s=>s.classList.remove("on")); scrim.classList.remove("on");
   lastFocus?.focus?.(); lastFocus=null;
 }
 $$("[data-open]").forEach(b=>b.addEventListener("click",()=>openSheet(b.dataset.open)));
@@ -496,35 +542,49 @@ $$("[data-close]").forEach(b=>b.addEventListener("click",closeSheets));
 scrim.addEventListener("click",closeSheets);
 addEventListener("keydown",e=>{ if(e.key==="Escape") closeSheets(); });
 
-/* pillar chips */
 $$('[data-chips="pillars"]').forEach(box=>{
   box.innerHTML=PILLARS.map(p=>`<button type="button" class="chip" aria-pressed="false">${p.short}</button>`).join("");
 });
 document.addEventListener("click",e=>{const c=e.target.closest(".chip"); if(c) c.setAttribute("aria-pressed", c.getAttribute("aria-pressed")!=="true");});
 
-/* prototype submit */
 $$("[data-form]").forEach(f=>f.addEventListener("submit",e=>{
   e.preventDefault(); const s=f.closest(".sheet");
   $(".formwrap",s).style.display="none"; $(".done",s).classList.add("on");
 }));
 
-/* ----- heptagon ----- */
+/* ----- heptágono + acordeón de pilares ----- */
 (function(){
-  const svg=$("#hepta"), R=92, pts=[];
+  const svg=$("#hepta"), R=90, pts=[];
   for(let i=0;i<7;i++){const a=-Math.PI/2+i*2*Math.PI/7; pts.push([R*Math.cos(a),R*Math.sin(a)]);}
   let h="";
   for(let i=0;i<7;i++){
-    const [x1,y1]=pts[i],[x2,y2]=pts[(i+1)%7], mxp=(x1+x2)/2, myp=(y1+y2)/2, k=1.24;
+    const [x1,y1]=pts[i],[x2,y2]=pts[(i+1)%7], k=1.27;
     h+=`<line class="side" data-s="${i}" x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`;
-    h+=`<text x="${(mxp*k).toFixed(1)}" y="${(myp*k+3).toFixed(1)}" text-anchor="middle">0${i+1}</text>`;
+    h+=`<text x="${((x1+x2)/2*k).toFixed(1)}" y="${((y1+y2)/2*k+3).toFixed(1)}" text-anchor="middle">0${i+1}</text>`;
   }
-  h+=`<circle class="core" r="11"><title>Naturaleza: siempre presente</title></circle>`;
+  h+=`<circle class="core" r="12"/>`;
   svg.innerHTML=h;
-  const list=$("#pillarList");
-  list.innerHTML=PILLARS.map((p,i)=>`<li data-s="${i}">${p.name}</li>`).join("");
-  $$("li",list).forEach(li=>{
-    li.addEventListener("mouseenter",()=>$(`.side[data-s="${li.dataset.s}"]`,svg).classList.add("on"));
-    li.addEventListener("mouseleave",()=>$(`.side[data-s="${li.dataset.s}"]`,svg).classList.remove("on"));
+
+  const acc=$("#acc");
+  acc.innerHTML=PILLARS.map((p,i)=>`
+    <div class="acc-i" data-s="${i}">
+      <button class="acc-h" aria-expanded="false" aria-controls="ap${i}">
+        <span class="n">0${i+1}</span><span class="t">${p.name}</span><span class="pm" aria-hidden="true"></span>
+      </button>
+      <div class="acc-p" id="ap${i}" role="region"><div><div class="in">
+        <p>${p.text}</p><div class="ex">${p.ex.map(e=>`<span>${e}</span>`).join("")}</div>
+      </div></div></div>
+    </div>`).join("");
+  const side=i=>$(`.side[data-s="${i}"]`,svg);
+  $$(".acc-i",acc).forEach(item=>{
+    const btn=$(".acc-h",item), i=item.dataset.s;
+    btn.addEventListener("click",()=>{
+      const willOpen=!item.classList.contains("open");
+      $$(".acc-i.open",acc).forEach(o=>{o.classList.remove("open");$(".acc-h",o).setAttribute("aria-expanded","false");side(o.dataset.s).classList.remove("on")});
+      if(willOpen){item.classList.add("open");btn.setAttribute("aria-expanded","true");side(i).classList.add("on")}
+    });
+    item.addEventListener("mouseenter",()=>side(i).classList.add("on"));
+    item.addEventListener("mouseleave",()=>{ if(!item.classList.contains("open")) side(i).classList.remove("on") });
   });
 })();
 </script>
