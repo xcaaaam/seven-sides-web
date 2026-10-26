@@ -64,7 +64,8 @@ body::after{ /* grano */
 }
 .rail.has-open .card:not(.is-open){filter:blur(5px) saturate(.6) brightness(.95);opacity:.75;transform:scale(.95)}
 .card.is-open{width:calc(var(--card)*2.4)}
-.card video,.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.card video,.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.02)}
+.card video~.num{text-shadow:0 1px 6px rgba(0,0,0,.5)}
 .card .orb{position:absolute;width:140%;aspect-ratio:1;left:-20%;top:-20%;border-radius:50%;
   background:radial-gradient(closest-side,rgba(255,255,255,.2),transparent 70%);animation:drift 14s ease-in-out infinite alternate}
 @keyframes drift{to{transform:translate(18%,22%) scale(.8)}}
@@ -403,7 +404,7 @@ fieldset{border:0}
    Para poner un video: copia el archivo en assets/media/ y cambia media:null por media:"assets/media/archivo.mp4"
    Los títulos son ejemplos provisionales hasta tener los proyectos reales. */
 const PROJECTS = [
-  { title:"Bosque comunitario",      place:"Comunidad · Latinoamérica", pillars:["Alimentación","Salud"],         bg:"linear-gradient(160deg,#3c5a45,#0f1a13)", media:null },
+  { title:"Bosque comunitario",      place:"Comunidad · Latinoamérica", pillars:["Alimentación","Salud"],         bg:"linear-gradient(160deg,#3c5a45,#0f1a13)", media:"assets/media/bosque.mp4", poster:"assets/media/bosque.jpg" },
   { title:"Energía solar rural",      place:"Proyecto · Latinoamérica",  pillars:["Energía","Infraestructura"],    bg:"linear-gradient(160deg,#b9b49c,#6f6b55)", media:null, light:true },
   { title:"Escuela conectada",        place:"Comunidad · Latinoamérica", pillars:["Educación","Innovación"],       bg:"linear-gradient(160deg,#0d9944,#0a3d22)", media:null },
   { title:"Agua para la comunidad",   place:"Proyecto · Latinoamérica",  pillars:["Infraestructura","Salud"],      bg:"linear-gradient(160deg,#47646a,#152225)", media:null },
@@ -444,7 +445,7 @@ const track=$("#track"), rail=$("#rail");
 function cardHTML(p,i){
   const n=String(i+1).padStart(2,"0");
   const media = p.media
-    ? (/\.(mp4|webm|mov)$/i.test(p.media) ? `<video src="${p.media}" autoplay muted loop playsinline preload="metadata"></video>` : `<img src="${p.media}" alt="">`)
+    ? (/\.(mp4|webm|mov)$/i.test(p.media) ? `<video src="${p.media}"${p.poster?` poster="${p.poster}"`:""} autoplay muted loop playsinline preload="auto"></video>` : `<img src="${p.media}" alt="">`)
     : `<div class="orb"></div><span class="slot">Espacio para video</span>`;
   return `<article class="card${p.light&&!p.media?" light":""}" tabindex="0" data-i="${i}" style="--bgc:${p.bg}" aria-label="${p.title}">
     ${media}<span class="num">${n}</span>
