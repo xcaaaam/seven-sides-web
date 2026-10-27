@@ -157,9 +157,9 @@ body::after{ /* grano */
 .lead b{font-weight:400;color:var(--green-hi)}
 .close{width:40px;height:40px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:15px}
 /* liquid glass sobre superficies claras (paneles): mismo acabado que los botones del inicio */
-.sheet .glass{color:var(--ink);text-shadow:none;background:rgba(255,255,255,.14);
+.sheet .glass{color:var(--ink);text-shadow:none;background:rgba(255,255,255,.03);
   box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,1),inset -1px -1px 1px -.5px rgba(255,255,255,.7),inset 0 0 0 1px rgba(13,18,15,.09),inset 0 0 16px rgba(255,255,255,.45),0 8px 22px -10px rgba(0,0,0,.3)}
-.sheet .glass:hover{background:rgba(255,255,255,.3)}
+.sheet .glass:hover{background:rgba(255,255,255,.1)}
 .sheet .glass.tint{color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.2);background:rgba(13,153,68,.74);
   box-shadow:inset 1.5px 1.5px 1px -.5px rgba(200,255,220,.95),inset -1px -1px 1px -.5px rgba(160,240,190,.6),inset 0 0 0 1px rgba(13,120,55,.35),inset 0 0 18px rgba(120,230,160,.35),0 10px 24px -10px rgba(13,153,68,.55)}
 .sheet .glass.tint:hover{background:rgba(13,153,68,.84)}
@@ -175,7 +175,8 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .f input:focus,.f select:focus,.f textarea:focus{box-shadow:inset 0 0 0 1.5px var(--green),0 0 0 4px rgba(13,153,68,.15)}
 fieldset{border:0}
 .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
-.chip{padding:7px 12px;border-radius:999px;font-size:12px;font-weight:300;background:rgba(255,255,255,.45);box-shadow:inset 0 0 0 1px rgba(255,255,255,.75);transition:background .2s,color .2s}
+.chip{padding:7px 12px;border-radius:999px;font-size:12px;font-weight:300;background:rgba(255,255,255,.04);box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.9),inset -1px -1px 1px -.5px rgba(255,255,255,.5),inset 0 0 0 1px rgba(13,18,15,.12);transition:background .2s,color .2s}
+.chip:hover{background:rgba(255,255,255,.12)}
 .chip[aria-pressed="true"]{background:var(--green);color:#fff;box-shadow:inset 0 1px 0 rgba(255,255,255,.4)}
 .check{grid-column:1/-1;display:flex;gap:10px;align-items:flex-start;font-size:12.5px;line-height:1.5;font-weight:300;color:rgba(13,18,15,.86)}
 .check input{margin-top:3px;accent-color:var(--green)}
@@ -262,6 +263,8 @@ fieldset{border:0}
 .win.gold .n{display:grid;place-items:center}
 .win.gold .n i{width:10px;height:10px;border-radius:50%;background:var(--gold-hi);box-shadow:0 0 12px rgba(201,162,74,.9)}
 .win.gold p{color:#5e470f}
+.win.gold p+p{margin-top:10px}
+.win.gold p b{color:#7a5a10;font-weight:500}
 .win.gold .win-p .in{padding-top:0}
 
 .steps{list-style:none;display:grid;gap:10px;margin:0 0 24px;counter-reset:s}
@@ -413,7 +416,7 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
 .big-n{font-size:clamp(40px,4.4vw,60px);font-weight:500;letter-spacing:-.03em;line-height:1;color:var(--ink)}
 .big-n small{font-size:.5em;font-weight:400}
 .dc.c .cap{grid-column:1;font-size:12.5px;font-weight:300;color:rgba(13,18,15,.74)}
-.pill{justify-self:end;align-self:start;font-size:12px;padding:6px 12px;border-radius:999px;background:#fff;color:var(--green-deep);box-shadow:0 4px 12px -6px rgba(0,0,0,.3)}
+.pill{justify-self:end;align-self:start;font-size:12px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.08);box-shadow:inset 1.5px 1.5px 1px -.5px #fff,inset 0 0 0 1px rgba(13,18,15,.12) !important;color:var(--green-deep);box-shadow:0 4px 12px -6px rgba(0,0,0,.3)}
 .bars{grid-column:1/-1;display:grid;gap:10px;margin-top:10px;align-content:start;align-self:start}
 .bar{display:grid;grid-template-columns:150px 1fr 40px;gap:10px;align-items:center;font-size:12.5px;font-weight:300}
 .bar i{display:block;height:6px;border-radius:6px;background:rgba(13,18,15,.08);overflow:hidden}
@@ -468,6 +471,68 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
   .ilp td{font-size:13px;padding:13px 14px}
   .ilp th{padding:12px 14px 6px}
 }
+
+/* ---------- panel de administración ---------- */
+.adm{flex:1;min-height:0;display:flex;flex-direction:column;gap:14px;padding:14px clamp(20px,3vw,40px) 10px}
+.kpis{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.kpi{padding:14px 16px;border-radius:18px;background:rgba(255,255,255,.12);box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.9),inset 0 0 0 1px rgba(255,255,255,.3)}
+.kpi b{display:block;font-size:28px;font-weight:500;letter-spacing:-.02em;line-height:1}
+.kpi span{font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(13,18,15,.68)}
+.kpi.g b{color:var(--green-hi)}
+.adm-grid{flex:1;min-height:0;display:grid;grid-template-columns:1fr 1.1fr;gap:14px}
+.adm-l{display:flex;flex-direction:column;gap:10px;min-height:0}
+.adm-f{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.tabs{display:flex;gap:4px;padding:4px;border-radius:999px;background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1px rgba(255,255,255,.35)}
+.tab{padding:7px 14px;border-radius:999px;font-size:12.5px;color:rgba(13,18,15,.8);transition:background .3s,color .3s}
+.tab.on{background:var(--green);color:#fff}
+.adm-f select,.adm-f input{font:inherit;font-size:13px;font-weight:300;padding:9px 14px;border:0;border-radius:999px;color:var(--ink);background:rgba(255,255,255,.12);box-shadow:inset 0 0 0 1px rgba(255,255,255,.5)}
+.adm-f input{flex:1;min-width:160px}
+.adm-list{position:relative;flex:1;min-height:0;overflow:auto;border-radius:20px;background:rgba(255,255,255,.1);box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.9),inset 0 0 0 1px rgba(255,255,255,.3)}
+.adm-list table{position:relative;z-index:2;width:100%;border-collapse:collapse;table-layout:fixed}
+.adm-list th{position:sticky;top:0;z-index:3;padding:12px 14px 8px;text-align:left;font-size:10px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:rgba(13,18,15,.6);background:rgba(232,236,233,.85);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px)}
+.adm-list td{padding:12px 14px;font-size:13.5px;font-weight:300;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;border-top:1px solid rgba(13,18,15,.08);transition:color .35s}
+.adm-list th:nth-child(1),.adm-list td:nth-child(1){width:108px}
+.adm-list th:nth-child(3),.adm-list td:nth-child(3){width:84px}
+.adm-list th:nth-child(4),.adm-list td:nth-child(4){width:100px}
+.adm-list th:nth-child(5),.adm-list td:nth-child(5){width:150px}
+.adm-list tbody tr{cursor:pointer}
+.adm-list tr.act td{color:#fff}
+.adm-list tr.cur td{font-weight:400}
+.st{display:inline-block;font-size:11px;padding:4px 9px;border-radius:999px;box-shadow:inset 0 0 0 1px currentColor}
+.st.evaluating{color:#8a6614}.st.info{color:#2d5b9a}.st.matches{color:var(--green-hi)}.st.rejected{color:#9b2219}.st.unverified{color:rgba(13,18,15,.6)}
+.adm-list tr.act .st{color:#fff}
+.adm-r{position:relative;min-height:0;overflow:auto;border-radius:20px;background:rgba(255,255,255,.1);padding:18px 20px;
+  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.9),inset 0 0 0 1px rgba(255,255,255,.3)}
+.adm-r .dash-empty{position:absolute}
+.ad-h{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:12px;animation:paneIn .4s var(--ease)}
+.ad-h h3{font-weight:300;font-size:24px;letter-spacing:-.01em;line-height:1.1}
+.ad-h small{display:block;margin-top:4px;font-size:12.5px;color:rgba(13,18,15,.7)}
+.ev-card{padding:16px 18px;border-radius:18px;margin-bottom:14px;background:rgba(255,255,255,.3);box-shadow:inset 1.5px 1.5px 1px -.5px #fff,inset 0 0 0 1px rgba(255,255,255,.5)}
+.ev-card h4,.ad-sec h4{font-weight:400;font-size:15px;margin-bottom:10px}
+.ev-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.ev-score{font-size:40px;font-weight:500;letter-spacing:-.03em;line-height:1}
+.ev-score small{font-size:.45em;font-weight:400}
+.crit{display:grid;grid-template-columns:170px 1fr 40px;gap:10px;align-items:center;font-size:13px;font-weight:300;margin:6px 0}
+.crit output{text-align:right;font-weight:400}
+.crit input[type=range]{accent-color:var(--green);width:100%}
+.ev-card textarea{width:100%;font:inherit;font-size:13.5px;font-weight:300;padding:10px 12px;border:0;border-radius:12px;min-height:64px;margin-top:4px;color:var(--ink);background:rgba(255,255,255,.35);box-shadow:inset 0 0 0 1px rgba(255,255,255,.7);resize:vertical}
+.ev-card label{display:block;margin-top:10px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(13,18,15,.68)}
+.ev-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.ev-acts .btn{padding:10px 16px;font-size:13px}
+.ev-acts .no{color:#9b2219 !important}
+.ev-saved{font-size:12px;color:var(--green-hi);margin-top:8px;min-height:16px}
+.ad-sec{margin-bottom:16px}
+.ad-sec dl{display:grid;grid-template-columns:200px 1fr;gap:0;font-size:13.5px}
+.ad-sec dt,.ad-sec dd{padding:8px 0;border-top:1px solid rgba(13,18,15,.08)}
+.ad-sec dt{color:rgba(13,18,15,.68);font-weight:300;padding-right:12px}
+.ad-sec dd{font-weight:400;white-space:pre-wrap}
+.ad-sec ul{list-style:none}
+.ad-sec li{padding:8px 0;border-top:1px solid rgba(13,18,15,.08);font-size:13.5px;font-weight:300}
+.ad-sec li b{font-weight:400}
+@media (max-width:980px){ .kpis{grid-template-columns:repeat(3,1fr)} .adm-grid{grid-template-columns:1fr} .adm{overflow:auto} .adm-list{max-height:320px} }
+@media (max-width:560px){ .kpis{grid-template-columns:repeat(2,1fr)} .ad-sec dl{grid-template-columns:1fr} .ad-sec dd{border-top:0;padding-top:0} .crit{grid-template-columns:1fr 40px} .crit input{grid-column:1/-1;grid-row:2} }
+
+.tl .msg{display:block;margin-top:8px;padding:10px 14px;border-radius:14px;font-size:13.5px;font-style:italic;color:#2d4a33;background:rgba(13,153,68,.1);box-shadow:inset 0 0 0 1px rgba(13,153,68,.22)}
 
 /* ---------- responsive ---------- */
 @media (max-width:760px){
@@ -750,6 +815,32 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
   <div class="acc-body" id="accBody"></div>
 </section>
 
+<!-- ============ Administración ============ -->
+<section class="sheet big" id="admin" role="dialog" aria-modal="true" aria-labelledby="admT">
+  <div class="wz-top">
+    <div>
+      <div class="kicker label">Administración · Seven Sides</div>
+      <h2 id="admT">Panel de <b>postulaciones.</b></h2>
+    </div>
+    <button class="glass close" data-close aria-label="Cerrar">✕</button>
+  </div>
+  <div class="adm">
+    <div class="kpis" id="admKpis"></div>
+    <div class="adm-grid">
+      <div class="adm-l">
+        <div class="adm-f">
+          <div class="tabs" role="tablist"><button class="tab on" data-f="all">Todos</button><button class="tab" data-f="proyecto">Proyectos</button><button class="tab" data-f="empresa">Empresas</button></div>
+          <select id="admStatus" aria-label="Filtrar por estado"><option value="">Todos los estados</option><option value="evaluating">En evaluación</option><option value="info">Información pedida</option><option value="matches">Aprobados</option><option value="rejected">No aprobados</option><option value="unverified">Sin verificar</option></select>
+          <input id="admSearch" placeholder="Buscar por nombre, número, país o correo">
+        </div>
+        <div class="adm-list"><div class="ilp-hl"></div><table><thead><tr><th>Número</th><th>Nombre</th><th>Tipo</th><th>País</th><th>Estado</th></tr></thead><tbody id="admRows"></tbody></table></div>
+      </div>
+      <div class="adm-r" id="admDetail"><div class="dash-empty"><div><i></i>Selecciona una postulación para ver toda la información y evaluarla.</div></div></div>
+    </div>
+  </div>
+  <div class="wz-nav"><span class="m-sel">Sesión de administrador</span><button class="glass btn" data-admin-logout>Cerrar sesión</button></div>
+</section>
+
 <!-- ============ Matches cooperante ============ -->
 <section class="sheet big" id="matches-coop" role="dialog" aria-modal="true" aria-labelledby="mcT">
   <div class="wz-top">
@@ -811,7 +902,7 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
 
     <div class="sec-t label" style="margin-top:30px">¿Cómo funciona si tengo un proyecto?</div>
     <ol class="steps">
-      <li><div><b>Postula tu necesidad</b><span>Cuéntanos qué necesita tu comunidad u organización. Puede ser una idea o un proyecto en marcha; solo pedimos respaldo oficial: municipio, junta parroquial, ONG o universidad.</span></div></li>
+      <li><div><b>Postula tu necesidad</b><span>Cuéntanos qué necesita tu comunidad u organización. Puede ser una idea o un proyecto en marcha. Pedimos respaldo oficial (municipio, junta parroquial, ONG o universidad) o, si es una idea, el aval de un profesor o universidad.</span></div></li>
       <li><div><b>La evaluamos contigo</b><span>Revisamos la propuesta frente a los siete pilares y la naturaleza. Si hace falta, te ayudamos a afinarla.</span></div></li>
       <li><div><b>Te presentamos a empresas</b><span>Tu proyecto se muestra a empresas alineadas de Europa y Latinoamérica. Tus datos de contacto solo se comparten cuando una empresa acepta el match.</span></div></li>
       <li><div><b>Acuerdan la cooperación</b><span>Definen juntos la forma de apoyo: financiamiento, tecnología, capacitación o compra de producción. Lo que se construya es de quienes participan.</span></div></li>
@@ -1130,31 +1221,62 @@ $$("[data-files]").forEach(box=>{
 });
 
 /* ===== cuentas: número de usuario, correo y contraseña ===== */
-const STORE_KEY="ss_accounts", EVAL_MS=60*1000; // prototipo: la evaluación se resuelve 1 minuto después de verificar
+const STORE_KEY="ss_accounts"; // prototipo: en producción esto vive en un servidor
 let memStore={}, session=null;
 const loadAcc=()=>{ try{ return JSON.parse(localStorage.getItem(STORE_KEY)||"{}"); }catch(e){ return memStore; } };
 const saveAcc=a=>{ memStore=a; try{ localStorage.setItem(STORE_KEY,JSON.stringify(a)); }catch(e){} };
 async function hash(s){ try{ const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join(""); }catch(e){ return btoa(unescape(encodeURIComponent(s))); } }
 function newId(){ let s=String(1+Math.floor(Math.random()*9)); for(let i=0;i<7;i++) s+=Math.floor(Math.random()*10); return "#"+s; }
-/* cuentas de demostración para ver cada estado */
+/* cuentas de demostración (incluida la de administración) */
+const SEED_V=3;
+const DEMO_DATA={
+  empresa:(name,country,sector)=>({sections:[
+    {title:"Tu empresa",fields:[["Empresa",name],["País",country],["Sector",sector],["Tamaño","11–50 personas"],["Sitio web","—"]]},
+    {title:"Valor compartido",fields:[["¿Integrarías comunidades locales en tu cadena de valor?","Producción, Abastecimiento de materiales, Capacitación"],["Para tu empresa, la sostenibilidad es…","Parte de todas nuestras decisiones"],["¿Tu modelo ya genera valor económico e impacto?","Es parte del modelo"],["¿Qué podrías obtener de una comunidad?","Fibras naturales, producción artesanal y materiales reciclados."]]},
+    {title:"Cooperación",fields:[["Formas de cooperación","Compra de producción, Capacitación"],["Pilares de interés","Economía, Educación, Alimentación"],["Países de interés","Ecuador, Perú"],["Horizonte","Más de 3 años"],["Inversión orientativa","10.000 – 50.000 €"],["Condiciones para cooperar","Claridad en expectativas, calidad constante y tiempos realistas."],["Barreras","Infraestructura, Consistencia en calidad, Confianza entre socios"]]},
+    {title:"Compromisos",fields:[["No extractivista","Sí"],["Acepta evaluación","Sí"],["RGPD","Sí"]]}],
+    files:[{name:"presentacion-corporativa.pdf",type:"Presentación",size:"2.4 MB"},{name:"informe-sostenibilidad-2025.pdf",type:"Informe o certificación",size:"5.1 MB"}],
+    contacts:[{name:"Contacto demo",role:"CEO / Director/a general",email:"contacto@empresa.demo",phone:"+31 …"}]}),
+  proyecto:(name,type,country,region,stage,backer,need)=>({sections:[
+    {title:"El proyecto",fields:[["Nombre del proyecto",name],["Organización, comunidad o proyecto",name],["Tipo",type],["Etapa",stage],["País",country],["Provincia, estado o región",region],["Tiempo en funcionamiento","1 a 3 años"]]},
+    {title:"Respaldo y comunidad",fields:[["Respaldo",backer[0]],["Entidad o persona que respalda",backer[1]],["Personas beneficiadas","200 – 1.000"],["¿Qué ofrece?","Materiales naturales, Artesanía y oficios"],["Quiénes son","Comunidad organizada que trabaja desde hace años en su territorio."]]},
+    {title:"La necesidad",fields:[["Pilares que impacta","Economía, Alimentación, Educación"],["¿Qué necesitan?",need],["Tipo de apoyo","Compra de producción, Capacitación"],["¿Qué les falta para crecer?","Acceso a mercados, Capacitación"],["¿Reciben visitas?","Sí"]]},
+    {title:"Compromisos",fields:[["Respeta la naturaleza","Sí"],["Acepta tratamiento de datos","Sí"]]}],
+    files:[{name:"presentacion-proyecto.pdf",type:"Presentación",size:"1.8 MB"},{name:"carta-respaldo.pdf",type:"Carta de respaldo",size:"320 KB"},{name:"encuesta-familias.xlsx",type:"Encuesta o datos",size:"96 KB"}],
+    contacts:[{name:"Coordinadora demo",role:"Coordinador/a",email:"contacto@proyecto.demo",phone:"+593 …"}]})
+};
 (function seedDemo(){
-  const acc=loadAcc(), now=Date.now();
+  const acc=loadAcc(), now=Date.now(), day=86400000;
+  const E=DEMO_DATA.empresa, P=DEMO_DATA.proyecto;
   const demo=[
-    {id:"#20260001",email:"empresa.matches@sevensides.demo",role:"empresa",name:"Empresa demo",verifiedAt:now-86400000},
-    {id:"#20260002",email:"proyecto.matches@sevensides.demo",role:"proyecto",name:"Proyecto demo",verifiedAt:now-86400000},
-    {id:"#20260003",email:"proyecto.evaluacion@sevensides.demo",role:"proyecto",name:"Proyecto en evaluación",verifiedAt:now+10*365*86400000},
+    {id:"#20260001",email:"empresa.matches@sevensides.demo",role:"empresa",name:"Empresa demo · mobiliario",country:"Países Bajos",created:now-9*day,verifiedAt:now-9*day,review:{status:"approved",scores:[92,96,88,94,85],notes:"Alineada con fibras naturales y largo plazo.",message:"",at:now-3*day},data:E("Empresa demo · mobiliario","Países Bajos","Mobiliario y diseño")},
+    {id:"#20260002",email:"proyecto.matches@sevensides.demo",role:"proyecto",name:"Proyecto demo · bosque",country:"Ecuador",created:now-12*day,verifiedAt:now-12*day,review:{status:"approved",scores:[94,98,90,88,82],notes:"Respaldo de junta parroquial verificado.",message:"",at:now-4*day},data:P("Proyecto demo · bosque","Comunidad con respaldo oficial","Ecuador","Azuay","En marcha",["Junta parroquial","GAD Parroquial (demo)"],"Capacitación en manejo forestal y un comprador estable para su producción.")},
+    {id:"#20260003",email:"proyecto.evaluacion@sevensides.demo",role:"proyecto",name:"Proyecto demo · agua de páramo",country:"Ecuador",created:now-2*day,verifiedAt:now-2*day,data:P("Proyecto demo · agua de páramo","Comunidad u organización indígena","Ecuador","Chimborazo","Piloto en curso",["Gobierno provincial o regional","Gobierno provincial (demo)"],"Infraestructura y monitoreo para proteger sus fuentes de agua.")},
+    {id:"#20260004",email:"cooperativa.abaca@sevensides.demo",role:"proyecto",name:"Cooperativa demo · abacá",country:"Ecuador",created:now-1*day,verifiedAt:now-1*day,data:P("Cooperativa demo · abacá","Cooperativa o asociación de productores","Ecuador","Manabí","En marcha",["Cooperativa o asociación","Asociación de productores (demo)"],"Maquinaria para procesar fibra y contactos con compradores responsables.")},
+    {id:"#20260005",email:"textil@sevensides.demo",role:"empresa",name:"Empresa demo · textil circular",country:"España",created:now-3*day,verifiedAt:now-3*day,review:{status:"info",scores:[70,75,72,65,60],notes:"Falta detalle sobre origen de materiales.",message:"¿Podrías contarnos de dónde provienen hoy tus materiales y qué volumen necesitarías de una comunidad?",at:now-1*day},data:E("Empresa demo · textil circular","España","Textil y moda")},
+    {id:"#20260006",email:"bioplasticos@sevensides.demo",role:"proyecto",name:"Concepto demo · bioplásticos",country:"Ecuador",created:now-0.5*day,verifiedAt:now-0.5*day,data:P("Concepto demo · bioplásticos","Iniciativa académica o universitaria","Ecuador","Azuay","Concepto desarrollado",["Profesor o investigador universitario","Profesor/a de universidad (demo)"],"Laboratorio y socio industrial para validar un bioplástico a partir de residuos agrícolas.")},
+    {id:"#00000001",email:"admin@sevensides.org",role:"admin",name:"Administración",created:now,verifiedAt:now},
   ];
-  hash("sevensides").then(h=>{ demo.forEach(d=>{ acc[d.id]={...d,pw:h,created:now}; }); saveAcc(acc); });
+  Promise.all([hash("sevensides"),hash("admin-sevensides")]).then(([h,ha])=>{
+    demo.forEach(d=>{ if(!acc[d.id] || (acc[d.id].seedV||0)<SEED_V) acc[d.id]={...d,pw:d.role==="admin"?ha:h,seedV:SEED_V}; });
+    saveAcc(acc);
+  });
 })();
-const statusOf=a=> !a.verifiedAt ? "unverified" : (Date.now()-a.verifiedAt>EVAL_MS ? "matches" : "evaluating");
+const statusOf=a=> a.role==="admin" ? "admin" : !a.verifiedAt ? "unverified" :
+  ({approved:"matches",info:"info",rejected:"rejected"}[a.review?.status] || "evaluating");
+const STATUS_TXT={evaluating:"En evaluación",info:"Información pedida",matches:"Aprobado",rejected:"No aprobado",unverified:"Sin verificar"};
 const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
-function timelineHTML(role, st){
+function timelineHTML(role, st, review){
   const isP=role==="proyecto";
   const s2 = st==="matches" ? "done" : "now", s3 = st==="matches" ? "now" : "";
+  const msg = review?.message ? `<span class="msg">“${esc(review.message)}”</span>` : "";
+  const t2 = st==="info" ? `<b>Necesitamos más información</b><span>Seven Sides revisó tu postulación y te pide algunos datos más. Te escribimos al correo de tu cuenta.</span>${msg}`
+    : st==="rejected" ? `<b>No avanzó esta vez</b><span>Tu postulación no cumple por ahora con los criterios. Puedes volver a postular más adelante.</span>${msg}`
+    : `<b>${isP?"Evaluación del proyecto":"Evaluación de empresa"}</b><span>${isP?"Verificamos el respaldo, la necesidad y el impacto en los pilares.":"Verificamos que tu actividad sea compatible con los pilares y que no sea extractivista."}</span>`;
   return `<ol class="tl">
     <li class="done"><b>${isP?"Postulación recibida":"Perfil recibido"}</b><span>Tus respuestas llegaron a Seven Sides.</span></li>
-    <li class="${s2}"><b>${isP?"Evaluación del proyecto":"Evaluación de empresa"}</b><span>${isP?"Verificamos el respaldo, la necesidad y el impacto en los pilares.":"Verificamos que tu actividad sea compatible con los pilares y que no sea extractivista."}</span></li>
+    <li class="${s2}">${t2}</li>
     <li class="${s3}"><b>Matches</b><span>${st==="matches"?"Ya tienes coincidencias. Revisa el análisis y elige con quién reunirte.":isP?"Tu proyecto se mostrará a empresas alineadas.":"Cuando haya proyectos alineados, aparecerán aquí."}</span></li>
   </ol>`;
 }
@@ -1182,7 +1304,7 @@ function renderEval(box, step, ctx){
       if(!f.email.checkValidity()){ err.textContent="Escribe un correo válido."; err.classList.add("on"); return; }
       if(pw.length<8){ err.textContent="La contraseña debe tener al menos 8 caracteres."; err.classList.add("on"); return; }
       if(pw!==pw2){ err.textContent="Las contraseñas no coinciden."; err.classList.add("on"); return; }
-      const acc=loadAcc(); acc[ctx.id]={id:ctx.id,email:email.toLowerCase(),pw:await hash(pw),role,name:ctx.name,created:Date.now(),verifiedAt:null}; saveAcc(acc);
+      const acc=loadAcc(); acc[ctx.id]={id:ctx.id,email:email.toLowerCase(),pw:await hash(pw),role,name:ctx.name,country:ctx.data?.country||"",data:ctx.data||null,created:Date.now(),verifiedAt:null}; saveAcc(acc);
       renderEval(box,"verify",{...ctx,email});
     });
   }
@@ -1219,10 +1341,11 @@ function renderEval(box, step, ctx){
 function renderAccount(a){
   const st=statusOf(a), isP=a.role==="proyecto";
   $("#accKicker").textContent=`Mi cuenta · ${a.id}`;
-  $("#accT").innerHTML = st==="matches" ? `Tienes <b style="font-weight:400;color:var(--green-hi)">5 matches.</b>` : `Tu ${isP?"proyecto":"empresa"} sigue <b style="font-weight:400;color:var(--green-hi)">en evaluación.</b>`;
+  const G=t=>`<b style="font-weight:400;color:var(--green-hi)">${t}</b>`;
+  $("#accT").innerHTML = st==="matches" ? `Tienes ${G("5 matches.")}` : st==="info" ? `Necesitamos ${G("un poco más de información.")}` : st==="rejected" ? `Tu postulación ${G("no avanzó esta vez.")}` : `Tu ${isP?"proyecto":"empresa"} sigue ${G("en evaluación.")}`;
   $("#accBody").innerHTML=`<div class="ev">
     <div class="acc-meta"><span>${isP?"Proyecto":"Empresa"}: <b>${esc(a.name||"—")}</b></span><span>Número: <b>${a.id}</b></span><span>${esc(a.email)}</span></div>
-    ${timelineHTML(a.role,st)}
+    ${timelineHTML(a.role,st,a.review)}
     <div class="start"><button type="button" class="glass btn" data-logout>Cerrar sesión</button>
       ${st==="matches"?`<button type="button" class="glass tint btn" data-open-matches>Ver mis matches</button>`:`<small>Te avisaremos por correo cuando haya novedades.</small>`}</div></div>`;
   $("[data-logout]").addEventListener("click",()=>{ session=null; closeSheets(); });
@@ -1234,9 +1357,84 @@ $("#loginForm").addEventListener("submit",async e=>{
   const acc=loadAcc(), a=Object.values(acc).find(x=>(x.email===who||x.id.toLowerCase()===who||x.id.toLowerCase()==="#"+who) && x.pw===pw);
   if(!a){ err.textContent="No encontramos una cuenta con esos datos."; err.classList.add("on"); return; }
   if(!a.verifiedAt){ err.textContent="Tu correo aún no está verificado. Completa la verificación al postular."; err.classList.add("on"); return; }
-  err.classList.remove("on"); session=a; renderAccount(a); openSheet("account");
+  err.classList.remove("on"); session=a; if(a.role==="admin"){ renderAdmin(); openSheet("admin"); return; } renderAccount(a); openSheet("account");
 });
-document.addEventListener("click",e=>{ if(e.target.closest("[data-account]")){ if(session){ renderAccount(loadAcc()[session.id]||session); openSheet("account"); } else openSheet("login"); } });
+document.addEventListener("click",e=>{ if(e.target.closest("[data-account]")){ if(session?.role==="admin"){ renderAdmin(); openSheet("admin"); } else if(session){ renderAccount(loadAcc()[session.id]||session); openSheet("account"); } else openSheet("login"); } });
+
+/* ===== recoger respuestas de la encuesta ===== */
+function collectWizard(sh){
+  const sections=[], clean=t=>t.replace(/\s*\*\s*$/,"").trim();
+  $$(".wz-pane",sh).forEach(p=>{
+    const title=$("h3",p)?.textContent.trim()||"", fields=[];
+    $$(".f",p).forEach(f=>{
+      if(f.matches("[data-files],[data-contacts]") || f.closest(".ct")) return;
+      const lab=clean(($("label",f)||$(".q",f))?.textContent||""); let val="";
+      const chips=$(".chips",f), sel=$("select",f), inp=$("input:not(.other),textarea",f), oth=$("input.other.on",f);
+      if(chips) val=$$('.chip[aria-pressed="true"]',chips).map(c=>c.textContent.trim()).filter(t=>!/^otr[oa]$/i.test(t)).concat(oth?.value?["Otro: "+oth.value]:[]).join(", ");
+      else if(sel) val = sel.value==="__otro" ? "Otro: "+(oth?.value||"") : (sel.value? sel.options[sel.selectedIndex].text : "");
+      else if(inp) val=inp.value.trim();
+      if(lab) fields.push([lab,val||"—"]);
+    });
+    $$("label.check",p).forEach(l=>fields.push([l.textContent.trim().slice(0,70)+"…", $("input",l).checked?"Sí":"No"]));
+    sections.push({title,fields});
+  });
+  const fb=$("[data-files]",sh)?._files||[];
+  const files=fb.map(f=>({name:f.file.name,type:f.type,size:f.file.size>1048576?(f.file.size/1048576).toFixed(1)+" MB":Math.max(1,Math.round(f.file.size/1024))+" KB"}));
+  const contacts=$$(".ct",sh).map(c=>{ const [n,r,e,t]=$$("input,select",c); return {name:n.value,role:r.value==="__otro"?($("input.other",c)?.value||"Otro"):r.value,email:e.value,phone:t.value}; }).filter(c=>c.name||c.email);
+  const country=$("select[data-country]",sh)?.value||"";
+  return {sections,files,contacts,country:country==="__otro"?"Otro":country};
+}
+
+/* ===== panel de administración ===== */
+const CRIT_ADM={proyecto:["Impacto en los pilares","Respeto por la naturaleza","Respaldo y validación","Claridad de la necesidad","Capacidad y compromiso"],
+                empresa:["Afinidad con los pilares","Naturaleza / no extractivista","Tipo de cooperación","Horizonte de largo plazo","Capacidad de inversión"]};
+let admFilter="all", admCur=null;
+function renderAdmin(){
+  const all=Object.values(loadAcc()).filter(a=>a.role!=="admin").sort((a,b)=>(b.created||0)-(a.created||0));
+  const cnt=k=>all.filter(a=>statusOf(a)===k).length;
+  $("#admKpis").innerHTML=[["Postulaciones",all.length],["Proyectos",all.filter(a=>a.role==="proyecto").length],["Empresas",all.filter(a=>a.role==="empresa").length],["En evaluación",cnt("evaluating"),"g"],["Info pedida",cnt("info")],["Aprobados",cnt("matches"),"g"]]
+    .map(([l,v,c])=>`<div class="kpi ${c||""}"><b>${v}</b><span>${l}</span></div>`).join("");
+  const st=$("#admStatus").value, q=$("#admSearch").value.trim().toLowerCase();
+  const list=all.filter(a=>(admFilter==="all"||a.role===admFilter)&&(!st||statusOf(a)===st)&&(!q||[a.name,a.id,a.email,a.country||a.data?.country].join(" ").toLowerCase().includes(q)));
+  $("#admRows").innerHTML=list.length?list.map(a=>{const s=statusOf(a);return `<tr data-id="${a.id}" class="${a.id===admCur?"cur":""}"><td>${a.id}</td><td>${esc(a.name||"—")}</td><td>${a.role==="proyecto"?"Proyecto":"Empresa"}</td><td>${esc(a.country||a.data?.country||"—")}</td><td><span class="st ${s}">${STATUS_TXT[s]}</span></td></tr>`;}).join("")
+    : `<tr><td colspan="5" style="text-align:center;padding:24px;white-space:normal">No hay postulaciones con estos filtros.</td></tr>`;
+  const box=$(".adm-list"), hl=$(".ilp-hl",box);
+  $$("#admRows tr[data-id]").forEach(r=>{
+    r.addEventListener("mouseenter",()=>{ $$("#admRows tr.act").forEach(x=>x.classList.remove("act")); r.classList.add("act"); const lb=box.getBoundingClientRect(), rb=r.getBoundingClientRect(); hl.style.transform=`translateY(${rb.top-lb.top+box.scrollTop}px)`; hl.style.height=rb.height+"px"; hl.style.opacity=1; });
+    r.addEventListener("click",()=>{ admCur=r.dataset.id; $$("#admRows tr").forEach(x=>x.classList.toggle("cur",x===r)); renderAdmDetail(r.dataset.id); });
+  });
+  box.onmouseleave=()=>{ $$("#admRows tr.act").forEach(x=>x.classList.remove("act")); hl.style.opacity=0; };
+}
+function renderAdmDetail(id){
+  const a=loadAcc()[id]; if(!a) return;
+  const s=statusOf(a), crit=CRIT_ADM[a.role]||CRIT_ADM.proyecto, sc=a.review?.scores||crit.map(()=>50), d=a.data||{sections:[],files:[],contacts:[]};
+  const avg=()=>Math.round(sc.reduce((x,y)=>x+ +y,0)/sc.length);
+  $("#admDetail").innerHTML=`
+    <div class="ad-h"><div><div class="kicker label">${a.id} · ${a.role==="proyecto"?"Proyecto":"Empresa"}</div><h3>${esc(a.name||"—")}</h3>
+      <small>${esc(a.email)} · Postuló el ${new Date(a.created||Date.now()).toLocaleDateString("es")}${a.verifiedAt?" · correo verificado":" · correo sin verificar"}</small></div><span class="st ${s}">${STATUS_TXT[s]}</span></div>
+    <div class="ev-card">
+      <div class="ev-top"><h4>Evaluación</h4><div class="ev-score"><span id="evAvg">${avg()}</span><small>/100</small></div></div>
+      ${crit.map((c,i)=>`<div class="crit"><span>${c}</span><input type="range" min="0" max="100" step="1" value="${sc[i]}" data-i="${i}" aria-label="${c}"><output>${sc[i]}</output></div>`).join("")}
+      <label for="evNotes">Notas internas</label><textarea id="evNotes" placeholder="Solo las ve el equipo de Seven Sides">${esc(a.review?.notes||"")}</textarea>
+      <label for="evMsg">Mensaje para ${a.role==="proyecto"?"el proyecto":"la empresa"}</label><textarea id="evMsg" placeholder="Se muestra en su cuenta si pides información o no se aprueba">${esc(a.review?.message||"")}</textarea>
+      <div class="ev-acts"><button class="glass tint btn" data-dec="approved">Aprobar y habilitar matches</button><button class="glass btn" data-dec="info">Pedir más información</button><button class="glass btn no" data-dec="rejected">No aprobar</button><button class="glass btn" data-dec="evaluating">Volver a evaluación</button></div>
+      <div class="ev-saved" id="evSaved">${a.review?.at?"Última evaluación: "+new Date(a.review.at).toLocaleString("es"):""}</div>
+    </div>
+    ${d.sections.map(sec=>`<div class="ad-sec"><h4>${esc(sec.title)}</h4><dl>${sec.fields.map(([k,v])=>`<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl></div>`).join("")||`<p class="hint">Esta cuenta no tiene respuestas guardadas.</p>`}
+    <div class="ad-sec"><h4>Contactos</h4><ul>${(d.contacts||[]).map(c=>`<li><b>${esc(c.name)}</b> · ${esc(c.role)} · ${esc(c.email)}${c.phone?" · "+esc(c.phone):""}</li>`).join("")||"<li>—</li>"}</ul></div>
+    <div class="ad-sec"><h4>Documentos</h4><ul>${(d.files||[]).map(f=>`<li><b>${esc(f.name)}</b> · ${esc(f.type)} · ${esc(f.size)}</li>`).join("")||"<li>Sin documentos adjuntos</li>"}</ul></div>`;
+  $$("#admDetail input[type=range]").forEach(r=>r.addEventListener("input",()=>{ sc[+r.dataset.i]=+r.value; r.nextElementSibling.textContent=r.value; $("#evAvg").textContent=avg(); }));
+  $$("#admDetail [data-dec]").forEach(b=>b.addEventListener("click",()=>{
+    const acc=loadAcc(), x=acc[id]; if(!x) return;
+    x.review={status:b.dataset.dec,scores:sc.slice(),notes:$("#evNotes").value,message:$("#evMsg").value,at:Date.now()}; if(b.dataset.dec==="evaluating") delete x.review.status;
+    saveAcc(acc); renderAdmin(); renderAdmDetail(id);
+    $("#evSaved").textContent="Evaluación guardada · "+new Date().toLocaleTimeString("es");
+  }));
+}
+$$("#admin .tab").forEach(t=>t.addEventListener("click",()=>{ $$("#admin .tab").forEach(x=>x.classList.toggle("on",x===t)); admFilter=t.dataset.f; renderAdmin(); }));
+$("#admStatus").addEventListener("change",renderAdmin);
+$("#admSearch").addEventListener("input",renderAdmin);
+$("[data-admin-logout]").addEventListener("click",()=>{ session=null; admCur=null; closeSheets(); });
 
 /* ===== encuestas por pasos ===== */
 $$("[data-wizard]").forEach(sh=>{
@@ -1259,7 +1457,7 @@ $$("[data-wizard]").forEach(sh=>{
     if(i<panes.length-1) return show(i+1,1);
     const email=$('[data-contacts] input[type=email]',sh)?.value||"";
     const name=$("input[required]",sh)?.value||"";
-    sh.classList.add("evaluating"); renderEval($(".eval",sh),"id",{id:newId(),email,name});
+    const data=collectWizard(sh); sh.classList.add("evaluating"); renderEval($(".eval",sh),"id",{id:newId(),email,name,data});
   });
   prev.addEventListener("click",()=>{ if(i>0) show(i-1,-1); });
   show(0);
@@ -1417,7 +1615,7 @@ $$(".ilp").forEach(box=>{
     h+=`<line class="side" data-s="${i}" ${c}/><line class="hit" data-s="${i}" ${c}><title>${PILLARS[i].name}</title></line>`;
     h+=`<text x="${((x1+x2)/2*k).toFixed(1)}" y="${((y1+y2)/2*k+3.5).toFixed(1)}" text-anchor="middle">0${i+1}</text>`;
   }
-  h+=`<circle class="core-ring" r="12"/><circle class="core" r="12"><title>Naturaleza: siempre presente</title></circle>`;
+  h+=`<circle class="core-ring" r="12"/><circle class="core" r="12"><title>Naturaleza: el centro, no negociable</title></circle>`;
   svg.innerHTML=h;
 
   const wins=$("#wins");
@@ -1427,13 +1625,15 @@ $$(".ilp").forEach(box=>{
         <span class="n">0${i+1}</span><span class="t">${p.name}</span><span class="pm glass" aria-hidden="true"><i></i></span>
       </button>
       <div class="win-p" id="wp${i}" role="region"><div><div class="in">
-        <p>${p.text}</p><div class="ex">${p.ex.map(e=>`<span>${e}</span>`).join("")}</div>
+        <p>${p.text}</p>
       </div></div></div>
     </div>`).join("") + `
     <div class="win gold">
-      <div class="win-h"><span class="n"><i></i></span><span class="t">Naturaleza · el octavo lado</span></div>
+      <div class="win-h"><span class="n"><i></i></span><span class="t">Naturaleza · el centro</span></div>
       <div class="win-p"><div><div class="in">
-        <p>No se nombra entre los siete porque está en todos: respeto, conservación y preservación. Es condición para entrar.</p>
+        <p>La naturaleza no es uno de los lados: es el centro que sostiene a los siete. Por eso <b>no está en negociación</b>. Ningún proyecto ni empresa entra a Seven Sides si daña su entorno, aunque cumpla con todos los demás pilares.</p>
+        <p>En Latinoamérica, muchas comunidades viven directamente de sus bosques, ríos, suelos y mares. Si el ecosistema se degrada, se pierde la base de su economía, su alimentación, su salud y su cultura, y cualquier avance en los otros pilares sería temporal.</p>
+        <p>Por eso pedimos tres compromisos: <b>respetar</b>, sin tomar más de lo que el entorno puede regenerar; <b>conservar</b> lo que hoy existe; y <b>preservar</b>, para que las próximas generaciones lo hereden.</p>
       </div></div></div>
     </div>`;
   const side=i=>$(`.side[data-s="${i}"]`,svg);
