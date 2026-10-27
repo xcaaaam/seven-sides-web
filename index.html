@@ -20,9 +20,9 @@
   --bg-mid:#9ca39e;
   --bg-bot:#262c28;
   --text:#f4f6f4;
-  --card:clamp(150px, 15vw, 230px);
-  --gap:clamp(14px, 1.6vw, 24px);
-  --radius:14px;
+  --card:clamp(240px, min(30vw, 50vh), 460px);
+  --gap:clamp(18px, 2.2vw, 36px);
+  --radius:18px;
   --ease:cubic-bezier(.2,.8,.2,1);
   --font:"Sora", system-ui, sans-serif;
 }
@@ -60,17 +60,16 @@ body::after{ /* grano */
   position:relative;flex:none;height:var(--card);width:var(--card);
   border-radius:var(--radius);overflow:hidden;background:var(--bgc);
   box-shadow:0 20px 40px -24px rgba(0,0,0,.45);outline:none;
-  transition:width .8s var(--ease), filter .7s var(--ease), opacity .7s var(--ease), transform .8s var(--ease);
+  transition:width .9s var(--ease);will-change:filter,transform;
 }
-.rail.has-open .card:not(.is-open){filter:blur(5px) saturate(.6) brightness(.95);opacity:.75;transform:scale(.95)}
-.card.is-open{width:calc(var(--card)*2.4)}
+.card.is-open{width:min(calc(var(--card)*2.1),78vw)}
 .card video,.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.02)}
 .card video~.num{text-shadow:0 1px 6px rgba(0,0,0,.5)}
 .card .orb{position:absolute;width:140%;aspect-ratio:1;left:-20%;top:-20%;border-radius:50%;
   background:radial-gradient(closest-side,rgba(255,255,255,.2),transparent 70%);animation:drift 14s ease-in-out infinite alternate}
 @keyframes drift{to{transform:translate(18%,22%) scale(.8)}}
-.card .num{position:absolute;left:12px;top:11px;font-size:10px;letter-spacing:.14em;color:rgba(255,255,255,.8)}
-.card .slot{position:absolute;left:12px;bottom:12px;font-size:9px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:6px}
+.card .num{position:absolute;left:18px;top:16px;font-size:11px;letter-spacing:.14em;color:rgba(255,255,255,.8)}
+.card .slot{position:absolute;left:18px;bottom:16px;font-size:10px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:6px}
 .card .slot::before{content:"";width:0;height:0;border-left:6px solid currentColor;border-top:4px solid transparent;border-bottom:4px solid transparent}
 .card.light .num,.card.light .slot{color:rgba(13,18,15,.6)}
 
@@ -87,11 +86,11 @@ body::after{ /* grano */
 }
 .card.is-open .layer{opacity:1;transform:none}
 .layer .label{color:rgba(13,18,15,.55)}
-.layer h3{font-weight:300;font-size:clamp(17px,1.5vw,24px);line-height:1.12;letter-spacing:-.01em}
+.layer h3{font-weight:300;font-size:clamp(20px,2vw,32px);line-height:1.12;letter-spacing:-.01em}
 .layer h3 em{font-style:normal;font-weight:400;color:var(--green-hi)}
 .layer .tags{display:flex;flex-wrap:wrap;gap:5px}
 .layer .tags span{font-size:10px;padding:4px 8px;border-radius:999px;background:rgba(13,153,68,.12);color:var(--green-deep)}
-.layer p{font-size:11px;line-height:1.5;color:rgba(13,18,15,.6);font-weight:300}
+.layer p{font-size:12px;line-height:1.5;color:rgba(13,18,15,.6);font-weight:300}
 
 /* ---------- barra inferior ---------- */
 .bar{display:grid;grid-template-columns:1fr auto;align-items:end;gap:20px;
@@ -241,7 +240,7 @@ fieldset{border:0}
 
 /* ---------- responsive ---------- */
 @media (max-width:760px){
-  :root{--card:clamp(130px,38vw,170px)}
+  :root{--card:clamp(220px,68vw,320px)}
   .bar{grid-template-columns:1fr;gap:14px}
   .actions{justify-self:stretch;flex-wrap:wrap}
   .actions .btn{flex:1 1 auto;justify-content:center;padding:13px 14px}
@@ -249,7 +248,7 @@ fieldset{border:0}
   form{grid-template-columns:1fr}
   .intro{grid-template-columns:1fr}
   .hepta{justify-self:center;width:130px}
-  .card.is-open{width:calc(var(--card)*2.05)}
+  .card.is-open{width:88vw}
   .acc-p .in{padding-left:4px}
 }
 @media (prefers-reduced-motion:reduce){
@@ -409,8 +408,6 @@ const PROJECTS = [
   { title:"Escuela conectada",        place:"Comunidad · Latinoamérica", pillars:["Educación","Innovación"],       bg:"linear-gradient(160deg,#0d9944,#0a3d22)", media:null },
   { title:"Agua para la comunidad",   place:"Proyecto · Latinoamérica",  pillars:["Infraestructura","Salud"],      bg:"linear-gradient(160deg,#47646a,#152225)", media:null },
   { title:"Agricultura regenerativa", place:"Cooperativa · Latinoamérica",pillars:["Alimentación","Economía"],     bg:"linear-gradient(160deg,#e8ebe8,#c1c8c2)", media:null, light:true },
-  { title:"Turismo comunitario",      place:"Comunidad · Latinoamérica", pillars:["Economía","Educación"],         bg:"linear-gradient(160deg,#7b705e,#2e2820)", media:null },
-  { title:"Conservación marina",      place:"Proyecto · Latinoamérica",  pillars:["Innovación","Economía"],        bg:"linear-gradient(160deg,#5e7d86,#1d2c31)", media:null },
 ];
 
 /* ===== Pilares (panel ¿Qué es?) ===== */
@@ -470,7 +467,24 @@ function loop(t){
   if(-x >= setW) x += setW;
   if(x > 0) x -= setW;
   track.style.transform=`translate3d(${x}px,0,0)`;
+  focus();
   requestAnimationFrame(loop);
+}
+/* desenfoque según la distancia al centro: la tarjeta central queda nítida */
+function focus(){
+  const cx=innerWidth/2, reach=Math.max(innerWidth*.42, 1);
+  for(const c of cards){
+    const r=c.getBoundingClientRect();
+    if(r.right<-50||r.left>innerWidth+50){ continue; }
+    const d=Math.min(1,Math.abs(r.left+r.width/2-cx)/reach);
+    let tb, to, ts;
+    if(open){ const me=c===open; tb=me?0:7; to=me?1:.7; ts=me?1:.94; }
+    else { const k=Math.max(0,(d-.16)/.84); tb=k*8; to=1-k*.35; ts=1-k*.07; }
+    c._b=(c._b??tb)+(tb-(c._b??tb))*.14; c._o=(c._o??to)+(to-(c._o??to))*.14; c._s=(c._s??ts)+(ts-(c._s??ts))*.14;
+    c.style.filter = c._b>.15 ? `blur(${c._b.toFixed(2)}px) saturate(${(1-c._b/20).toFixed(2)})` : "none";
+    c.style.opacity = c._o.toFixed(3);
+    c.style.transform = `scale(${c._s.toFixed(4)})`;
+  }
 }
 function openCard(c){
   if(open===c) return;
