@@ -92,15 +92,17 @@ body::after{ /* grano */
 .idea .tags span.g{background:rgba(13,153,68,.45)}
 
 /* ---------- barra inferior ---------- */
-.bar{display:grid;grid-template-columns:1fr auto;align-items:end;gap:20px;
+.bar{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:20px;
   padding:0 clamp(16px,3vw,44px) calc(clamp(16px,3vh,30px) + env(safe-area-inset-bottom))}
-.brand{display:flex;align-items:center;gap:16px;text-decoration:none;color:var(--text)}
-.brand svg{width:clamp(42px,3.6vw,54px);height:auto}
-.brand img{height:clamp(14px,1.15vw,17px);width:auto}
-.actions{display:flex;gap:10px;align-items:center;justify-self:end}
-@media (min-width:1000px){
-  .bar{grid-template-columns:1fr auto 1fr}
-  .actions{justify-self:center;grid-column:2}
+.brand{display:flex;align-items:center;gap:18px;text-decoration:none;color:var(--text);justify-self:end}
+.brand svg{width:clamp(50px,4.4vw,66px);height:auto}
+.brand img{height:clamp(16px,1.4vw,21px);width:auto}
+.actions{display:flex;gap:10px;align-items:center;justify-self:center;grid-column:2;grid-row:1}
+.bar .brand{grid-column:3;grid-row:1}
+@media (max-width:1100px){
+  .bar{grid-template-columns:1fr;gap:16px}
+  .bar .brand{grid-column:1;grid-row:1}
+  .actions{grid-column:1;grid-row:2}
 }
 
 /* ---------- liquid glass ---------- */
@@ -146,9 +148,9 @@ body::after{ /* grano */
   transform:translate(-50%,40px);opacity:0;pointer-events:none;
   transition:transform .6s var(--ease),opacity .45s var(--ease);
   border-radius:26px;padding:clamp(22px,3vw,34px);color:var(--ink);
-  background:linear-gradient(160deg,rgba(255,255,255,.66),rgba(255,255,255,.44));
-  -webkit-backdrop-filter:blur(28px) saturate(170%);backdrop-filter:blur(28px) saturate(170%);
-  box-shadow:inset 2px 2px 1px -1px rgba(255,255,255,.95),inset -1px -1px 1px -.5px rgba(255,255,255,.6),inset 0 0 0 1px rgba(255,255,255,.4),0 30px 80px -20px rgba(0,0,0,.45);
+  background:linear-gradient(160deg,rgba(255,255,255,.4),rgba(255,255,255,.22));
+  -webkit-backdrop-filter:blur(22px) saturate(180%) brightness(1.08);backdrop-filter:blur(22px) saturate(180%) brightness(1.08);
+  box-shadow:inset 2px 2px 1px -1px rgba(255,255,255,1),inset -1.5px -1.5px 1px -1px rgba(255,255,255,.7),inset 0 0 0 1px rgba(255,255,255,.35),inset 0 0 40px rgba(255,255,255,.18),0 30px 80px -20px rgba(0,0,0,.4);
   scrollbar-width:thin;scrollbar-color:rgba(13,18,15,.25) transparent;
 }
 .sheet.on{transform:translate(-50%,0);opacity:1;pointer-events:auto}
@@ -173,7 +175,7 @@ form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .f label,.f legend{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(13,18,15,.6)}
 .f input,.f select,.f textarea{
   font:inherit;font-size:14px;font-weight:300;color:var(--ink);padding:11px 14px;border-radius:14px;border:0;outline:none;
-  background:rgba(255,255,255,.55);box-shadow:inset 0 1px 2px rgba(0,0,0,.08),inset 0 0 0 1px rgba(255,255,255,.7);transition:box-shadow .25s}
+  background:rgba(255,255,255,.32);box-shadow:inset 0 1px 2px rgba(0,0,0,.08),inset 0 0 0 1px rgba(255,255,255,.7);transition:box-shadow .25s}
 .f textarea{min-height:84px;resize:vertical}
 .f input:focus,.f select:focus,.f textarea:focus{box-shadow:inset 0 0 0 1.5px var(--green),0 0 0 4px rgba(13,153,68,.15)}
 fieldset{border:0}
@@ -194,8 +196,10 @@ fieldset{border:0}
 :root{--gold:#a8822a;--gold-hi:#c9a24a}
 #about{width:min(720px,calc(100vw - 24px));height:calc(100svh - 40px);padding:0}
 .about-head{position:sticky;top:0;z-index:3;padding:clamp(22px,3vw,30px) clamp(22px,3vw,34px) 16px;
-  background:linear-gradient(180deg,rgba(236,240,237,.97) 70%,rgba(236,240,237,0));
-  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-radius:26px 26px 0 0}
+  background:rgba(240,244,241,.97);
+  -webkit-backdrop-filter:blur(26px) saturate(160%);backdrop-filter:blur(26px) saturate(160%);border-radius:26px 26px 0 0}
+.about-head::after{content:"";position:absolute;left:0;right:0;top:100%;height:26px;pointer-events:none;
+  background:linear-gradient(180deg,rgba(240,244,241,.97),rgba(240,244,241,0))}
 .about-head header{margin:0}
 .about-body{padding:0 clamp(22px,3vw,34px) clamp(26px,3vw,34px)}
 .hero-h{display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px;margin:6px 0 30px}
@@ -214,11 +218,11 @@ fieldset{border:0}
 
 /* pilares: ventanas de vidrio que se abren */
 .wins{display:grid;gap:10px}
-.win{border-radius:20px;background:rgba(255,255,255,.32);
+.win{border-radius:20px;background:rgba(255,255,255,.14);
   box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.95),inset -1px -1px 1px -.5px rgba(255,255,255,.55),inset 0 0 0 1px rgba(255,255,255,.4),0 10px 26px -18px rgba(0,0,0,.35);
   transition:filter .5s var(--ease),opacity .5s var(--ease),transform .5s var(--ease),background .4s}
 .wins.has-open .win:not(.open):not(.gold){filter:blur(1.5px);opacity:.6;transform:scale(.985)}
-.win.open{background:rgba(255,255,255,.62);transform:scale(1.01)}
+.win.open{background:rgba(255,255,255,.34);transform:scale(1.01)}
 .win-h{width:100%;display:flex;align-items:center;gap:14px;padding:16px 18px;text-align:left;color:var(--ink);border-radius:20px}
 .win-h .n{font-size:11px;letter-spacing:.1em;color:var(--green-hi);width:22px}
 .win-h .t{flex:1;font-size:clamp(16px,1.5vw,19px);font-weight:300;letter-spacing:-.01em;transition:color .25s}
@@ -238,17 +242,17 @@ fieldset{border:0}
 .win-p .ex{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
 .win-p .ex span{font-size:11.5px;font-weight:300;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.4);
   box-shadow:inset 1px 1px 1px -.5px #fff,inset 0 0 0 1px rgba(13,18,15,.07)}
-.win.gold{background:linear-gradient(135deg,rgba(214,182,104,.28),rgba(201,162,74,.12));
+.win.gold{background:linear-gradient(135deg,rgba(255,246,222,.55),rgba(240,222,176,.32));
   box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,248,225,1),inset 0 0 0 1px rgba(168,130,42,.4),0 0 30px -8px rgba(201,162,74,.45)}
 .win.gold .win-h{cursor:default}
-.win.gold .t{color:var(--gold);font-weight:400}
+.win.gold .t{color:#8a6614;font-weight:400}
 .win.gold .n{display:grid;place-items:center}
 .win.gold .n i{width:10px;height:10px;border-radius:50%;background:var(--gold-hi);box-shadow:0 0 12px rgba(201,162,74,.9)}
-.win.gold p{color:#6e5518}
+.win.gold p{color:#5e470f}
 .win.gold .win-p .in{padding-top:0}
 
 .steps{list-style:none;display:grid;gap:10px;margin:0 0 24px;counter-reset:s}
-.steps li{display:grid;grid-template-columns:44px 1fr;gap:4px;padding:16px 18px 16px 14px;border-radius:20px;background:rgba(255,255,255,.28);
+.steps li{display:grid;grid-template-columns:44px 1fr;gap:4px;padding:16px 18px 16px 14px;border-radius:20px;background:rgba(255,255,255,.12);
   box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.9),inset 0 0 0 1px rgba(255,255,255,.35)}
 .steps li::before{counter-increment:s;content:"0" counter(s);font-size:11px;letter-spacing:.1em;color:var(--green-hi);padding:3px 0 0 6px}
 .steps b{display:block;font-weight:400;font-size:15px;margin-bottom:4px}
@@ -258,8 +262,9 @@ fieldset{border:0}
 /* ---------- responsive ---------- */
 @media (max-width:760px){
   :root{--card:clamp(220px,68vw,320px)}
-  .bar{grid-template-columns:1fr;gap:14px}
-  .actions{justify-self:stretch;flex-wrap:wrap}
+  .bar{grid-template-columns:1fr;gap:16px}
+  .bar .brand{grid-column:1;grid-row:1;justify-self:end}
+  .actions{grid-column:1;grid-row:2;justify-self:stretch;flex-wrap:wrap}
   .actions .btn{flex:1 1 auto;justify-content:center;padding:13px 14px}
   .actions .btn.about{flex-basis:100%}
   form{grid-template-columns:1fr}
@@ -389,7 +394,7 @@ fieldset{border:0}
   <div class="about-body">
     <div class="hero-h">
       <svg class="hepta" viewBox="-135 -135 270 270" id="hepta" role="img" aria-label="Los siete pilares alrededor de la naturaleza"></svg>
-      <p class="lead">Seven Sides une a empresas que quieren invertir con impacto y a proyectos de Latinoamérica que necesitan un socio. Evaluamos a ambos lados frente a <b>siete pilares</b>, con la naturaleza al centro, y acompañamos el primer paso para que la cooperación internacional deje de depender de años de papeleo.</p>
+      <p class="lead">Seven Sides conecta empresas que quieren invertir con impacto con proyectos de Latinoamérica que buscan un socio. Evaluamos a ambas partes según <b>siete pilares</b>, con la naturaleza en el centro, y acompañamos el primer paso para que la cooperación internacional deje de depender de años de trámites.</p>
     </div>
 
     <div class="sec-t label">Los siete pilares</div>
@@ -469,12 +474,15 @@ const cards=$$(".card",track), N=PROJECTS.length;
 
 /* ----- movimiento ----- */
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const CRUISE = reduce?0:0.45, SLOW = reduce?0:0.05;
-let x=0, speed=0, target=CRUISE, last=performance.now(), open=null;
+/* velocidad en px/s: lenta cuando una tarjeta pasa por el centro, más rápida entre tarjetas */
+const VMIN=24, VMAX=120, VHOVER=4;
+let x=0, speed=0, last=performance.now(), open=null, nearest=0, pitch=500;
 function loop(t){
   const dt=Math.min(48,t-last); last=t;
-  speed += (target-speed)*0.06;
-  x -= speed*dt/16;
+  const f=Math.min(1, nearest/(pitch/2));
+  const target = reduce ? 0 : open ? VHOVER : VMIN+(VMAX-VMIN)*f*f;
+  speed += (target-speed)*0.08;
+  x -= speed*dt/1000;
   const setW = cards[N].offsetLeft - cards[0].offsetLeft;
   if(-x >= setW) x += setW;
   if(x > 0) x -= setW;
@@ -484,14 +492,14 @@ function loop(t){
 }
 /* desenfoque según la distancia al centro: la tarjeta central queda nítida */
 function focus(){
-  const cx=innerWidth/2, reach=Math.max(innerWidth*.42, 1);
+  const cx=innerWidth/2; pitch=(cards[1].offsetLeft-cards[0].offsetLeft)||500; nearest=1e9;
   for(const c of cards){
     const r=c.getBoundingClientRect();
     if(r.right<-50||r.left>innerWidth+50){ continue; }
-    const d=Math.min(1,Math.abs(r.left+r.width/2-cx)/reach);
+    const dx=Math.abs(r.left+r.width/2-cx); if(dx<nearest) nearest=dx;
     let tb, to, ts;
     if(open){ const me=c===open; tb=me?0:7; to=me?1:.7; ts=me?1:.94; }
-    else { const k=Math.max(0,(d-.16)/.84); tb=k*8; to=1-k*.35; ts=1-k*.07; }
+    else { const k=Math.min(1,Math.max(0,(dx-pitch*.2)/(pitch*.7))); tb=k*8; to=1-k*.35; ts=1-k*.07; }
     c._b=(c._b??tb)+(tb-(c._b??tb))*.14; c._o=(c._o??to)+(to-(c._o??to))*.14; c._s=(c._s??ts)+(ts-(c._s??ts))*.14;
     c.style.filter = c._b>.15 ? `blur(${c._b.toFixed(2)}px) saturate(${(1-c._b/20).toFixed(2)})` : "none";
     c.style.opacity = c._o.toFixed(3);
@@ -501,9 +509,9 @@ function focus(){
 function openCard(c){
   if(open===c) return;
   open?.classList.remove("is-open"); open=c;
-  c.classList.add("is-open"); rail.classList.add("has-open"); target=SLOW;
+  c.classList.add("is-open"); rail.classList.add("has-open");
 }
-function closeCard(){ open?.classList.remove("is-open"); open=null; rail.classList.remove("has-open"); target=CRUISE; }
+function closeCard(){ open?.classList.remove("is-open"); open=null; rail.classList.remove("has-open"); }
 const touch = matchMedia("(hover:none)").matches;
 cards.forEach(c=>{
   c.addEventListener("mouseenter",()=>openCard(c));
@@ -523,31 +531,36 @@ addEventListener("pointermove",e=>{
 /* ----- liquid glass: refracción en los bordes (Chromium) -----
    Se genera un mapa de desplazamiento por botón: el fondo se curva cerca del borde, como una lente. */
 const supportsSvgBackdrop = !!(navigator.userAgentData) && CSS.supports("backdrop-filter","url(#a)");
+function liquidFor(el, id, o){
+  const w=Math.round(el.offsetWidth), h=Math.round(el.offsetHeight); if(!w||!h) return;
+  const cv=document.createElement("canvas"); cv.width=w; cv.height=h;
+  const ctx=cv.getContext("2d"), img=ctx.createImageData(w,h), d=img.data;
+  const r=Math.min(o.radius ?? h/2, h/2, w/2), band=o.band, hx=w/2, hy=h/2;
+  for(let y=0;y<h;y++) for(let x=0;x<w;x++){
+    const px=x+.5-hx, py=y+.5-hy, qx=Math.abs(px)-(hx-r), qy=Math.abs(py)-(hy-r);
+    let dist, nx=0, ny=0;
+    if(qx>0&&qy>0){ const L=Math.hypot(qx,qy)||1; dist=r-L; nx=qx/L*Math.sign(px); ny=qy/L*Math.sign(py); }
+    else if(qx>qy){ dist=r-qx; nx=Math.sign(px); } else { dist=r-qy; ny=Math.sign(py); }
+    let s=0; if(dist<band&&dist>=0){ const t=1-dist/band; s=t*t*(3-2*t); }
+    const i=(y*w+x)*4; d[i]=128+nx*s*127; d[i+1]=128+ny*s*127; d[i+2]=128; d[i+3]=255;
+  }
+  ctx.putImageData(img,0,0);
+  $("#"+id)?.remove();
+  $("#lgDefs").insertAdjacentHTML("beforeend",
+    `<filter id="${id}" x="0" y="0" width="${w}" height="${h}" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+       <feImage href="${cv.toDataURL()}" x="0" y="0" width="${w}" height="${h}" result="map" preserveAspectRatio="none"/>
+       <feDisplacementMap in="SourceGraphic" in2="map" scale="${o.scale}" xChannelSelector="R" yChannelSelector="G"/>
+     </filter>`);
+  el.style.backdropFilter=el.style.webkitBackdropFilter=`${o.pre||""} url(#${id}) ${o.post||""}`;
+}
 function buildLiquid(){
   if(!supportsSvgBackdrop) return;
-  const defs=$("#lgDefs"); defs.innerHTML="";
-  $$(".glass").forEach((el,k)=>{
-    const w=Math.round(el.offsetWidth), h=Math.round(el.offsetHeight); if(!w||!h) return;
-    const cv=document.createElement("canvas"); cv.width=w; cv.height=h;
-    const ctx=cv.getContext("2d"), img=ctx.createImageData(w,h), d=img.data;
-    const r=h/2, band=Math.min(h*.42,20), hx=w/2, hy=h/2;
-    for(let y=0;y<h;y++) for(let x=0;x<w;x++){
-      const px=x+.5-hx, py=y+.5-hy, qx=Math.abs(px)-(hx-r), qy=Math.abs(py)-(hy-r);
-      let dist, nx=0, ny=0;
-      if(qx>0&&qy>0){ const L=Math.hypot(qx,qy)||1; dist=r-L; nx=qx/L*Math.sign(px); ny=qy/L*Math.sign(py); }
-      else if(qx>qy){ dist=r-qx; nx=Math.sign(px); } else { dist=r-qy; ny=Math.sign(py); }
-      let s=0; if(dist<band&&dist>=0){ const t=1-dist/band; s=t*t*(3-2*t); }
-      const i=(y*w+x)*4; d[i]=128+nx*s*127; d[i+1]=128+ny*s*127; d[i+2]=128; d[i+3]=255;
-    }
-    ctx.putImageData(img,0,0);
-    const id="lg"+k;
-    defs.insertAdjacentHTML("beforeend",
-      `<filter id="${id}" x="0" y="0" width="${w}" height="${h}" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
-         <feImage href="${cv.toDataURL()}" x="0" y="0" width="${w}" height="${h}" result="map" preserveAspectRatio="none"/>
-         <feDisplacementMap in="SourceGraphic" in2="map" scale="-26" xChannelSelector="R" yChannelSelector="G"/>
-       </filter>`);
-    el.style.backdropFilter=el.style.webkitBackdropFilter=`url(#${id}) blur(.6px) saturate(165%) brightness(1.07)`;
-  });
+  $$(".glass").forEach((el,k)=>{ const h=el.offsetHeight; liquidFor(el,"lg"+k,{band:Math.min(h*.42,20),scale:-26,post:"blur(.6px) saturate(165%) brightness(1.07)"}); });
+  $$(".sheet.on").forEach(sheetLiquid);
+}
+function sheetLiquid(sh){
+  if(!supportsSvgBackdrop) return;
+  liquidFor(sh,"lgs-"+sh.id,{radius:26,band:34,scale:-60,pre:"blur(20px)",post:"saturate(180%) brightness(1.08)"});
 }
 document.fonts?.ready.then(buildLiquid); addEventListener("load",buildLiquid);
 let rz; addEventListener("resize",()=>{clearTimeout(rz);rz=setTimeout(buildLiquid,200)});
@@ -557,7 +570,7 @@ const scrim=$("#scrim"); let lastFocus=null;
 function openSheet(id){
   $$(".sheet.on").forEach(s=>s.classList.remove("on"));
   const s=$("#"+id); lastFocus=lastFocus||document.activeElement;
-  s.classList.add("on"); scrim.classList.add("on"); s.scrollTop=0;
+  s.classList.add("on"); scrim.classList.add("on"); s.scrollTop=0; sheetLiquid(s);
   setTimeout(()=>$("[data-close]",s)?.focus({preventScroll:true}),250);
 }
 function closeSheets(){
