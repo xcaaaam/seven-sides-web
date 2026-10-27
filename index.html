@@ -94,9 +94,8 @@ body::after{ /* grano */
 /* ---------- barra inferior ---------- */
 .bar{display:flex;justify-content:center;align-items:center;
   padding:0 clamp(16px,3vw,44px) calc(clamp(16px,3vh,30px) + env(safe-area-inset-bottom))}
-.brand{display:flex;align-items:center;gap:18px;text-decoration:none;color:var(--ink);flex:none;padding-top:4px}
-.brand svg{width:clamp(54px,4.8vw,72px);height:auto}
-.brand img{height:clamp(16px,1.5vw,22px);width:auto}
+.brand{display:block;flex:none;line-height:0}
+.brand img{width:clamp(130px,11vw,180px);height:auto;filter:drop-shadow(0 1px 10px rgba(13,18,15,.28)) drop-shadow(0 0 1px rgba(13,18,15,.25))}
 .actions{display:flex;gap:10px;align-items:center}
 
 /* ---------- liquid glass ---------- */
@@ -186,6 +185,21 @@ fieldset{border:0}
 .done h3 b{font-weight:400;color:var(--green-hi)}
 .done p{font-size:14px;line-height:1.6;font-weight:300;color:rgba(13,18,15,.75)}
 
+
+/* ventanas de introducción */
+.need{list-style:none;display:grid;gap:8px;margin:0 0 20px}
+.need li{display:grid;grid-template-columns:28px 1fr;gap:6px;align-items:start;padding:13px 16px;border-radius:18px;font-size:14px;line-height:1.5;font-weight:300;
+  background:rgba(255,255,255,.14);box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.35)}
+.need li::before{content:"";width:8px;height:8px;margin-top:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px rgba(13,153,68,.7)}
+.need li b{font-weight:400;color:var(--green-hi)}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 22px;font-size:13px;font-weight:300;color:rgba(13,18,15,.75)}
+.flow span{padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.18);box-shadow:inset 1px 1px 1px -.5px #fff,inset 0 0 0 1px rgba(13,18,15,.07)}
+.flow i{font-style:normal;color:var(--green-hi)}
+.start{display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}
+.start small{font-size:12px;font-weight:300;color:rgba(13,18,15,.6)}
+.start .btn{padding:14px 30px;font-size:14px}
+.back{padding:9px 14px;font-size:12px;margin-bottom:12px}
+
 /* ---------- ¿Qué es? (desplazamiento vertical) ---------- */
 :root{--gold:#a8822a;--gold-hi:#c9a24a}
 #about{width:min(720px,calc(100vw - 24px));height:calc(100svh - 40px);padding:0}
@@ -257,8 +271,8 @@ fieldset{border:0}
 @media (max-width:760px){
   :root{--card:clamp(220px,68vw,320px)}
   .top{flex-direction:column-reverse;gap:18px}
-  .brand{align-self:flex-end;gap:12px}
-  .brand svg{width:44px}.brand img{height:14px}
+  .brand{align-self:flex-end}
+  .brand img{width:110px}
   .actions{width:100%;flex-wrap:wrap}
   .actions .btn{flex:1 1 auto;justify-content:center;padding:13px 14px}
   .actions .btn.about{flex-basis:100%}
@@ -281,10 +295,7 @@ fieldset{border:0}
 <div class="stage">
   <header class="top">
     <h1 class="claim">Cooperación internacional, <em>sin burocracia.</em></h1>
-    <a class="brand" href="#" aria-label="Seven Sides — inicio">
-      <svg viewBox="120 137 260 225" fill="currentColor" aria-hidden="true"><polygon points="123,140 299,140 180,359 125,359 221,187 123,187"/><polygon points="319,140 373,140 267,334 376,334 376,359 200,359"/></svg>
-      <img src="assets/brand/wordmark-negro.png" alt="Seven Sides">
-    </a>
+    <a class="brand" href="#" aria-label="Seven Sides — inicio"><img src="assets/brand/logo-blanco.png" alt="Seven Sides"></a>
   </header>
 
   <section class="rail" id="rail" aria-label="Proyectos y comunidades">
@@ -293,8 +304,8 @@ fieldset{border:0}
 
   <footer class="bar">
     <nav class="actions" aria-label="Acciones principales">
-      <button class="glass tint btn" data-open="coop">Unirme como cooperante</button>
-      <button class="glass btn" data-open="apply">Postular mi proyecto</button>
+      <button class="glass tint btn" data-open="coop-intro">Unirme como cooperante</button>
+      <button class="glass btn" data-open="apply-intro">Postular mi proyecto</button>
       <button class="glass btn about" data-open="about">¿Qué es Seven Sides?</button>
     </nav>
   </footer>
@@ -302,8 +313,51 @@ fieldset{border:0}
 
 <div class="scrim" id="scrim"></div>
 
+<!-- ============ Intro cooperante ============ -->
+<section class="sheet" id="coop-intro" role="dialog" aria-modal="true" aria-labelledby="ciT">
+  <header>
+    <div>
+      <div class="kicker label">Para empresas · Cooperantes</div>
+      <h2 id="ciT">Qué buscamos en <b>un cooperante.</b></h2>
+    </div>
+    <button class="glass close" data-close aria-label="Cerrar">✕</button>
+  </header>
+  <p class="lead">Seven Sides conecta empresas con proyectos y comunidades de Latinoamérica. No buscamos donaciones: buscamos <b>socios que crezcan junto a la comunidad.</b></p>
+  <ul class="need">
+    <li><span>Empresas de Europa o Latinoamérica que quieran invertir con <b>valor compartido</b>, no como filantropía.</span></li>
+    <li><span>Una actividad compatible con los siete pilares y con la naturaleza. <b>No aceptamos empresas extractivistas.</b></span></li>
+    <li><span>Disposición a cooperar con financiamiento, tecnología, capacitación o compra de producción.</span></li>
+    <li><span>Interés en un acompañamiento cercano y en conocer el proyecto en territorio.</span></li>
+  </ul>
+  <div class="sec-t label">Qué pasa después</div>
+  <div class="flow"><span>Completas el formulario</span><i>→</i><span>Evaluamos tu perfil</span><i>→</i><span>Ves proyectos alineados</span><i>→</i><span>Aceptas el match</span></div>
+  <div class="start"><small>Toma unos 3 minutos.</small><button class="glass tint btn" data-open="coop">Iniciar</button></div>
+</section>
+
+<!-- ============ Intro proyecto ============ -->
+<section class="sheet" id="apply-intro" role="dialog" aria-modal="true" aria-labelledby="aiT">
+  <header>
+    <div>
+      <div class="kicker label">Para proyectos · Comunidades · Organizaciones</div>
+      <h2 id="aiT">Qué buscamos en <b>un proyecto.</b></h2>
+    </div>
+    <button class="glass close" data-close aria-label="Cerrar">✕</button>
+  </header>
+  <p class="lead">Buscamos iniciativas de Latinoamérica que necesiten un socio para crecer. Puede ser <b>una idea o un proyecto en marcha.</b></p>
+  <ul class="need">
+    <li><span>Comunidades u organizaciones constituidas, o con <b>respaldo oficial</b>: municipio, junta parroquial, ONG o universidad.</span></li>
+    <li><span>Un impacto claro en al menos uno de los <b>siete pilares</b>.</span></li>
+    <li><span>Respeto, conservación y preservación de la naturaleza.</span></li>
+    <li><span>Una necesidad concreta: qué les falta y a cuántas personas beneficia.</span></li>
+  </ul>
+  <div class="sec-t label">Qué pasa después</div>
+  <div class="flow"><span>Postulas</span><i>→</i><span>Evaluamos contigo</span><i>→</i><span>Te presentamos a empresas</span><i>→</i><span>Contacto cuando aceptan</span></div>
+  <div class="start"><small>Toma unos 5 minutos. Ten a mano el nombre de quien respalda el proyecto.</small><button class="glass tint btn" data-open="apply">Iniciar</button></div>
+</section>
+
 <!-- ============ Cooperante ============ -->
 <section class="sheet" id="coop" role="dialog" aria-modal="true" aria-labelledby="coopT">
+  <button class="glass btn back" data-open="coop-intro">‹ Volver</button>
   <header>
     <div>
       <div class="kicker label">Para empresas · Cooperantes</div>
@@ -341,6 +395,7 @@ fieldset{border:0}
 
 <!-- ============ Postular ============ -->
 <section class="sheet" id="apply" role="dialog" aria-modal="true" aria-labelledby="applyT">
+  <button class="glass btn back" data-open="apply-intro">‹ Volver</button>
   <header>
     <div>
       <div class="kicker label">Para proyectos · Comunidades · Organizaciones</div>
@@ -405,8 +460,8 @@ fieldset{border:0}
     </ol>
 
     <div class="about-cta">
-      <button class="glass tint btn" data-open="apply">Postular mi proyecto</button>
-      <button class="glass btn" data-open="coop">Soy una empresa</button>
+      <button class="glass tint btn" data-open="apply-intro">Postular mi proyecto</button>
+      <button class="glass btn" data-open="coop-intro">Soy una empresa</button>
     </div>
   </div>
 </section>
@@ -459,8 +514,7 @@ function cardHTML(p,i){
     : `<div class="orb"></div>`;
   return `<article class="card${p.light&&!p.media?" light":""}" tabindex="0" data-i="${i}" style="--bgc:${p.bg}" aria-label="${p.title}">
     <div class="media">${media}</div><span class="num">${n}</span>${p.media?"":`<span class="slot">Espacio para video</span>`}
-    <div class="idea"><span class="label">${p.place}${p.media?"":" · ejemplo"}</span><h3>${p.title}</h3><p>${p.idea}</p>
-      <div class="tags">${p.pillars.map((t,j)=>`<span${j===0?' class="g"':""}>${t}</span>`).join("")}</div></div>
+    <div class="idea"><span class="label">${p.place}${p.media?"":" · ejemplo"}</span><h3>${p.title}</h3><p>${p.idea}</p></div>
   </article>`;
 }
 const set = PROJECTS.map(cardHTML).join("");
