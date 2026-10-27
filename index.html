@@ -1359,6 +1359,16 @@ $("#loginForm").addEventListener("submit",async e=>{
   if(!a.verifiedAt){ err.textContent="Tu correo aún no está verificado. Completa la verificación al postular."; err.classList.add("on"); return; }
   err.classList.remove("on"); session=a; if(a.role==="admin"){ renderAdmin(); openSheet("admin"); return; } renderAccount(a); openSheet("account");
 });
+/* acceso privado de administración: añadir #admin al final de la dirección */
+function adminRoute(){
+  if(location.hash.toLowerCase()!=="#admin") return;
+  $("#loginT").innerHTML='Acceso de <b>administración.</b>';
+  $("#login .kicker").textContent="Seven Sides · equipo";
+  $("#l1").placeholder="admin@sevensides.org";
+  $("#login .start small").textContent="Solo para el equipo de Seven Sides.";
+  openSheet("login");
+}
+addEventListener("hashchange",adminRoute); setTimeout(adminRoute,300);
 document.addEventListener("click",e=>{ if(e.target.closest("[data-account]")){ if(session?.role==="admin"){ renderAdmin(); openSheet("admin"); } else if(session){ renderAccount(loadAcc()[session.id]||session); openSheet("account"); } else openSheet("login"); } });
 
 /* ===== recoger respuestas de la encuesta ===== */
