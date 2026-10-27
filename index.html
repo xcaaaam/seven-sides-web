@@ -94,6 +94,8 @@ body::after{ /* grano */
 /* ---------- barra inferior ---------- */
 .bar{display:flex;justify-content:center;align-items:center;
   padding:0 clamp(16px,3vw,44px) calc(clamp(16px,3vh,30px) + env(safe-area-inset-bottom))}
+.top-r{display:flex;align-items:flex-start;gap:18px;flex:none}
+.btn.acct{padding:9px 16px;font-size:12.5px;margin-top:6px;color:var(--ink);text-shadow:none;background:rgba(255,255,255,.18)}
 .brand{display:block;flex:none;line-height:0}
 .brand img{width:clamp(130px,11vw,180px);height:auto;filter:drop-shadow(0 1px 10px rgba(13,18,15,.28)) drop-shadow(0 0 1px rgba(13,18,15,.25))}
 .actions{display:flex;gap:10px;align-items:center}
@@ -194,6 +196,8 @@ fieldset{border:0}
 .start small{font-size:12px;font-weight:300;color:rgba(13,18,15,.6)}
 .start .btn{padding:14px 30px;font-size:14px}
 .back{padding:9px 14px;font-size:12px;margin-bottom:12px}
+.have{margin-top:16px;font-size:12.5px;font-weight:300;color:rgba(13,18,15,.6)}
+.have button{font-size:inherit;color:var(--green-hi);text-decoration:underline;text-underline-offset:3px}
 
 /* ---------- ¿Qué es? (desplazamiento vertical) ---------- */
 :root{--gold:#a8822a;--gold-hi:#c9a24a}
@@ -263,8 +267,8 @@ fieldset{border:0}
 .about-cta{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 
 
-/* ---------- ventanas grandes: encuesta y matches ---------- */
-.sheet.big{width:min(1120px,calc(100vw - 24px));height:calc(100svh - 40px);max-height:none;display:flex;flex-direction:column;padding:0;overflow:hidden}
+/* ---------- ventanas grandes: encuesta, cuenta y matches ---------- */
+.sheet.big{width:min(1180px,calc(100vw - 24px));height:calc(100svh - 40px);max-height:none;display:flex;flex-direction:column;padding:0;overflow:hidden}
 .wz-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:clamp(20px,2.6vw,30px) clamp(20px,3vw,40px) 0}
 .wz-top .back{margin-bottom:14px}
 .wz-steps{list-style:none;display:flex;gap:10px;padding:20px clamp(20px,3vw,40px) 6px}
@@ -280,93 +284,179 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
 @keyframes paneBack{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
 .wz-pane h3{grid-column:1/-1;font-weight:300;font-size:clamp(20px,1.8vw,26px);letter-spacing:-.01em;margin:4px 0 2px}
 .wz-pane h3 b{font-weight:400;color:var(--green-hi)}
-.wz-pane .f{grid-column:span 2}
+.wz-pane .f{grid-column:span 2;min-width:0}
 .wz-pane .f.w3{grid-column:span 3}
-.wz-pane .f.full,.wz-pane .check{grid-column:1/-1}
+.wz-pane .f.full,.wz-pane .check,.wz-pane .full{grid-column:1/-1}
+.hint{font-size:13.5px;font-weight:300;line-height:1.55;color:rgba(13,18,15,.7);margin-top:-4px}
+.note{display:none;margin-top:8px;padding:10px 14px;border-radius:14px;font-size:12.5px;line-height:1.5;font-weight:300;color:var(--green-deep);
+  background:rgba(13,153,68,.1);box-shadow:inset 0 0 0 1px rgba(13,153,68,.25)}
+.note.on{display:block;animation:paneIn .4s var(--ease)}
 .q{font-size:13px;font-weight:400;color:rgba(13,18,15,.8)}
+.f select:disabled{opacity:.55}
+.other{display:none;margin-top:8px}
+.other.on{display:block;animation:paneIn .35s var(--ease)}
 .chips.invalid .chip{box-shadow:inset 0 0 0 1px rgba(179,38,30,.55)}
-.f input:invalid.touched,.f select:invalid.touched,.f textarea:invalid.touched{box-shadow:inset 0 0 0 1.5px rgba(179,38,30,.7)}
+.f input.touched:invalid,.f select.touched:invalid,.f textarea.touched:invalid{box-shadow:inset 0 0 0 1.5px rgba(179,38,30,.7)}
 .err{display:none;margin-top:14px;font-size:12.5px;color:#9b2219}
 .err.on{display:block}
-.wz-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px clamp(20px,3vw,40px) clamp(18px,2.4vw,26px);
-  box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.wz-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px clamp(20px,3vw,40px) clamp(18px,2.4vw,26px);box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
 .wz-count{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(13,18,15,.5)}
-.wz-nav .btn[disabled]{opacity:.35;pointer-events:none}
+.btn[disabled]{opacity:.35;pointer-events:none}
+
+/* contactos */
+.ct{display:grid;grid-template-columns:repeat(4,1fr);gap:12px 14px;padding:16px;border-radius:18px;margin-bottom:10px;position:relative;
+  background:rgba(255,255,255,.12);box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.9),inset 0 0 0 1px rgba(255,255,255,.3);animation:paneIn .4s var(--ease)}
+.ct .ct-h{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(13,18,15,.55)}
+.ct .rm{font-size:12px;letter-spacing:0;text-transform:none;color:rgba(13,18,15,.6);padding:4px 10px;border-radius:999px}
+.ct .rm:hover{color:#9b2219}
+.add{padding:10px 16px;font-size:13px}
+
+/* adjuntos */
+.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;padding:28px 20px;border-radius:20px;cursor:pointer;text-align:center;
+  background:rgba(255,255,255,.1);box-shadow:inset 0 0 0 1.5px rgba(13,18,15,.14);outline:1.5px dashed rgba(13,153,68,.45);outline-offset:-8px;transition:background .3s,outline-color .3s}
+.drop:hover,.drop.over{background:rgba(13,153,68,.08);outline-color:var(--green)}
+.drop,.f label.drop{text-transform:none;letter-spacing:0;color:var(--ink)}
+.drop b{font-weight:400;font-size:15px}
+.drop span{font-size:12.5px;font-weight:300;color:rgba(13,18,15,.6)}
+.drop svg{width:28px;height:28px;color:var(--green-hi)}
+.files{list-style:none;display:grid;gap:8px;margin-top:12px}
+.files li{display:grid;grid-template-columns:1fr 220px auto;gap:12px;align-items:center;padding:10px 14px;border-radius:14px;font-size:13px;font-weight:300;
+  background:rgba(255,255,255,.18);box-shadow:inset 0 0 0 1px rgba(255,255,255,.5);animation:paneIn .35s var(--ease)}
+.files li .nm{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.files li .nm small{color:rgba(13,18,15,.5);margin-left:6px}
+.files li select{font:inherit;font-size:12.5px;padding:7px 10px;border-radius:10px;border:0;background:rgba(255,255,255,.45)}
+.files li button{font-size:16px;line-height:1;color:rgba(13,18,15,.55);padding:4px 8px}
+
+/* evaluación y cuenta */
 .eval{display:none;flex:1;overflow:auto;padding:24px clamp(20px,3vw,40px) 34px}
 .sheet.evaluating .wz,.sheet.evaluating .wz-nav,.sheet.evaluating .wz-steps,.sheet.evaluating .wz-top{display:none}
-.sheet.evaluating .eval{display:flex;flex-direction:column;justify-content:center;max-width:720px;margin:0 auto;width:100%;animation:paneIn .6s var(--ease)}
-.eval h2{font-weight:300;font-size:clamp(28px,3vw,42px);letter-spacing:-.02em;line-height:1.05;margin-bottom:14px}
-.eval h2 b{font-weight:400;color:var(--green-hi)}
-.tl{list-style:none;display:grid;gap:0;margin:10px 0 30px;position:relative}
+.sheet.evaluating .eval{display:flex}
+.ev{display:flex;flex-direction:column;justify-content:center;max-width:720px;margin:0 auto;width:100%;animation:paneIn .6s var(--ease)}
+.ev h2,.acc-body h2{font-weight:300;font-size:clamp(28px,3vw,42px);letter-spacing:-.02em;line-height:1.05;margin-bottom:14px}
+.ev h2 b{font-weight:400;color:var(--green-hi)}
+.uid{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:6px 0 18px}
+.uid code{font-family:var(--font);font-size:clamp(26px,3vw,38px);font-weight:400;letter-spacing:.04em;color:var(--green-hi)}
+.uid .btn{padding:9px 14px;font-size:12px}
+.acc-form{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.acc-form .f.full,.acc-form .start,.acc-form .err{grid-column:1/-1}
+.code{font-size:22px !important;letter-spacing:.5em;text-align:center}
+.tl{list-style:none;display:grid;margin:10px 0 28px}
 .tl li{position:relative;padding:0 0 22px 40px}
 .tl li::before{content:"";position:absolute;left:6px;top:4px;width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.4);box-shadow:inset 0 0 0 1.5px rgba(13,18,15,.25)}
 .tl li::after{content:"";position:absolute;left:12.5px;top:22px;bottom:2px;width:1.5px;background:rgba(13,18,15,.15)}
 .tl li:last-child::after{display:none}
 .tl li.done::before{background:var(--green);box-shadow:0 0 0 4px rgba(13,153,68,.15)}
 .tl li.done::after{background:var(--green)}
-.tl li.now::before{background:#fff;box-shadow:inset 0 0 0 4px var(--green);animation:pulse 2.4s ease-in-out infinite}
-@keyframes pulse{50%{box-shadow:inset 0 0 0 4px var(--green),0 0 0 8px rgba(13,153,68,.15)}}
+.tl li.now::before{background:#fff;box-shadow:inset 0 0 0 4px var(--green);animation:pulse2 2.4s ease-in-out infinite}
+@keyframes pulse2{50%{box-shadow:inset 0 0 0 4px var(--green),0 0 0 8px rgba(13,153,68,.15)}}
 .tl b{display:block;font-weight:400;font-size:16px;margin-bottom:3px}
 .tl li.now b{color:var(--green-hi)}
 .tl span{font-size:13.5px;font-weight:300;line-height:1.55;color:rgba(13,18,15,.7)}
+.acc-body{flex:1;overflow:auto;padding:10px clamp(20px,3vw,40px) 34px}
+.acc-body .ev{max-width:760px;margin:0}
+.acc-meta{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:18px}
+.acc-meta span{font-size:12.5px;padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.2);box-shadow:inset 1px 1px 1px -.5px #fff,inset 0 0 0 1px rgba(13,18,15,.07)}
+.acc-meta b{font-weight:400;color:var(--green-hi)}
 
-/* matches: lista interactiva con vista previa */
-.m-body{flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 10px}
-.ilp{position:relative;border-radius:22px;overflow:hidden;background:rgba(255,255,255,.12);
+/* matches: lista + dashboard */
+.m-body{flex:1;overflow:auto;padding:10px clamp(20px,3vw,40px) 14px;display:flex;flex-direction:column}
+.m-body .lead{margin-bottom:14px}
+.ilp{position:relative;display:flex;flex-direction:column;gap:14px}
+.ilp-list,.dash-wrap{flex:none}
+.ilp-list{position:relative;border-radius:22px;overflow:hidden;background:rgba(255,255,255,.12);
   box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.35)}
 .ilp-hl{position:absolute;left:0;right:0;top:0;height:0;opacity:0;z-index:1;pointer-events:none;background:rgba(13,153,68,.88);
   box-shadow:inset 0 1px 0 rgba(255,255,255,.4);transition:transform .35s cubic-bezier(.16,1,.3,1),height .35s cubic-bezier(.16,1,.3,1),opacity .35s ease-out}
-.ilp-imgs{position:absolute;inset:0;z-index:2;pointer-events:none;will-change:transform}
-.ilp-img{position:absolute;left:35%;top:50%;width:15rem;height:17.5rem;margin-top:-8.75rem;border-radius:18px;overflow:hidden;
-  visibility:hidden;clip-path:inset(50%);box-shadow:0 30px 60px -20px rgba(0,0,0,.5);will-change:clip-path,opacity}
-.ilp-img img,.ilp-img .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-.ilp-img .ph{display:grid;place-items:end start;padding:18px;color:#fff;font-size:22px;font-weight:300;line-height:1.1}
-.ilp table{position:relative;z-index:3;width:100%;table-layout:fixed;border-collapse:collapse}
-.ilp th{padding:16px 24px 10px;text-align:left;font-size:10px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:rgba(13,18,15,.45)}
-.ilp td{padding:20px 24px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink);
+.ilp table{position:relative;z-index:2;width:100%;table-layout:fixed;border-collapse:collapse}
+.ilp th{padding:14px 24px 8px;text-align:left;font-size:10px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:rgba(13,18,15,.45)}
+.ilp td{padding:13px 24px;font-size:15px;font-weight:300;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink);
   border-top:1px solid rgba(13,18,15,.07);transition:color .35s ease-out}
+.ilp td:first-child{font-weight:400}
+.ilp td .n{font-size:11px;letter-spacing:.12em;color:var(--green-hi);margin-right:10px;transition:color .35s}
 .ilp th:nth-child(3),.ilp td:nth-child(3){text-align:center}
 .ilp tbody tr{cursor:pointer}
-.ilp tr.act td{color:#fff;border-top-color:transparent}
-.ilp td .ck{display:inline-block;width:16px;height:16px;margin-right:10px;vertical-align:-3px;border-radius:50%;box-shadow:inset 0 0 0 1.5px currentColor;opacity:.5;position:relative}
+.ilp tr.act td,.ilp tr.act td .n{color:#fff;border-top-color:transparent}
+.ilp td .ck{display:inline-block;width:16px;height:16px;margin-right:12px;vertical-align:-3px;border-radius:50%;box-shadow:inset 0 0 0 1.5px currentColor;opacity:.45;position:relative}
 .ilp tr.sel td .ck{opacity:1;background:var(--green);box-shadow:inset 0 0 0 1.5px #fff}
 .ilp tr.sel td .ck::after{content:"";position:absolute;left:5px;top:2.5px;width:4px;height:8px;border:solid #fff;border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
 .ilp .aff{display:inline-flex;align-items:center;gap:8px}
-.ilp .aff i{display:inline-block;width:42px;height:3px;border-radius:3px;background:rgba(13,18,15,.12);position:relative;overflow:hidden}
-.ilp .aff i::after{content:"";position:absolute;inset:0;width:var(--v);background:currentColor;opacity:.8}
-.ilp-m{display:none}
+.ilp .aff i{display:inline-block;width:46px;height:3px;border-radius:3px;background:rgba(13,18,15,.12);position:relative;overflow:hidden}
+.ilp .aff i::after{content:"";position:absolute;inset:0;width:var(--v);background:currentColor;opacity:.85}
+
+.dash-wrap{position:relative;min-height:360px;border-radius:22px;background:rgba(255,255,255,.08);
+  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.9),inset 0 0 0 1px rgba(255,255,255,.3)}
+.dash-empty{position:absolute;inset:0;display:grid;place-items:center;text-align:center;padding:24px;font-size:14px;font-weight:300;color:rgba(13,18,15,.6)}
+.dash-empty i{display:block;width:10px;height:10px;margin:0 auto 12px;border-radius:50%;background:var(--green);box-shadow:0 0 14px rgba(13,153,68,.7);animation:pulse2 2.4s infinite}
+.dash{position:relative;display:grid;grid-template-columns:1.05fr 1fr;grid-template-rows:auto 1fr auto;gap:12px;padding:14px;
+  clip-path:inset(50%);visibility:hidden;will-change:clip-path}
+.dc{border-radius:18px;padding:18px 20px;background:rgba(255,255,255,.3);
+  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,1),inset 0 0 0 1px rgba(255,255,255,.45),0 10px 24px -18px rgba(0,0,0,.35)}
+.dc.a{grid-row:1/3;display:flex;flex-direction:column;gap:10px}
+.dc.a h4,.dc.c h4{font-weight:400;font-size:18px;letter-spacing:-.01em}
+.dc.a p.d{font-size:13px;font-weight:300;line-height:1.5;color:rgba(13,18,15,.7)}
+.it{display:grid;grid-template-columns:40px 1fr auto;gap:12px;align-items:center;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.35);box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
+.it .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;background:rgba(13,153,68,.12);color:var(--green-deep)}
+.it .ic svg{width:20px;height:20px}
+.it b{display:block;font-weight:400;font-size:14px}
+.it small{font-size:12px;font-weight:300;color:rgba(13,18,15,.6)}
+.it em{font-style:normal;font-size:11.5px;padding:5px 10px;border-radius:999px;box-shadow:inset 0 0 0 1px rgba(13,18,15,.15);white-space:nowrap}
+.dc.b{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding:12px}
+.pl{display:flex;flex-direction:column;align-items:center;gap:4px;min-width:84px;flex:1;padding:10px 8px;border-radius:14px;background:rgba(255,255,255,.4);box-shadow:inset 0 0 0 1px rgba(255,255,255,.7);font-size:12.5px;font-weight:400}
+.pl svg{width:20px;height:20px;color:var(--green-hi)}
+.dc.c{display:grid;grid-template-columns:auto 1fr;gap:6px 18px;align-items:start;align-content:start}
+.big-n{font-size:clamp(40px,4.4vw,60px);font-weight:500;letter-spacing:-.03em;line-height:1;color:var(--ink)}
+.big-n small{font-size:.5em;font-weight:400}
+.dc.c .cap{grid-column:1;font-size:12.5px;font-weight:300;color:rgba(13,18,15,.6)}
+.pill{justify-self:end;align-self:start;font-size:12px;padding:6px 12px;border-radius:999px;background:#fff;color:var(--green-deep);box-shadow:0 4px 12px -6px rgba(0,0,0,.3)}
+.bars{grid-column:1/-1;display:grid;gap:10px;margin-top:10px;align-content:start;align-self:start}
+.bar{display:grid;grid-template-columns:150px 1fr 40px;gap:10px;align-items:center;font-size:12.5px;font-weight:300}
+.bar i{display:block;height:6px;border-radius:6px;background:rgba(13,18,15,.08);overflow:hidden}
+.bar i::after{content:"";display:block;height:100%;width:var(--w,0%);border-radius:6px;background:linear-gradient(90deg,#13b552,var(--green));transition:width .9s var(--ease)}
+.bar span:last-child{text-align:right;font-weight:400}
+.dc.d{grid-column:1/-1;display:flex;gap:10px 26px;flex-wrap:wrap;align-items:center;padding:14px 20px}
+.dc.d .lbl{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(13,18,15,.5);margin-right:6px}
+.dc.d span.r{font-size:14px;font-weight:400;display:inline-flex;align-items:center;gap:6px}
+.dc.d span.r::after{content:"↗";color:var(--green-hi)}
+.dash .swap{transition:opacity .3s ease,transform .45s var(--ease)}
+.dash.changing .swap{opacity:0;transform:translateY(8px)}
+
 .m-sel{font-size:13px;font-weight:300;color:rgba(13,18,15,.7)}
 .m-sel b{font-weight:400;color:var(--green-hi)}
-.toast{position:absolute;left:50%;bottom:96px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:5;
-  padding:14px 20px;border-radius:999px;font-size:13.5px;color:#fff;background:rgba(13,153,68,.86);
-  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:inset 1.5px 1.5px 1px -.5px rgba(200,255,220,.9),0 14px 30px -12px rgba(13,153,68,.6);
-  transition:opacity .4s var(--ease),transform .5s var(--ease)}
-.toast.on{opacity:1;transform:translate(-50%,0)}
-@media (pointer:coarse),(max-width:760px){
-  .ilp table,.ilp-imgs,.ilp-hl{display:none}
-  .ilp-m{display:block}
-  .ilp-m .row{display:flex;border-top:1px solid rgba(13,18,15,.08);cursor:pointer}
-  .ilp-m .row:first-child{border-top:0}
-  .ilp-m .tx{width:55%;padding:16px;display:flex;flex-direction:column;gap:5px}
-  .ilp-m .tx b{font-weight:500;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
-  .ilp-m .tx em{font-style:normal;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(13,18,15,.55)}
-  .ilp-m .tx span{font-size:12.5px;font-weight:300;line-height:1.45;color:rgba(13,18,15,.7)}
-  .ilp-m .im{position:relative;width:45%;min-height:150px}
-  .ilp-m .im img,.ilp-m .im .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
-  .ilp-m .im .ph{display:grid;place-items:end start;padding:12px;color:#fff;font-size:15px;font-weight:300}
-  .ilp-m .row.sel{background:rgba(13,153,68,.14)}
+.meet{position:absolute;inset:0;z-index:6;display:grid;place-items:center;padding:20px;background:rgba(240,244,241,.55);
+  -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);opacity:0;pointer-events:none;transition:opacity .4s var(--ease)}
+.meet.on{opacity:1;pointer-events:auto}
+.meet-c{width:min(560px,100%);padding:28px;border-radius:24px;background:rgba(255,255,255,.55);
+  box-shadow:inset 2px 2px 1px -1px #fff,inset 0 0 0 1px rgba(255,255,255,.6),0 30px 60px -24px rgba(0,0,0,.4);transform:translateY(16px);transition:transform .5s var(--ease)}
+.meet.on .meet-c{transform:none}
+.meet-c h3{font-weight:300;font-size:26px;letter-spacing:-.02em;margin-bottom:8px}
+.meet-c h3 b{font-weight:400;color:var(--green-hi)}
+.meet-c p{font-size:14px;font-weight:300;line-height:1.55;color:rgba(13,18,15,.75);margin-bottom:14px}
+.meet-c .f{margin:12px 0}
+.meet-c .start{margin-top:16px}
+
+@media (pointer:coarse),(max-width:860px){
+  .dash{grid-template-columns:1fr;grid-template-rows:none}
+  .dc.a{grid-row:auto}
+  .dash-wrap{min-height:auto}
+  .ilp td:nth-child(4),.ilp th:nth-child(4){display:none}
 }
 @media (max-width:760px){
-  .wz-pane{grid-template-columns:1fr}
+  .wz-pane,.acc-form{grid-template-columns:1fr}
   .wz-pane .f,.wz-pane .f.w3{grid-column:1/-1}
   .wz-steps li{font-size:0;padding-top:6px}
+  .ct{grid-template-columns:1fr}
+  .files li{grid-template-columns:1fr auto}
+  .files li select{grid-column:1/-1;grid-row:2}
+  .ilp td{font-size:13px;padding:13px 14px}
+  .ilp th{padding:12px 14px 6px}
 }
 
 /* ---------- responsive ---------- */
 @media (max-width:760px){
   :root{--card:clamp(220px,68vw,320px)}
   .top{flex-direction:column-reverse;gap:18px}
-  .brand{align-self:flex-end}
+  .top-r{align-self:flex-end;align-items:center;gap:12px}
+  .btn.acct{margin-top:0}
   .brand img{width:110px}
   .actions{width:100%;flex-wrap:wrap}
   .actions .btn{flex:1 1 auto;justify-content:center;padding:13px 14px}
@@ -390,7 +480,7 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
 <div class="stage">
   <header class="top">
     <h1 class="claim">Cooperación internacional, <em>sin burocracia.</em></h1>
-    <a class="brand" href="#" aria-label="Seven Sides — inicio"><img src="assets/brand/logo-blanco.png" alt="Seven Sides"></a>
+    <div class="top-r"><button class="glass btn acct" data-account>Mi cuenta</button><a class="brand" href="#" aria-label="Seven Sides — inicio"><img src="assets/brand/logo-blanco.png" alt="Seven Sides"></a></div>
   </header>
 
   <section class="rail" id="rail" aria-label="Proyectos y comunidades">
@@ -427,6 +517,7 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
   <div class="sec-t label">Qué pasa después</div>
   <div class="flow"><span>Completas el formulario</span><i>→</i><span>Evaluamos tu perfil</span><i>→</i><span>Ves proyectos alineados</span><i>→</i><span>Aceptas el match</span></div>
   <div class="start"><small>Toma unos 3 minutos.</small><button class="glass tint btn" data-open="coop">Iniciar</button></div>
+  <p class="have">¿Ya postulaste? <button type="button" data-account>Entra a tu cuenta</button> para ver tu evaluación.</p>
 </section>
 
 <!-- ============ Intro proyecto ============ -->
@@ -438,20 +529,22 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
     </div>
     <button class="glass close" data-close aria-label="Cerrar">✕</button>
   </header>
-  <p class="lead">Buscamos iniciativas de Latinoamérica que necesiten un socio para crecer. Puede ser <b>una idea o un proyecto en marcha.</b></p>
+  <p class="lead">Buscamos iniciativas de Latinoamérica que necesiten un socio para crecer. Puede ser <b>una idea, un concepto o un proyecto en marcha.</b></p>
   <ul class="need">
     <li><span>Comunidades u organizaciones constituidas, o con <b>respaldo oficial</b>: municipio, junta parroquial, ONG o universidad.</span></li>
     <li><span>Un impacto claro en al menos uno de los <b>siete pilares</b>.</span></li>
+    <li><span>También ideas y conceptos: para validarlos te pediremos el <b>aval de un profesor o una universidad</b>.</span></li>
     <li><span>Respeto, conservación y preservación de la naturaleza.</span></li>
     <li><span>Una necesidad concreta: qué les falta y a cuántas personas beneficia.</span></li>
   </ul>
   <div class="sec-t label">Qué pasa después</div>
   <div class="flow"><span>Postulas</span><i>→</i><span>Evaluamos contigo</span><i>→</i><span>Te presentamos a empresas</span><i>→</i><span>Contacto cuando aceptan</span></div>
   <div class="start"><small>Toma unos 5 minutos. Ten a mano el nombre de quien respalda el proyecto.</small><button class="glass tint btn" data-open="apply">Iniciar</button></div>
+  <p class="have">¿Ya postulaste? <button type="button" data-account>Entra a tu cuenta</button> para ver tu evaluación.</p>
 </section>
 
 <!-- ============ Encuesta cooperante (ventana grande) ============ -->
-<section class="sheet big" id="coop" role="dialog" aria-modal="true" aria-labelledby="coopT" data-wizard>
+<section class="sheet big" id="coop" role="dialog" aria-modal="true" aria-labelledby="coopT" data-wizard data-mode="empresa">
   <div class="wz-top">
     <div>
       <button class="glass btn back" data-open="coop-intro">‹ Volver</button>
@@ -460,24 +553,22 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
     </div>
     <button class="glass close" data-close aria-label="Cerrar">✕</button>
   </div>
-  <ol class="wz-steps"><li>Tu empresa</li><li>Valor compartido</li><li>Cooperación</li><li>Compromiso</li></ol>
+  <ol class="wz-steps"><li>Tu empresa</li><li>Valor compartido</li><li>Cooperación</li><li>Documentos</li><li>Contacto</li></ol>
   <form class="wz" data-form novalidate>
     <fieldset class="wz-pane">
       <h3>Cuéntanos sobre <b>tu empresa</b></h3>
       <div class="f w3"><label for="c1">Empresa *</label><input id="c1" required placeholder="Nombre de la empresa"></div>
-      <div class="f w3"><label for="c2">País *</label><input id="c2" required placeholder="Países Bajos, España, Italia…"></div>
-      <div class="f"><label for="c3">Sector *</label><input id="c3" required placeholder="Mobiliario, energía, alimentos…"></div>
-      <div class="f"><label for="c4">Tamaño</label><select id="c4"><option value="">Selecciona…</option><option>1–10 personas</option><option>11–50 personas</option><option>51–250 personas</option><option>Más de 250</option></select></div>
+      <div class="f w3"><label for="c2">País *</label><select id="c2" required data-country="empresa"></select></div>
+      <div class="f"><label for="c3">Sector *</label><select id="c3" required data-other>
+        <option value="">Selecciona…</option><option>Mobiliario y diseño</option><option>Textil y moda</option><option>Alimentos y bebidas</option><option>Agricultura</option><option>Energía</option><option>Construcción y materiales</option><option>Tecnología y software</option><option>Educación</option><option>Salud</option><option>Turismo y hospitalidad</option><option>Logística y transporte</option><option>Finanzas e inversión</option><option>Cosmética y cuidado personal</option><option>Consultoría</option><option value="__otro">Otro</option></select></div>
+      <div class="f"><label for="c4">Tamaño</label><select id="c4"><option value="">Selecciona…</option><option>1–10 personas</option><option>11–50 personas</option><option>51–250 personas</option><option>251–1.000 personas</option><option>Más de 1.000</option></select></div>
       <div class="f"><label for="c5">Sitio web</label><input id="c5" type="url" placeholder="https://"></div>
-      <div class="f"><label for="c6">Persona de contacto *</label><input id="c6" required placeholder="Nombre y apellido"></div>
-      <div class="f"><label for="c7">Cargo</label><input id="c7" placeholder="CEO, sostenibilidad…"></div>
-      <div class="f"><label for="c8">Correo *</label><input id="c8" type="email" required placeholder="nombre@empresa.com"></div>
     </fieldset>
 
     <fieldset class="wz-pane">
       <h3>Cómo entiendes el <b>valor compartido</b></h3>
       <div class="f full"><span class="q">¿Integrarías comunidades locales en tu cadena de valor? *</span>
-        <div class="chips" data-required><button type="button" class="chip" aria-pressed="false">Producción</button><button type="button" class="chip" aria-pressed="false">Abastecimiento de materiales</button><button type="button" class="chip" aria-pressed="false">Capacitación</button><button type="button" class="chip" aria-pressed="false">Aún no lo sé</button></div></div>
+        <div class="chips" data-required><button type="button" class="chip" aria-pressed="false">Producción</button><button type="button" class="chip" aria-pressed="false">Abastecimiento de materiales</button><button type="button" class="chip" aria-pressed="false">Capacitación</button><button type="button" class="chip" aria-pressed="false">Aún no lo sé</button><button type="button" class="chip" aria-pressed="false">Otro</button></div></div>
       <div class="f full"><span class="q">Para tu empresa, la sostenibilidad es… *</span>
         <div class="chips" data-single data-required><button type="button" class="chip" aria-pressed="false">Principalmente ambiental</button><button type="button" class="chip" aria-pressed="false">Ambiental y socioeconómica</button><button type="button" class="chip" aria-pressed="false">Parte de todas nuestras decisiones</button></div></div>
       <div class="f full"><span class="q">¿Tu modelo de negocio ya genera a la vez valor económico e impacto social o ambiental?</span>
@@ -491,7 +582,7 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
         <div class="chips" data-required><button type="button" class="chip" aria-pressed="false">Financiamiento</button><button type="button" class="chip" aria-pressed="false">Tecnología</button><button type="button" class="chip" aria-pressed="false">Capacitación</button><button type="button" class="chip" aria-pressed="false">Compra de producción</button><button type="button" class="chip" aria-pressed="false">Otra</button></div></div>
       <div class="f full"><span class="q">Pilares de interés *</span><div class="chips" data-chips="pillars" data-required></div></div>
       <div class="f full"><span class="q">Países de interés</span>
-        <div class="chips"><button type="button" class="chip" aria-pressed="false">Ecuador</button><button type="button" class="chip" aria-pressed="false">Perú</button><button type="button" class="chip" aria-pressed="false">Colombia</button><button type="button" class="chip" aria-pressed="false">Bolivia</button><button type="button" class="chip" aria-pressed="false">México</button><button type="button" class="chip" aria-pressed="false">Brasil</button><button type="button" class="chip" aria-pressed="false">Chile</button><button type="button" class="chip" aria-pressed="false">Abierto a cualquiera</button></div></div>
+        <div class="chips"><button type="button" class="chip" aria-pressed="false">Ecuador</button><button type="button" class="chip" aria-pressed="false">Perú</button><button type="button" class="chip" aria-pressed="false">Colombia</button><button type="button" class="chip" aria-pressed="false">Bolivia</button><button type="button" class="chip" aria-pressed="false">México</button><button type="button" class="chip" aria-pressed="false">Brasil</button><button type="button" class="chip" aria-pressed="false">Chile</button><button type="button" class="chip" aria-pressed="false">Abierto a cualquiera</button><button type="button" class="chip" aria-pressed="false">Otro</button></div></div>
       <div class="f w3"><span class="q">Horizonte de la cooperación</span>
         <div class="chips" data-single><button type="button" class="chip" aria-pressed="false">Menos de 1 año</button><button type="button" class="chip" aria-pressed="false">1 a 3 años</button><button type="button" class="chip" aria-pressed="false">Más de 3 años</button></div></div>
       <div class="f w3"><label for="c10">Inversión orientativa</label><select id="c10"><option>Por definir</option><option>Menos de 10.000 €</option><option>10.000 – 50.000 €</option><option>50.000 – 200.000 €</option><option>Más de 200.000 €</option></select></div>
@@ -501,8 +592,16 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
     </fieldset>
 
     <fieldset class="wz-pane">
-      <h3>Último paso: <b>compromiso</b></h3>
-      <div class="f full"><label for="c12">¿Algo más que debamos saber?</label><textarea id="c12" placeholder="Proyectos actuales, certificaciones, expectativas…"></textarea></div>
+      <h3>Documentos <b>de apoyo</b></h3>
+      <p class="hint full">Opcional. Presentación corporativa, informe de sostenibilidad, certificaciones o cualquier material que nos ayude a entender tu empresa.</p>
+      <div class="f full" data-files></div>
+      <div class="f full"><label for="c13">Enlaces</label><input id="c13" placeholder="Web, informe en línea, video…"></div>
+    </fieldset>
+
+    <fieldset class="wz-pane">
+      <h3>Contacto y <b>compromiso</b></h3>
+      <div class="f full" data-contacts="empresa"></div>
+      <div class="f full"><label for="c12">¿Algo más que debamos saber?</label><textarea id="c12" placeholder="Proyectos actuales, expectativas…"></textarea></div>
       <label class="check"><input type="checkbox" required> Declaro que mi empresa no realiza actividades extractivistas ni contrarias a los pilares de Seven Sides.</label>
       <label class="check"><input type="checkbox" required> Entiendo que Seven Sides evaluará a mi empresa antes de mostrarle proyectos.</label>
       <label class="check"><input type="checkbox" required> Acepto el tratamiento de mis datos para fines de evaluación y contacto (RGPD).</label>
@@ -514,50 +613,59 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
     <span class="wz-count"></span>
     <button class="glass tint btn" data-next>Siguiente</button>
   </div>
-  <div class="eval">
-    <div class="kicker label">Perfil recibido</div>
-    <h2>Ahora <b>evaluamos tu empresa.</b></h2>
-    <p class="lead">Revisamos tu actividad frente a los siete pilares y la naturaleza. Te escribiremos al correo que nos dejaste con el resultado.</p>
-    <ol class="tl">
-      <li class="done"><b>Perfil recibido</b><span>Tus respuestas llegaron a Seven Sides.</span></li>
-      <li class="now"><b>Evaluación de empresa</b><span>Verificamos que tu actividad sea compatible con los pilares y que no sea extractivista.</span></li>
-      <li><b>Matches</b><span>Cuando haya proyectos alineados, los verás en tu panel de matches.</span></li>
-    </ol>
-    <div class="start"><small>Prototipo · así se verá el panel cuando tengas matches.</small><button class="glass tint btn" data-open="matches-coop">Ver ejemplo de matches</button></div>
-  </div>
+  <div class="eval" data-eval="empresa"></div>
 </section>
 
 <!-- ============ Encuesta proyecto (ventana grande) ============ -->
-<section class="sheet big" id="apply" role="dialog" aria-modal="true" aria-labelledby="applyT" data-wizard>
+<section class="sheet big" id="apply" role="dialog" aria-modal="true" aria-labelledby="applyT" data-wizard data-mode="proyecto">
   <div class="wz-top">
     <div>
       <button class="glass btn back" data-open="apply-intro">‹ Volver</button>
-      <div class="kicker label">Para proyectos · Comunidades · Organizaciones</div>
+      <div class="kicker label">Para proyectos · Comunidades · Organizaciones · Ideas</div>
       <h2 id="applyT">Tu proyecto merece <b>un socio, no un trámite.</b></h2>
     </div>
     <button class="glass close" data-close aria-label="Cerrar">✕</button>
   </div>
-  <ol class="wz-steps"><li>El proyecto</li><li>Respaldo y comunidad</li><li>La necesidad</li><li>Contacto</li></ol>
+  <ol class="wz-steps"><li>El proyecto</li><li>Respaldo</li><li>La necesidad</li><li>Documentos</li><li>Contacto</li></ol>
   <form class="wz" data-form novalidate>
     <fieldset class="wz-pane">
       <h3>Cuéntanos sobre <b>el proyecto</b></h3>
       <div class="f w3"><label for="a1">Nombre del proyecto *</label><input id="a1" required placeholder="Ej. Bosque comunitario"></div>
-      <div class="f w3"><label for="a2">Organización o comunidad *</label><input id="a2" required placeholder="Quién lo impulsa"></div>
-      <div class="f"><label for="a3">Tipo *</label><select id="a3" required><option value="">Selecciona…</option><option>Organización constituida</option><option>Comunidad con respaldo oficial</option></select></div>
-      <div class="f"><label for="a4">País *</label><input id="a4" required placeholder="Ecuador, Perú, Colombia…"></div>
-      <div class="f"><label for="a5">Provincia o región *</label><input id="a5" required placeholder="Ej. Azuay"></div>
-      <div class="f w3"><span class="q">Etapa *</span><div class="chips" data-single data-required><button type="button" class="chip" aria-pressed="false">Idea</button><button type="button" class="chip" aria-pressed="false">En marcha</button></div></div>
-      <div class="f w3"><label for="a6">Tiempo en funcionamiento</label><select id="a6"><option>Aún no empieza</option><option>Menos de 1 año</option><option>1 a 3 años</option><option>Más de 3 años</option></select></div>
+      <div class="f w3"><label for="a2">Organización, comunidad o proyecto *</label><input id="a2" required placeholder="Quién lo impulsa"></div>
+      <div class="f w3"><label for="a3">Tipo *</label><select id="a3" required data-other>
+        <option value="">Selecciona…</option>
+        <option>Organización constituida (ONG, fundación, asociación)</option>
+        <option>Cooperativa o asociación de productores</option>
+        <option>Comunidad con respaldo oficial</option>
+        <option>Comunidad u organización indígena</option>
+        <option>Emprendimiento social</option>
+        <option value="concepto">Proyecto o concepto independiente</option>
+        <option value="concepto">Iniciativa académica o universitaria</option>
+        <option value="__otro">Otro</option></select>
+        <p class="note" data-show-when="concepto">Estamos abiertos a buenas ideas. Para validarla, más adelante te pediremos el respaldo de un profesor o de una universidad.</p></div>
+      <div class="f w3"><span class="q">Etapa *</span>
+        <div class="chips" data-single data-required><button type="button" class="chip" aria-pressed="false">Idea</button><button type="button" class="chip" aria-pressed="false">Concepto desarrollado</button><button type="button" class="chip" aria-pressed="false">En diseño o planificación</button><button type="button" class="chip" aria-pressed="false">Piloto en curso</button><button type="button" class="chip" aria-pressed="false">En marcha</button><button type="button" class="chip" aria-pressed="false">Consolidado, buscando escalar</button></div></div>
+      <div class="f"><label for="a4">País *</label><select id="a4" required data-country="proyecto" data-region="#a5"></select></div>
+      <div class="f"><label for="a5">Provincia, estado o región *</label><select id="a5" required disabled></select></div>
+      <div class="f"><label for="a5b">Ciudad, cantón o parroquia</label><input id="a5b" placeholder="Ej. Cuenca"></div>
+      <div class="f w3"><label for="a6">Tiempo en funcionamiento</label><select id="a6"><option>Aún no empieza</option><option>Menos de 1 año</option><option>1 a 3 años</option><option>3 a 5 años</option><option>Más de 5 años</option></select></div>
     </fieldset>
 
     <fieldset class="wz-pane">
       <h3>Respaldo y <b>comunidad</b></h3>
-      <div class="f"><label for="a7">Respaldo oficial *</label><select id="a7" required><option value="">Selecciona…</option><option>Gobierno local / municipio</option><option>Junta parroquial</option><option>ONG</option><option>Universidad</option><option>Otro</option></select></div>
-      <div class="f"><label for="a8">Nombre de la entidad *</label><input id="a8" required placeholder="Quién respalda el proyecto"></div>
-      <div class="f"><label for="a9">Personas beneficiadas</label><input id="a9" type="number" min="0" placeholder="Aproximado"></div>
-      <div class="f full"><span class="q">¿Qué ofrece la comunidad?</span>
-        <div class="chips"><button type="button" class="chip" aria-pressed="false">Producción agrícola</button><button type="button" class="chip" aria-pressed="false">Artesanía y oficios</button><button type="button" class="chip" aria-pressed="false">Materiales naturales</button><button type="button" class="chip" aria-pressed="false">Turismo</button><button type="button" class="chip" aria-pressed="false">Conocimiento ancestral</button><button type="button" class="chip" aria-pressed="false">Mano de obra capacitada</button><button type="button" class="chip" aria-pressed="false">Otro</button></div></div>
-      <div class="f full"><label for="a10">Cuéntanos brevemente quiénes son</label><textarea id="a10" placeholder="Historia de la comunidad u organización, qué hacen hoy…"></textarea></div>
+      <div class="f w3"><label for="a7">Respaldo *</label><select id="a7" required data-other>
+        <option value="">Selecciona…</option>
+        <optgroup label="Público"><option>Gobierno local o municipio</option><option>Gobierno provincial o regional</option><option>Junta parroquial</option><option>Ministerio o entidad pública</option></optgroup>
+        <optgroup label="Académico"><option>Universidad</option><option>Profesor o investigador universitario</option><option>Instituto técnico</option></optgroup>
+        <optgroup label="Sociedad civil"><option>ONG</option><option>Fundación</option><option>Cooperativa o asociación</option><option>Organización indígena o comunitaria</option></optgroup>
+        <option>Aún no tengo respaldo, lo gestionaré</option>
+        <option value="__otro">Otro</option></select></div>
+      <div class="f w3"><label for="a8">Nombre de la entidad o persona que respalda</label><input id="a8" placeholder="Ej. GAD Parroquial de…, Universidad de…"></div>
+      <div class="f w3"><label for="a9">Personas beneficiadas</label><select id="a9"><option value="">Selecciona…</option><option>Menos de 50</option><option>50 – 200</option><option>200 – 1.000</option><option>1.000 – 5.000</option><option>Más de 5.000</option></select></div>
+      <div class="f w3"><label for="a9b">Familias o miembros directos</label><input id="a9b" type="number" min="0" placeholder="Aproximado"></div>
+      <div class="f full"><span class="q">¿Qué ofrece la comunidad o el proyecto?</span>
+        <div class="chips"><button type="button" class="chip" aria-pressed="false">Producción agrícola</button><button type="button" class="chip" aria-pressed="false">Artesanía y oficios</button><button type="button" class="chip" aria-pressed="false">Materiales naturales</button><button type="button" class="chip" aria-pressed="false">Turismo</button><button type="button" class="chip" aria-pressed="false">Conocimiento ancestral</button><button type="button" class="chip" aria-pressed="false">Mano de obra capacitada</button><button type="button" class="chip" aria-pressed="false">Investigación</button><button type="button" class="chip" aria-pressed="false">Otro</button></div></div>
+      <div class="f full"><label for="a10">Cuéntanos brevemente quiénes son</label><textarea id="a10" placeholder="Historia de la comunidad, organización o equipo; qué hacen hoy…"></textarea></div>
     </fieldset>
 
     <fieldset class="wz-pane">
@@ -565,19 +673,23 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
       <div class="f full"><span class="q">Pilares que impacta *</span><div class="chips" data-chips="pillars" data-required></div></div>
       <div class="f full"><label for="a11">¿Qué necesitan? *</label><textarea id="a11" required placeholder="Describe la necesidad y a quién beneficia."></textarea></div>
       <div class="f full"><span class="q">Tipo de apoyo que buscan</span>
-        <div class="chips"><button type="button" class="chip" aria-pressed="false">Financiamiento</button><button type="button" class="chip" aria-pressed="false">Tecnología</button><button type="button" class="chip" aria-pressed="false">Capacitación</button><button type="button" class="chip" aria-pressed="false">Compra de producción</button><button type="button" class="chip" aria-pressed="false">Infraestructura</button></div></div>
+        <div class="chips"><button type="button" class="chip" aria-pressed="false">Financiamiento</button><button type="button" class="chip" aria-pressed="false">Tecnología</button><button type="button" class="chip" aria-pressed="false">Capacitación</button><button type="button" class="chip" aria-pressed="false">Compra de producción</button><button type="button" class="chip" aria-pressed="false">Infraestructura</button><button type="button" class="chip" aria-pressed="false">Otro</button></div></div>
       <div class="f full"><span class="q">¿Qué les falta para crecer?</span>
-        <div class="chips"><button type="button" class="chip" aria-pressed="false">Infraestructura</button><button type="button" class="chip" aria-pressed="false">Conectividad</button><button type="button" class="chip" aria-pressed="false">Capacitación</button><button type="button" class="chip" aria-pressed="false">Acceso a mercados</button><button type="button" class="chip" aria-pressed="false">Financiamiento</button></div></div>
+        <div class="chips"><button type="button" class="chip" aria-pressed="false">Infraestructura</button><button type="button" class="chip" aria-pressed="false">Conectividad</button><button type="button" class="chip" aria-pressed="false">Capacitación</button><button type="button" class="chip" aria-pressed="false">Acceso a mercados</button><button type="button" class="chip" aria-pressed="false">Financiamiento</button><button type="button" class="chip" aria-pressed="false">Otro</button></div></div>
       <div class="f full"><span class="q">¿Recibirían visitas y acompañamiento en territorio?</span>
         <div class="chips" data-single><button type="button" class="chip" aria-pressed="false">Sí</button><button type="button" class="chip" aria-pressed="false">Por conversar</button></div></div>
     </fieldset>
 
     <fieldset class="wz-pane">
+      <h3>Documentos y <b>evidencia</b></h3>
+      <p class="hint full">Opcional, pero nos ayuda a entender el proyecto con más profundidad: presentaciones, evidencia de la necesidad, encuestas, cartas de respaldo, fotos o videos.</p>
+      <div class="f full" data-files></div>
+      <div class="f full"><label for="a16">Enlaces</label><input id="a16" placeholder="Web, redes sociales, video, carpeta compartida…"></div>
+    </fieldset>
+
+    <fieldset class="wz-pane">
       <h3>Contacto y <b>compromiso</b></h3>
-      <div class="f w3"><label for="a12">Persona de contacto *</label><input id="a12" required placeholder="Nombre y apellido"></div>
-      <div class="f w3"><label for="a13">Cargo o rol</label><input id="a13" placeholder="Presidente, coordinadora…"></div>
-      <div class="f w3"><label for="a14">Correo *</label><input id="a14" type="email" required placeholder="contacto@proyecto.org"></div>
-      <div class="f w3"><label for="a15">Teléfono o WhatsApp</label><input id="a15" type="tel" placeholder="+593…"></div>
+      <div class="f full" data-contacts="proyecto"></div>
       <label class="check"><input type="checkbox" required> Confirmo que el proyecto respeta, conserva y preserva la naturaleza.</label>
       <label class="check"><input type="checkbox" required> Acepto el tratamiento de mis datos para fines de evaluación y contacto. La información del proyecto sigue siendo de quienes lo impulsan.</label>
     </fieldset>
@@ -588,30 +700,49 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
     <span class="wz-count"></span>
     <button class="glass tint btn" data-next>Siguiente</button>
   </div>
-  <div class="eval">
-    <div class="kicker label">Postulación recibida</div>
-    <h2>Ahora <b>evaluamos tu proyecto.</b></h2>
-    <p class="lead">Revisamos la propuesta frente a los siete pilares y la naturaleza. Si hace falta, te contactaremos para afinarla.</p>
-    <ol class="tl">
-      <li class="done"><b>Postulación recibida</b><span>Tus respuestas llegaron a Seven Sides.</span></li>
-      <li class="now"><b>Evaluación del proyecto</b><span>Verificamos el respaldo oficial, la necesidad y el impacto en los pilares.</span></li>
-      <li><b>Matches</b><span>Tu proyecto se muestra a empresas alineadas. El contacto se comparte cuando una acepta.</span></li>
-    </ol>
-    <div class="start"><small>Prototipo · así se verá el panel cuando tengas matches.</small><button class="glass tint btn" data-open="matches-proj">Ver ejemplo de matches</button></div>
+  <div class="eval" data-eval="proyecto"></div>
+</section>
+
+<!-- ============ Acceso ============ -->
+<section class="sheet" id="login" role="dialog" aria-modal="true" aria-labelledby="loginT">
+  <header>
+    <div>
+      <div class="kicker label">Mi cuenta</div>
+      <h2 id="loginT">Consulta tu <b>evaluación y tus matches.</b></h2>
+    </div>
+    <button class="glass close" data-close aria-label="Cerrar">✕</button>
+  </header>
+  <form class="acc-form" id="loginForm" novalidate>
+    <div class="f full"><label for="l1">Correo o número de usuario</label><input id="l1" required placeholder="nombre@correo.com o #8923jfjsdf"></div>
+    <div class="f full"><label for="l2">Contraseña</label><input id="l2" type="password" required placeholder="••••••••"></div>
+    <p class="err" id="loginErr" role="alert"></p>
+    <div class="start"><small>¿Aún no postulas? Hazlo desde “Unirme como cooperante” o “Postular mi proyecto”.</small><button class="glass tint btn" type="submit">Entrar</button></div>
+  </form>
+</section>
+
+<!-- ============ Panel de cuenta ============ -->
+<section class="sheet big" id="account" role="dialog" aria-modal="true" aria-labelledby="accT">
+  <div class="wz-top">
+    <div>
+      <div class="kicker label" id="accKicker">Mi cuenta</div>
+      <h2 id="accT"></h2>
+    </div>
+    <button class="glass close" data-close aria-label="Cerrar">✕</button>
   </div>
+  <div class="acc-body" id="accBody"></div>
 </section>
 
 <!-- ============ Matches cooperante ============ -->
 <section class="sheet big" id="matches-coop" role="dialog" aria-modal="true" aria-labelledby="mcT">
   <div class="wz-top">
     <div>
-      <div class="kicker label">Tus matches · ejemplo</div>
+      <div class="kicker label">Tus matches</div>
       <h2 id="mcT">Proyectos <b>alineados con tu empresa.</b></h2>
     </div>
     <button class="glass close" data-close aria-label="Cerrar">✕</button>
   </div>
   <div class="m-body">
-    <p class="lead">Pasa el cursor para ver cada proyecto y selecciona uno para aceptar el match. Al aceptarlo, compartimos el contacto con ambas partes.</p>
+    <p class="lead">Elige el proyecto que más se alinea con lo que busca tu empresa. Pasa el cursor para ver el análisis; nombres y contactos se revelan después de la reunión.</p>
     <div class="ilp" data-list="coop"></div>
   </div>
   <div class="wz-nav m-nav">
@@ -624,18 +755,18 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
 <section class="sheet big" id="matches-proj" role="dialog" aria-modal="true" aria-labelledby="mpT">
   <div class="wz-top">
     <div>
-      <div class="kicker label">Tus matches · ejemplo</div>
-      <h2 id="mpT">Empresas <b>interesadas en tu proyecto.</b></h2>
+      <div class="kicker label">Tus matches</div>
+      <h2 id="mpT">Empresas <b>alineadas con tu proyecto.</b></h2>
     </div>
     <button class="glass close" data-close aria-label="Cerrar">✕</button>
   </div>
   <div class="m-body">
-    <p class="lead">Estas empresas ya aceptaron tu proyecto. Selecciona una para confirmar el match y empezar la conversación.</p>
+    <p class="lead">Elige el contacto que más se alinea con lo que buscas como proyecto. Pasa el cursor para ver el análisis; nombres y contactos se revelan después de la reunión.</p>
     <div class="ilp" data-list="proj"></div>
   </div>
   <div class="wz-nav m-nav">
     <span class="m-sel">Ninguna empresa seleccionada</span>
-    <button class="glass tint btn" data-accept disabled>Confirmar match</button>
+    <button class="glass tint btn" data-accept disabled>Aceptar match</button>
   </div>
 </section>
 
@@ -844,15 +975,241 @@ addEventListener("keydown",e=>{ if(e.key==="Escape") closeSheets(); });
 $$('[data-chips="pillars"]').forEach(box=>{
   box.innerHTML=PILLARS.map(p=>`<button type="button" class="chip" aria-pressed="false">${p.short}</button>`).join("");
 });
+
+
+$$("[data-form]").forEach(f=>f.addEventListener("submit",e=>e.preventDefault()));
+/* ===== Listas para evitar datos mal escritos ===== */
+const GEO = {
+  "Argentina":["Buenos Aires","Ciudad Autónoma de Buenos Aires","Catamarca","Chaco","Chubut","Córdoba","Corrientes","Entre Ríos","Formosa","Jujuy","La Pampa","La Rioja","Mendoza","Misiones","Neuquén","Río Negro","Salta","San Juan","San Luis","Santa Cruz","Santa Fe","Santiago del Estero","Tierra del Fuego","Tucumán"],
+  "Bolivia":["Beni","Chuquisaca","Cochabamba","La Paz","Oruro","Pando","Potosí","Santa Cruz","Tarija"],
+  "Brasil":["Acre","Alagoas","Amapá","Amazonas","Bahia","Ceará","Distrito Federal","Espírito Santo","Goiás","Maranhão","Mato Grosso","Mato Grosso do Sul","Minas Gerais","Pará","Paraíba","Paraná","Pernambuco","Piauí","Rio de Janeiro","Rio Grande do Norte","Rio Grande do Sul","Rondônia","Roraima","Santa Catarina","São Paulo","Sergipe","Tocantins"],
+  "Chile":["Arica y Parinacota","Tarapacá","Antofagasta","Atacama","Coquimbo","Valparaíso","Metropolitana de Santiago","O'Higgins","Maule","Ñuble","Biobío","La Araucanía","Los Ríos","Los Lagos","Aysén","Magallanes"],
+  "Colombia":["Amazonas","Antioquia","Arauca","Atlántico","Bogotá D.C.","Bolívar","Boyacá","Caldas","Caquetá","Casanare","Cauca","Cesar","Chocó","Córdoba","Cundinamarca","Guainía","Guaviare","Huila","La Guajira","Magdalena","Meta","Nariño","Norte de Santander","Putumayo","Quindío","Risaralda","San Andrés y Providencia","Santander","Sucre","Tolima","Valle del Cauca","Vaupés","Vichada"],
+  "Costa Rica":["Alajuela","Cartago","Guanacaste","Heredia","Limón","Puntarenas","San José"],
+  "Cuba":["Pinar del Río","Artemisa","La Habana","Mayabeque","Matanzas","Cienfuegos","Villa Clara","Sancti Spíritus","Ciego de Ávila","Camagüey","Las Tunas","Holguín","Granma","Santiago de Cuba","Guantánamo","Isla de la Juventud"],
+  "Ecuador":["Azuay","Bolívar","Cañar","Carchi","Chimborazo","Cotopaxi","El Oro","Esmeraldas","Galápagos","Guayas","Imbabura","Loja","Los Ríos","Manabí","Morona Santiago","Napo","Orellana","Pastaza","Pichincha","Santa Elena","Santo Domingo de los Tsáchilas","Sucumbíos","Tungurahua","Zamora Chinchipe"],
+  "El Salvador":["Ahuachapán","Cabañas","Chalatenango","Cuscatlán","La Libertad","La Paz","La Unión","Morazán","San Miguel","San Salvador","San Vicente","Santa Ana","Sonsonate","Usulután"],
+  "Guatemala":["Alta Verapaz","Baja Verapaz","Chimaltenango","Chiquimula","El Progreso","Escuintla","Guatemala","Huehuetenango","Izabal","Jalapa","Jutiapa","Petén","Quetzaltenango","Quiché","Retalhuleu","Sacatepéquez","San Marcos","Santa Rosa","Sololá","Suchitepéquez","Totonicapán","Zacapa"],
+  "Honduras":["Atlántida","Choluteca","Colón","Comayagua","Copán","Cortés","El Paraíso","Francisco Morazán","Gracias a Dios","Intibucá","Islas de la Bahía","La Paz","Lempira","Ocotepeque","Olancho","Santa Bárbara","Valle","Yoro"],
+  "México":["Aguascalientes","Baja California","Baja California Sur","Campeche","Chiapas","Chihuahua","Ciudad de México","Coahuila","Colima","Durango","Estado de México","Guanajuato","Guerrero","Hidalgo","Jalisco","Michoacán","Morelos","Nayarit","Nuevo León","Oaxaca","Puebla","Querétaro","Quintana Roo","San Luis Potosí","Sinaloa","Sonora","Tabasco","Tamaulipas","Tlaxcala","Veracruz","Yucatán","Zacatecas"],
+  "Nicaragua":["Boaco","Carazo","Chinandega","Chontales","Costa Caribe Norte","Costa Caribe Sur","Estelí","Granada","Jinotega","León","Madriz","Managua","Masaya","Matagalpa","Nueva Segovia","Río San Juan","Rivas"],
+  "Panamá":["Bocas del Toro","Chiriquí","Coclé","Colón","Darién","Herrera","Los Santos","Panamá","Panamá Oeste","Veraguas","Comarca Emberá-Wounaan","Comarca Guna Yala","Comarca Ngäbe-Buglé"],
+  "Paraguay":["Asunción","Alto Paraguay","Alto Paraná","Amambay","Boquerón","Caaguazú","Caazapá","Canindeyú","Central","Concepción","Cordillera","Guairá","Itapúa","Misiones","Ñeembucú","Paraguarí","Presidente Hayes","San Pedro"],
+  "Perú":["Amazonas","Áncash","Apurímac","Arequipa","Ayacucho","Cajamarca","Callao","Cusco","Huancavelica","Huánuco","Ica","Junín","La Libertad","Lambayeque","Lima","Lima Metropolitana","Loreto","Madre de Dios","Moquegua","Pasco","Piura","Puno","San Martín","Tacna","Tumbes","Ucayali"],
+  "República Dominicana":["Distrito Nacional","Azua","Bahoruco","Barahona","Dajabón","Duarte","El Seibo","Elías Piña","Espaillat","Hato Mayor","Hermanas Mirabal","Independencia","La Altagracia","La Romana","La Vega","María Trinidad Sánchez","Monseñor Nouel","Monte Cristi","Monte Plata","Pedernales","Peravia","Puerto Plata","Samaná","San Cristóbal","San José de Ocoa","San Juan","San Pedro de Macorís","Sánchez Ramírez","Santiago","Santiago Rodríguez","Santo Domingo","Valverde"],
+  "Uruguay":["Artigas","Canelones","Cerro Largo","Colonia","Durazno","Flores","Florida","Lavalleja","Maldonado","Montevideo","Paysandú","Río Negro","Rivera","Rocha","Salto","San José","Soriano","Tacuarembó","Treinta y Tres"],
+  "Venezuela":["Amazonas","Anzoátegui","Apure","Aragua","Barinas","Bolívar","Carabobo","Cojedes","Delta Amacuro","Distrito Capital","Falcón","Guárico","La Guaira","Lara","Mérida","Miranda","Monagas","Nueva Esparta","Portuguesa","Sucre","Táchira","Trujillo","Yaracuy","Zulia"],
+  "Belice":[], "Guyana":[], "Surinam":[], "Puerto Rico":[]
+};
+const EUROPE = ["Alemania","Austria","Bélgica","Bulgaria","Chequia","Chipre","Croacia","Dinamarca","Eslovaquia","Eslovenia","España","Estonia","Finlandia","Francia","Grecia","Hungría","Irlanda","Islandia","Italia","Letonia","Liechtenstein","Lituania","Luxemburgo","Malta","Mónaco","Noruega","Países Bajos","Polonia","Portugal","Reino Unido","Rumanía","Suecia","Suiza"];
+const OTHER_COUNTRIES = ["Canadá","Estados Unidos"];
+const ROLES = {
+  proyecto:["Presidente/a","Vicepresidente/a","Director/a","Coordinador/a","Fundador/a","Cofundador/a","Representante legal","Secretario/a","Tesorero/a","Líder o dirigente comunitario/a","Técnico/a de campo","Responsable de proyectos","Investigador/a","Profesor/a","Estudiante","Voluntario/a","Miembro de la comunidad","Funcionario/a público/a"],
+  empresa:["CEO / Director/a general","Fundador/a","Cofundador/a","Gerente general","Director/a de operaciones (COO)","Director/a financiero/a (CFO)","Director/a de sostenibilidad","Responsable ESG / RSC","Responsable de compras y abastecimiento","Responsable de innovación","Director/a de producto o diseño","Responsable de alianzas","Responsable de marketing","Asistente o coordinador/a"]
+};
+function fillCountrySelect(sel, mode){
+  const latam=Object.keys(GEO).sort((a,b)=>a.localeCompare(b,"es"));
+  const opt=a=>`<option>${a}</option>`;
+  sel.innerHTML=`<option value="">Selecciona…</option>`+
+    (mode==="empresa"
+      ? `<optgroup label="Europa">${EUROPE.map(opt).join("")}</optgroup><optgroup label="Latinoamérica y el Caribe">${latam.map(opt).join("")}</optgroup><optgroup label="Otros">${OTHER_COUNTRIES.map(opt).join("")}</optgroup>`
+      : latam.map(opt).join(""))+
+    `<option value="__otro">Otro país</option>`;
+}
+function fillRegionSelect(sel, country){
+  const list=GEO[country]||[];
+  sel.disabled=!country;
+  sel.innerHTML = !country ? `<option value="">Primero elige el país</option>`
+    : `<option value="">Selecciona…</option>${list.map(r=>`<option>${r}</option>`).join("")}<option value="__otro">${list.length?"Otra":"Escribir región"}</option>`;
+}
+function fillRoleSelect(sel, mode){
+  sel.innerHTML=`<option value="">Selecciona…</option>${ROLES[mode].map(r=>`<option>${r}</option>`).join("")}<option value="__otro">Otro</option>`;
+}
+
+/* ===== listas desplegables ===== */
+$$("select[data-country]").forEach(sel=>{
+  fillCountrySelect(sel, sel.dataset.country);
+  const reg = sel.dataset.region && $(sel.dataset.region);
+  if(reg){ fillRegionSelect(reg,""); sel.addEventListener("change",()=>fillRegionSelect(reg, sel.value==="__otro"?"":sel.value)); }
+  sel.setAttribute("data-other","");
+});
+$$("select[data-region]").forEach(()=>{}); // la región se llena al elegir país
+document.addEventListener("change",e=>{ if(e.target.matches("#a5")) e.target.setAttribute("data-other",""); });
+
+/* "Otro" → campo para describir (selects y chips) */
+function otherInput(after, ph){
+  let inp=after.nextElementSibling;
+  if(!inp || !inp.classList.contains("other")){
+    inp=document.createElement("input"); inp.className="other"; inp.placeholder=ph||"¿Cuál? Descríbelo";
+    after.insertAdjacentElement("afterend",inp);
+  }
+  return inp;
+}
+document.addEventListener("change",e=>{
+  const s=e.target; if(s.tagName!=="SELECT") return;
+  const isOther = s.value==="__otro";
+  if(isOther || (s.nextElementSibling && s.nextElementSibling.classList.contains("other"))){
+    const inp=otherInput(s); inp.classList.toggle("on",isOther); inp.required=isOther && s.required; if(isOther) inp.focus();
+  }
+  // nota para proyectos o conceptos
+  const note=s.parentElement.querySelector('.note[data-show-when]');
+  if(note) note.classList.toggle("on", s.value===note.dataset.showWhen);
+});
 document.addEventListener("click",e=>{
   const c=e.target.closest(".chip"); if(!c) return;
   const g=c.closest(".chips"), on=c.getAttribute("aria-pressed")!=="true";
   if(g?.hasAttribute("data-single")) $$(".chip",g).forEach(x=>x.setAttribute("aria-pressed","false"));
   c.setAttribute("aria-pressed", on);
+  if(g){
+    const hasOther=$$(".chip",g).some(x=>/^otr[oa]$/i.test(x.textContent.trim()) && x.getAttribute("aria-pressed")==="true");
+    const anyOtherChip=$$(".chip",g).some(x=>/^otr[oa]$/i.test(x.textContent.trim()));
+    if(anyOtherChip){ const inp=otherInput(g); inp.classList.toggle("on",hasOther); if(hasOther && /^otr[oa]$/i.test(c.textContent.trim())) inp.focus(); }
+    if(g.classList.contains("invalid") && $('.chip[aria-pressed="true"]',g)) g.classList.remove("invalid");
+  }
 });
 
-$$("[data-form]").forEach(f=>f.addEventListener("submit",e=>e.preventDefault()));
-/* ----- encuestas por pasos ----- */
+/* contactos (se pueden añadir varios) */
+$$("[data-contacts]").forEach(box=>{
+  const mode=box.dataset.contacts; let n=0;
+  const list=document.createElement("div"); box.appendChild(list);
+  const add=document.createElement("button"); add.type="button"; add.className="glass btn add"; add.textContent="+ Añadir otro contacto"; box.appendChild(add);
+  function addContact(){
+    n++; const first=!list.children.length, id=`${mode}-ct${n}`;
+    const d=document.createElement("div"); d.className="ct";
+    d.innerHTML=`<div class="ct-h"><span>${first?"Contacto principal":"Contacto adicional"}</span>${first?"":`<button type="button" class="rm">Quitar</button>`}</div>
+      <div class="f"><label for="${id}a">Nombre y apellido ${first?"*":""}</label><input id="${id}a" ${first?"required":""} placeholder="Nombre y apellido"></div>
+      <div class="f"><label for="${id}b">Cargo o rol ${first?"*":""}</label><select id="${id}b" ${first?"required":""}></select></div>
+      <div class="f"><label for="${id}c">Correo ${first?"*":""}</label><input id="${id}c" type="email" ${first?"required":""} placeholder="nombre@correo.com"></div>
+      <div class="f"><label for="${id}d">Teléfono o WhatsApp</label><input id="${id}d" type="tel" placeholder="+593 / +31 …"></div>`;
+    fillRoleSelect($("select",d),mode);
+    $(".rm",d)?.addEventListener("click",()=>d.remove());
+    list.appendChild(d);
+  }
+  addContact(); add.addEventListener("click",addContact);
+});
+
+/* adjuntos */
+$$("[data-files]").forEach(box=>{
+  const types=["Presentación","Evidencia de la necesidad","Encuesta o datos","Carta de respaldo","Fotos o video","Informe o certificación","Otro"];
+  box.innerHTML=`<label class="drop"><input type="file" multiple hidden accept=".pdf,.ppt,.pptx,.key,.doc,.docx,.xls,.xlsx,.csv,.jpg,.jpeg,.png,.heic,.mp4,.mov">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4M7 9l5-5 5 5"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+      <b>Arrastra tus archivos o haz clic para subirlos</b><span>PDF, presentaciones, documentos, hojas de cálculo, fotos o videos · hasta 25 MB por archivo</span></label><ul class="files"></ul>`;
+  const input=$("input",box), drop=$(".drop",box), ul=$(".files",box), files=[];
+  const fmt=b=>b>1048576?(b/1048576).toFixed(1)+" MB":Math.max(1,Math.round(b/1024))+" KB";
+  function render(){
+    ul.innerHTML=files.map((f,i)=>`<li><span class="nm">${f.file.name.replace(/</g,"&lt;")}<small>${fmt(f.file.size)}</small></span>
+      <select data-i="${i}" aria-label="Tipo de documento">${types.map(t=>`<option${t===f.type?" selected":""}>${t}</option>`).join("")}</select>
+      <button type="button" data-rm="${i}" aria-label="Quitar">✕</button></li>`).join("");
+  }
+  function addFiles(list){ [...list].forEach(file=>{ if(file.size<=25*1048576) files.push({file,type:/\.(ppt|pptx|key)$/i.test(file.name)?"Presentación":/\.(jpg|jpeg|png|heic|mp4|mov)$/i.test(file.name)?"Fotos o video":/\.(xls|xlsx|csv)$/i.test(file.name)?"Encuesta o datos":"Evidencia de la necesidad"}); }); render(); }
+  input.addEventListener("change",()=>{ addFiles(input.files); input.value=""; });
+  ["dragenter","dragover"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add("over")}));
+  ["dragleave","drop"].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove("over")}));
+  drop.addEventListener("drop",e=>addFiles(e.dataTransfer.files));
+  ul.addEventListener("click",e=>{ const b=e.target.closest("[data-rm]"); if(b){ files.splice(+b.dataset.rm,1); render(); } });
+  ul.addEventListener("change",e=>{ const s=e.target.closest("select[data-i]"); if(s) files[+s.dataset.i].type=s.value; });
+  box._files=files;
+});
+
+/* ===== cuentas: número de usuario, correo y contraseña ===== */
+const STORE_KEY="ss_accounts", EVAL_MS=60*1000; // prototipo: la evaluación se resuelve 1 minuto después de verificar
+let memStore={}, session=null;
+const loadAcc=()=>{ try{ return JSON.parse(localStorage.getItem(STORE_KEY)||"{}"); }catch(e){ return memStore; } };
+const saveAcc=a=>{ memStore=a; try{ localStorage.setItem(STORE_KEY,JSON.stringify(a)); }catch(e){} };
+async function hash(s){ try{ const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join(""); }catch(e){ return btoa(unescape(encodeURIComponent(s))); } }
+function newId(){ const L="abcdefghijkmnpqrstuvwxyz"; let s=String(1000+Math.floor(Math.random()*9000)); for(let i=0;i<6;i++) s+=L[Math.floor(Math.random()*L.length)]; return "#"+s; }
+const statusOf=a=> !a.verifiedAt ? "unverified" : (Date.now()-a.verifiedAt>EVAL_MS ? "matches" : "evaluating");
+const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+function timelineHTML(role, st){
+  const isP=role==="proyecto";
+  const s2 = st==="matches" ? "done" : "now", s3 = st==="matches" ? "now" : "";
+  return `<ol class="tl">
+    <li class="done"><b>${isP?"Postulación recibida":"Perfil recibido"}</b><span>Tus respuestas llegaron a Seven Sides.</span></li>
+    <li class="${s2}"><b>${isP?"Evaluación del proyecto":"Evaluación de empresa"}</b><span>${isP?"Verificamos el respaldo, la necesidad y el impacto en los pilares.":"Verificamos que tu actividad sea compatible con los pilares y que no sea extractivista."}</span></li>
+    <li class="${s3}"><b>Matches</b><span>${st==="matches"?"Ya tienes coincidencias. Revisa el análisis y elige con quién reunirte.":isP?"Tu proyecto se mostrará a empresas alineadas.":"Cuando haya proyectos alineados, aparecerán aquí."}</span></li>
+  </ol>`;
+}
+
+function renderEval(box, step, ctx){
+  const role=box.dataset.eval, isP=role==="proyecto";
+  if(step==="id"){
+    box.innerHTML=`<div class="ev">
+      <div class="kicker label">${isP?"Postulación recibida":"Perfil recibido"}</div>
+      <h2>Tu número de ${isP?"proyecto":"empresa"} es</h2>
+      <div class="uid"><code>${ctx.id}</code><button type="button" class="glass btn" data-copy="${ctx.id}">Copiar</button></div>
+      <p class="lead">Guárdalo. Con este número o tu correo, y una contraseña, podrás ver el estado de la evaluación y tus matches cada vez que vuelvas.</p>
+      <form class="acc-form" novalidate>
+        <div class="f full"><label>Correo *</label><input type="email" required value="${esc(ctx.email)}" name="email"></div>
+        <div class="f"><label>Contraseña *</label><input type="password" required minlength="8" placeholder="Mínimo 8 caracteres" name="pw"></div>
+        <div class="f"><label>Repite la contraseña *</label><input type="password" required minlength="8" name="pw2"></div>
+        <p class="err" role="alert"></p>
+        <div class="start"><small>Te enviaremos un código para verificar tu correo.</small><button class="glass tint btn" type="submit">Crear acceso</button></div>
+      </form></div>`;
+    $("[data-copy]",box).addEventListener("click",e=>{ try{ navigator.clipboard.writeText(ctx.id); e.target.textContent="Copiado"; }catch(_){} });
+    $("form",box).addEventListener("submit",async e=>{
+      e.preventDefault(); const f=e.target, err=$(".err",f);
+      const email=f.email.value.trim(), pw=f.pw.value, pw2=f.pw2.value;
+      $$("input",f).forEach(i=>i.classList.add("touched"));
+      if(!f.email.checkValidity()){ err.textContent="Escribe un correo válido."; err.classList.add("on"); return; }
+      if(pw.length<8){ err.textContent="La contraseña debe tener al menos 8 caracteres."; err.classList.add("on"); return; }
+      if(pw!==pw2){ err.textContent="Las contraseñas no coinciden."; err.classList.add("on"); return; }
+      const acc=loadAcc(); acc[ctx.id]={id:ctx.id,email:email.toLowerCase(),pw:await hash(pw),role,name:ctx.name,created:Date.now(),verifiedAt:null}; saveAcc(acc);
+      renderEval(box,"verify",{...ctx,email});
+    });
+  }
+  if(step==="verify"){
+    box.innerHTML=`<div class="ev">
+      <div class="kicker label">Verifica tu correo</div>
+      <h2>Revisa <b>tu bandeja de entrada.</b></h2>
+      <p class="lead">Enviamos un código de 6 dígitos a <b>${esc(ctx.email)}</b>. Escríbelo para activar tu acceso.</p>
+      <form class="acc-form" novalidate>
+        <div class="f full"><label>Código de verificación</label><input class="code" inputmode="numeric" maxlength="6" placeholder="······" name="code" autocomplete="one-time-code"></div>
+        <p class="err" role="alert"></p>
+        <div class="start"><button type="button" class="glass btn" data-resend>Reenviar código</button><button class="glass tint btn" type="submit">Verificar</button></div>
+      </form></div>`;
+    $("[data-resend]",box).addEventListener("click",e=>{ e.target.textContent="Código reenviado"; });
+    $("form",box).addEventListener("submit",e=>{
+      e.preventDefault(); const v=e.target.code.value.trim(), err=$(".err",e.target);
+      if(!/^\d{6}$/.test(v)){ err.textContent="El código tiene 6 dígitos."; err.classList.add("on"); return; }
+      const acc=loadAcc(); if(acc[ctx.id]){ acc[ctx.id].verifiedAt=Date.now(); saveAcc(acc); session=acc[ctx.id]; }
+      renderEval(box,"status",ctx);
+    });
+  }
+  if(step==="status"){
+    box.innerHTML=`<div class="ev">
+      <div class="kicker label">Acceso activado · ${ctx.id}</div>
+      <h2>Tu ${isP?"proyecto":"empresa"} está <b>en evaluación.</b></h2>
+      <p class="lead">Te escribiremos cuando termine. Puedes volver cuando quieras desde “Mi cuenta” con tu correo o tu número y tu contraseña.</p>
+      ${timelineHTML(role,"evaluating")}
+      <div class="start"><span></span><button type="button" class="glass tint btn" data-close-all>Entendido</button></div></div>`;
+    $("[data-close-all]",box).addEventListener("click",closeSheets);
+  }
+}
+
+function renderAccount(a){
+  const st=statusOf(a), isP=a.role==="proyecto";
+  $("#accKicker").textContent=`Mi cuenta · ${a.id}`;
+  $("#accT").innerHTML = st==="matches" ? `Tienes <b style="font-weight:400;color:var(--green-hi)">5 matches.</b>` : `Tu ${isP?"proyecto":"empresa"} sigue <b style="font-weight:400;color:var(--green-hi)">en evaluación.</b>`;
+  $("#accBody").innerHTML=`<div class="ev">
+    <div class="acc-meta"><span>${isP?"Proyecto":"Empresa"}: <b>${esc(a.name||"—")}</b></span><span>Número: <b>${a.id}</b></span><span>${esc(a.email)}</span></div>
+    ${timelineHTML(a.role,st)}
+    <div class="start"><button type="button" class="glass btn" data-logout>Cerrar sesión</button>
+      ${st==="matches"?`<button type="button" class="glass tint btn" data-open-matches>Ver mis matches</button>`:`<small>Te avisaremos por correo cuando haya novedades.</small>`}</div></div>`;
+  $("[data-logout]").addEventListener("click",()=>{ session=null; closeSheets(); });
+  $("[data-open-matches]")?.addEventListener("click",()=>openSheet(isP?"matches-proj":"matches-coop"));
+}
+$("#loginForm").addEventListener("submit",async e=>{
+  e.preventDefault(); const f=e.target, err=$("#loginErr");
+  const who=f.l1.value.trim().toLowerCase(), pw=await hash(f.l2.value);
+  const acc=loadAcc(), a=Object.values(acc).find(x=>(x.email===who||x.id.toLowerCase()===who||x.id.toLowerCase()==="#"+who) && x.pw===pw);
+  if(!a){ err.textContent="No encontramos una cuenta con esos datos."; err.classList.add("on"); return; }
+  if(!a.verifiedAt){ err.textContent="Tu correo aún no está verificado. Completa la verificación al postular."; err.classList.add("on"); return; }
+  err.classList.remove("on"); session=a; renderAccount(a); openSheet("account");
+});
+document.addEventListener("click",e=>{ if(e.target.closest("[data-account]")){ if(session){ renderAccount(loadAcc()[session.id]||session); openSheet("account"); } else openSheet("login"); } });
+
+/* ===== encuestas por pasos ===== */
 $$("[data-wizard]").forEach(sh=>{
   const panes=$$(".wz-pane",sh), steps=$$(".wz-steps li",sh), prev=$("[data-prev]",sh), next=$("[data-next]",sh), count=$(".wz-count",sh), err=$(".err",sh), form=$("form",sh);
   let i=0;
@@ -864,93 +1221,155 @@ $$("[data-wizard]").forEach(sh=>{
   }
   function valid(p){
     let ok=true;
-    $$("input,select,textarea",p).forEach(el=>{ if(!el.checkValidity()){ ok=false; el.classList.add("touched"); } });
+    $$("input,select,textarea",p).forEach(el=>{ if(el.offsetParent!==null && !el.checkValidity()){ ok=false; el.classList.add("touched"); } });
     $$(".chips[data-required]",p).forEach(c=>{ const has=!!$('.chip[aria-pressed="true"]',c); c.classList.toggle("invalid",!has); if(!has) ok=false; });
     return ok;
   }
   next.addEventListener("click",()=>{
-    if(!valid(panes[i])){ err.classList.add("on"); return; }
-    if(i<panes.length-1) show(i+1,1); else { sh.classList.add("evaluating"); sh.scrollTop=0; }
+    if(!valid(panes[i])){ err.classList.add("on"); const bad=$(".touched:invalid,.chips.invalid",panes[i]); bad?.scrollIntoView({behavior:"smooth",block:"center"}); return; }
+    if(i<panes.length-1) return show(i+1,1);
+    const email=$('[data-contacts] input[type=email]',sh)?.value||"";
+    const name=$("input[required]",sh)?.value||"";
+    sh.classList.add("evaluating"); renderEval($(".eval",sh),"id",{id:newId(),email,name});
   });
   prev.addEventListener("click",()=>{ if(i>0) show(i-1,-1); });
-  sh.addEventListener("click",e=>{ const c=e.target.closest(".chips.invalid"); if(c && $('.chip[aria-pressed="true"]',c)) c.classList.remove("invalid"); });
-  sh._reset=()=>{ sh.classList.remove("evaluating"); show(0); };
   show(0);
 });
 
-/* ----- matches: lista interactiva (highlight que se desliza, imagen que se revela con clip-path y sigue al puntero) ----- */
+/* ===== matches: lista interactiva + dashboard (sin revelar nombre ni contacto) ===== */
+const ICONS={
+  leaf:'<path d="M5 19c0-8 5-14 15-14 0 10-6 15-14 15"/><path d="M5 19c3-4 6-6 10-8"/>',
+  box:'<path d="M3 7l9-4 9 4-9 4-9-4z"/><path d="M3 7v10l9 4 9-4V7"/><path d="M12 11v10"/>',
+  people:'<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 14.2c3 .2 5.5 2.6 5.5 5.8"/>',
+  hand:'<path d="M7 11l3-3 3 2 3-3 4 4-6 6-3-2-2 2-5-5z"/><path d="M2 10l4-4"/>',
+  bolt:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
+  book:'<path d="M3 5c3-1.5 6-1.5 9 0v14c-3-1.5-6-1.5-9 0zM21 5c-3-1.5-6-1.5-9 0v14c3-1.5 6-1.5 9 0z"/>',
+  drop:'<path d="M12 3s7 7 7 12a7 7 0 0 1-14 0c0-5 7-12 7-12z"/>',
+  globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
+  chip:'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>',
+  heart:'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',
+  coin:'<circle cx="12" cy="12" r="9"/><path d="M15 9.5c-.5-1-1.6-1.5-3-1.5-1.7 0-3 .8-3 2s1.3 1.7 3 2 3 .8 3 2-1.3 2-3 2c-1.4 0-2.5-.5-3-1.5M12 6v12"/>',
+  build:'<path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6"/>'
+};
+const PIL_IC={"Economía":"coin","Innovación":"chip","Educación":"book","Infraestructura":"build","Energía":"bolt","Salud":"heart","Alimentación":"leaf"};
+const svg=n=>`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">${ICONS[n]||""}</svg>`;
+const CRIT=["Pilares en común","Tipo de cooperación","Región","Horizonte","Capacidad"];
 const MATCHES = {
-  coop: { label:["Proyecto","Lugar","Afinidad","Necesidad"], noun:"proyecto", items:[
-    { a:"Bosque comunitario", b:"Comunidad · Latinoamérica", v:94, d:"Capacitación en manejo forestal y compra de producción sostenible", img:"assets/media/bosque.jpg" },
-    { a:"Agroforestería", b:"Cooperativa · Latinoamérica", v:91, d:"Fibras y materiales naturales para cadenas de producción responsables", img:"assets/media/selva.jpg" },
-    { a:"Costas que viven del mar", b:"Comunidad costera", v:86, d:"Recolección y reciclaje de plástico marino con la comunidad", img:"assets/media/costa.jpg" },
-    { a:"Ciudades conectadas", b:"Ciudad · Latinoamérica", v:78, d:"Talleres de oficios y conectividad para artesanos locales", img:"assets/media/ciudad.jpg" },
-    { a:"Agua de alta montaña", b:"Comunidad andina", v:72, d:"Infraestructura y monitoreo de fuentes de agua", img:"assets/media/montana.jpg" },
+  coop: { cols:["Match","Región","Afinidad","Qué busca"], noun:"proyecto", items:[
+    { a:"Bosque comunitario", b:"Andes · Ecuador", v:94, s:"Compra de producción y capacitación",
+      seek:"Una comunidad que maneja su bosque y busca un socio que compre su producción sostenible y la capacite en manejo forestal.",
+      it:[["leaf","Capacitación en manejo forestal","Necesidad principal","Prioridad alta"],["box","Fibras y maderas certificables","Lo que ofrece","Disponible"],["people","120 familias","Personas beneficiadas","Impacto"]],
+      pil:["Alimentación","Economía","Educación"], cr:[96,92,90,95,84], why:["Busca compra de producción","Horizonte de largo plazo","Respaldo de junta parroquial","Materiales afines a tu sector"] },
+    { a:"Agroforestería", b:"Amazonía · Perú", v:91, s:"Fibras naturales para producción",
+      seek:"Cooperativa que cultiva bajo el bosque y quiere vender fibras y materiales naturales a cadenas de producción responsables.",
+      it:[["box","Fibras vegetales y látex natural","Lo que ofrece","Disponible"],["hand","Compra estable de producción","Necesidad principal","Prioridad alta"],["people","45 socios productores","Cooperativa","Impacto"]],
+      pil:["Alimentación","Economía","Innovación"], cr:[90,94,82,88,86], why:["Ofrece materiales naturales","Quiere relación de largo plazo","Producción ya en marcha","Abierta a visitas"] },
+    { a:"Costas que viven del mar", b:"Costa · Ecuador", v:86, s:"Reciclaje de plástico marino",
+      seek:"Comunidad costera que recolecta plástico del mar y busca convertirlo en materia prima con tecnología y un comprador.",
+      it:[["drop","Plástico marino recuperado","Lo que ofrece","Volumen creciente"],["chip","Tecnología de reciclaje","Necesidad principal","Prioridad alta"],["people","300 personas","Personas beneficiadas","Impacto"]],
+      pil:["Economía","Innovación","Educación"], cr:[84,88,86,80,78], why:["Material reciclado para tu producción","Busca tecnología","Impacto ambiental directo","Respaldo municipal"] },
+    { a:"Ciudades conectadas", b:"Sierra centro · Ecuador", v:78, s:"Talleres de oficios",
+      seek:"Asociación de artesanos urbanos que busca capacitación técnica y conectividad para producir con estándares de calidad.",
+      it:[["book","Capacitación en oficios","Necesidad principal","Prioridad media"],["hand","Artesanía en madera y textil","Lo que ofrece","Disponible"],["people","60 artesanos","Personas beneficiadas","Impacto"]],
+      pil:["Educación","Infraestructura","Economía"], cr:[76,82,78,74,72], why:["Intercambio de conocimiento","Artesanía con potencial","Horizonte de 1 a 3 años","Respaldo de universidad"] },
+    { a:"Agua de alta montaña", b:"Páramo · Ecuador", v:72, s:"Infraestructura de agua",
+      seek:"Comunidad andina que protege sus fuentes de agua y necesita infraestructura y monitoreo para garantizar el acceso.",
+      it:[["drop","Sistema de agua comunitario","Necesidad principal","Prioridad alta"],["globe","Conservación de páramo","Lo que ofrece","Impacto ambiental"],["people","800 personas","Personas beneficiadas","Impacto"]],
+      pil:["Infraestructura","Salud"], cr:[68,70,80,76,66], why:["Impacto en naturaleza","Busca financiamiento","Respaldo provincial","Abierta a visitas"] },
   ]},
-  proj: { label:["Empresa","País","Afinidad","Cómo coopera"], noun:"empresa", items:[
-    { a:"Mobiliario sostenible", b:"Países Bajos", v:93, d:"Compra de producción · Capacitación en oficios", bg:"linear-gradient(160deg,#7b705e,#2e2820)" },
-    { a:"Energía renovable", b:"España", v:88, d:"Tecnología · Financiamiento", bg:"linear-gradient(160deg,#b9b49c,#6f6b55)" },
-    { a:"Alimentos orgánicos", b:"Italia", v:84, d:"Compra de producción", bg:"linear-gradient(160deg,#3c5a45,#0f1a13)" },
-    { a:"Software educativo", b:"Alemania", v:79, d:"Tecnología · Capacitación", bg:"linear-gradient(160deg,#47646a,#152225)" },
-    { a:"Textil circular", b:"Ecuador", v:75, d:"Materiales · Compra de producción", bg:"linear-gradient(160deg,#0d9944,#0a3d22)" },
+  proj: { cols:["Match","País","Afinidad","Cómo coopera"], noun:"empresa", items:[
+    { a:"Empresa de mobiliario sostenible", b:"Países Bajos", v:93, s:"Compra de producción · Capacitación",
+      seek:"Marca de mobiliario que integra materiales naturales y busca comunidades que provean fibras y oficios con intercambio real de conocimiento.",
+      it:[["hand","Compra de producción","Forma de cooperar","Largo plazo"],["book","Capacitación en estándares","Forma de cooperar","Incluida"],["globe","Europa → Latinoamérica","Alcance","Exporta"]],
+      pil:["Economía","Educación","Alimentación"], cr:[94,96,88,95,86], why:["Busca materiales que ofreces","Horizonte de más de 3 años","Valora la artesanía","No extractivista"] },
+    { a:"Empresa de energía renovable", b:"España", v:88, s:"Tecnología · Financiamiento",
+      seek:"Empresa de energía solar que quiere llevar microrredes a comunidades rurales con un modelo de mantenimiento local.",
+      it:[["bolt","Equipos solares","Forma de cooperar","Tecnología"],["coin","Cofinanciamiento","Forma de cooperar","Hasta 50.000 €"],["book","Formación técnica local","Forma de cooperar","Incluida"]],
+      pil:["Energía","Infraestructura","Educación"], cr:[90,86,84,88,82], why:["Cubre tu falta de infraestructura","Capacita a la comunidad","Experiencia en la región","Horizonte de 1 a 3 años"] },
+    { a:"Empresa de alimentos orgánicos", b:"Italia", v:84, s:"Compra de producción",
+      seek:"Distribuidora de alimentos orgánicos que busca proveedores comunitarios con trazabilidad y prácticas regenerativas.",
+      it:[["hand","Compra de producción","Forma de cooperar","Contrato anual"],["leaf","Certificación orgánica","Acompañamiento","Incluido"],["globe","Mercado europeo","Alcance","Distribución"]],
+      pil:["Alimentación","Economía"], cr:[86,88,76,82,80], why:["Compra lo que produces","Apoya la certificación","Precio justo","Mercado estable"] },
+    { a:"Empresa de software educativo", b:"Alemania", v:79, s:"Tecnología · Capacitación",
+      seek:"Plataforma educativa que dona licencias y forma docentes en comunidades con baja conectividad.",
+      it:[["chip","Licencias y equipos","Forma de cooperar","Tecnología"],["book","Formación docente","Forma de cooperar","6 meses"],["globe","Funciona sin conexión","Ventaja","Rural"]],
+      pil:["Educación","Innovación"], cr:[80,78,74,80,76], why:["Pilar de educación en común","Adaptado a baja conectividad","Formación incluida","Escalable"] },
+    { a:"Empresa de textil circular", b:"Ecuador", v:75, s:"Materiales · Compra de producción",
+      seek:"Marca textil que trabaja con fibras recicladas y naturales y busca talleres comunitarios para producir colecciones cortas.",
+      it:[["box","Materiales reciclados","Forma de cooperar","Suministro"],["hand","Pedidos por colección","Forma de cooperar","Recurrente"],["people","Talleres comunitarios","Busca","10 a 30 personas"]],
+      pil:["Economía","Innovación"], cr:[74,80,90,70,68], why:["Cercanía geográfica","Busca talleres como el tuyo","Economía circular","Pedidos recurrentes"] },
   ]},
 };
 $$(".ilp").forEach(box=>{
-  const data=MATCHES[box.dataset.list], sh=box.closest(".sheet");
-  const vis=it=> it.img ? `<img src="${it.img}" alt="">` : `<div class="ph" style="background:${it.bg}">${it.a}</div>`;
-  box.innerHTML=`<div class="ilp-hl"></div>
-    <div class="ilp-imgs">${data.items.map(it=>`<div class="ilp-img">${vis(it)}</div>`).join("")}</div>
-    <table><colgroup><col style="width:24%"><col style="width:20%"><col style="width:16%"><col style="width:40%"></colgroup>
-      <thead><tr>${data.label.map(l=>`<th>${l}</th>`).join("")}</tr></thead>
-      <tbody>${data.items.map((it,k)=>`<tr data-k="${k}"><td><span class="ck"></span>${it.a}</td><td>${it.b}</td><td><span class="aff">${it.v}% <i style="--v:${it.v}%"></i></span></td><td>${it.d}</td></tr>`).join("")}</tbody></table>
-    <div class="ilp-m">${data.items.map((it,k)=>`<div class="row" data-k="${k}"><div class="tx"><b>${it.a}</b><em>${it.b} · ${it.v}%</em><span>${it.d}</span></div><div class="im">${vis(it)}</div></div>`).join("")}</div>`;
-  const hl=$(".ilp-hl",box), wrap=$(".ilp-imgs",box), imgs=$$(".ilp-img",box), rows=$$("tbody tr",box), table=$("table",box);
-  const DUR=600, rm=matchMedia("(prefers-reduced-motion: reduce)").matches;
-  let active=null, z=10, cur={x:0,y:0}, tgt={x:0,y:0};
-  const anim=[], pending=[];
-  function reveal(k){
-    const el=imgs[k]; anim[k]?.cancel(); pending[k]=false;
-    el.style.zIndex=++z; el.style.visibility="visible";
-    anim[k]=el.animate(rm?[{opacity:0,clipPath:"inset(0%)"},{opacity:1,clipPath:"inset(0%)"}]:[{clipPath:"inset(50%)",opacity:1},{clipPath:"inset(0%)",opacity:1}],
-      {duration:rm?250:DUR,easing:"cubic-bezier(.45,0,.55,1)",fill:"forwards"});
-    anim[k].onfinish=()=>{ if(pending[k]){ pending[k]=false; hide(k); } };
+  const data=MATCHES[box.dataset.list], sh=box.closest(".sheet"), rm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  box.innerHTML=`<div class="ilp-list"><div class="ilp-hl"></div>
+      <table><colgroup><col style="width:32%"><col style="width:20%"><col style="width:16%"><col style="width:32%"></colgroup>
+      <thead><tr>${data.cols.map(l=>`<th>${l}</th>`).join("")}</tr></thead>
+      <tbody>${data.items.map((it,k)=>`<tr data-k="${k}"><td><span class="ck"></span><span class="n">${String(k+1).padStart(2,"0")}</span>${it.a}</td><td>${it.b}</td><td><span class="aff">${it.v}% <i style="--v:${it.v}%"></i></span></td><td>${it.s}</td></tr>`).join("")}</tbody></table></div>
+    <div class="dash-wrap"><div class="dash-empty"><div><i></i>Pasa el cursor sobre un match para ver por qué coinciden.<br>El nombre y el contacto se revelan después de la reunión.</div></div>
+      <div class="dash">
+        <div class="dc a swap"></div><div class="dc b swap"></div><div class="dc c swap"></div><div class="dc d swap"></div>
+      </div></div>`;
+  const hl=$(".ilp-hl",box), list=$(".ilp-list",box), rows=$$("tbody tr",box), dash=$(".dash",box), empty=$(".dash-empty",box);
+  let active=null, shown=null, revealAnim=null, swapT;
+  function fill(k){
+    const it=data.items[k];
+    $(".dc.a",dash).innerHTML=`<h4>Qué busca</h4><p class="d">${it.seek}</p>${it.it.map(([ic,t,s,b])=>`<div class="it"><span class="ic">${svg(ic)}</span><span><b>${t}</b><small>${s}</small></span><em>${b}</em></div>`).join("")}`;
+    $(".dc.b",dash).innerHTML=it.pil.map(p=>`<span class="pl">${svg(PIL_IC[p])}${p}</span>`).join("");
+    $(".dc.c",dash).innerHTML=`<div><div class="big-n" data-n="${it.v}">0<small>%</small></div><div class="cap">Afinidad del match</div></div><span class="pill">↑ ${it.v>=90?"Muy alta":it.v>=80?"Alta":"Media"}</span>
+      <div class="bars">${CRIT.map((c,j)=>`<div class="bar"><span>${c}</span><i style="--w:0%" data-w="${it.cr[j]}"></i><span>${it.cr[j]}%</span></div>`).join("")}</div>`;
+    $(".dc.d",dash).innerHTML=`<span class="lbl">Por qué hicieron match</span>${it.why.map(w=>`<span class="r">${w}</span>`).join("")}`;
+    requestAnimationFrame(()=>{ $$(".bar i",dash).forEach(b=>b.style.setProperty("--w",b.dataset.w+"%")); countUp($(".big-n",dash),it.v); });
   }
-  function hide(k){
-    const el=imgs[k];
-    if(anim[k] && anim[k].playState==="running"){ pending[k]=true; return; }
-    anim[k]?.cancel();
-    anim[k]=el.animate(rm?[{opacity:1},{opacity:0}]:[{clipPath:"inset(0%)",opacity:1},{clipPath:"inset(50%)",opacity:0}],
-      {duration:rm?250:DUR,easing:"cubic-bezier(.65,0,.35,1)",fill:"forwards"});
-    anim[k].onfinish=()=>{ el.style.visibility="hidden"; };
+  function countUp(el,to){ if(rm){ el.innerHTML=to+"<small>%</small>"; return; } const t0=performance.now(); (function f(t){ const p=Math.min(1,(t-t0)/700), v=Math.round(to*(1-Math.pow(1-p,3))); el.innerHTML=v+"<small>%</small>"; if(p<1) requestAnimationFrame(f); })(t0); }
+  function showDash(k){
+    if(shown===null){
+      fill(k); empty.style.opacity=0; dash.style.visibility="visible";
+      revealAnim?.cancel(); revealAnim=dash.animate([{clipPath:"inset(50%)"},{clipPath:"inset(0%)"}],{duration:rm?1:600,easing:"cubic-bezier(.45,0,.55,1)",fill:"forwards"});
+    } else if(shown!==k){
+      dash.classList.add("changing"); clearTimeout(swapT);
+      swapT=setTimeout(()=>{ fill(k); dash.classList.remove("changing"); },220);
+    }
+    shown=k;
   }
   rows.forEach((r,k)=>{
     r.addEventListener("mouseenter",()=>{
       if(active!==null && active!==k) rows[active].classList.remove("act");
-      active=k; r.classList.add("act"); reveal(k);
-      const tb=table.getBoundingClientRect(), rb=r.getBoundingClientRect(), bb=box.getBoundingClientRect();
-      hl.style.transform=`translateY(${rb.top-bb.top}px)`; hl.style.height=rb.height+"px"; hl.style.opacity=1;
+      active=k; r.classList.add("act");
+      const lb=list.getBoundingClientRect(), rb=r.getBoundingClientRect();
+      hl.style.transform=`translateY(${rb.top-lb.top}px)`; hl.style.height=rb.height+"px"; hl.style.opacity=1;
+      showDash(k);
     });
-    r.addEventListener("mouseleave",()=>hide(k));
   });
-  table.addEventListener("mouseleave",()=>{ if(active!==null) rows[active].classList.remove("act"); active=null; hl.style.opacity=0; tgt={x:0,y:0}; });
-  box.addEventListener("mousemove",e=>{ if(rm) return; const b=box.getBoundingClientRect(); tgt={x:((e.clientX-b.left)/b.width-.5)*20, y:((e.clientY-b.top)/b.height-.5)*20}; });
-  (function tick(){ if(!rm){ cur.x+=(tgt.x-cur.x)*.18; cur.y+=(tgt.y-cur.y)*.18; wrap.style.transform=`translate3d(${cur.x}px,${cur.y}px,0)`; } requestAnimationFrame(tick); })();
+  list.addEventListener("mouseleave",()=>{ if(active!==null) rows[active].classList.remove("act"); active=null; hl.style.opacity=0; });
 
-  // selección y aceptación
-  const selTxt=$(".m-sel",sh), accept=$("[data-accept]",sh);
-  let toast=$(".toast",sh); if(!toast){ toast=document.createElement("div"); toast.className="toast"; sh.appendChild(toast); }
-  function select(k){
-    $$("[data-k]",box).forEach(x=>x.classList.toggle("sel",+x.dataset.k===k));
-    selTxt.innerHTML=`Seleccionado: <b>${data.items[k].a}</b>`; accept.disabled=false; accept.dataset.k=k;
-  }
-  $$("[data-k]",box).forEach(x=>x.addEventListener("click",()=>select(+x.dataset.k)));
+  // selección, aceptación y reunión
+  const selTxt=$(".m-sel",sh), accept=$("[data-accept]",sh); let sel=null;
+  rows.forEach((r,k)=>r.addEventListener("click",()=>{
+    sel=k; rows.forEach((x,j)=>x.classList.toggle("sel",j===k)); showDash(k);
+    selTxt.innerHTML=`Seleccionado: <b>Match ${String(k+1).padStart(2,"0")} · ${data.items[k].a}</b>`; accept.disabled=false;
+  }));
+  const meet=document.createElement("div"); meet.className="meet"; sh.appendChild(meet);
   accept.addEventListener("click",()=>{
-    const it=data.items[+accept.dataset.k];
-    toast.textContent=`Match aceptado con ${it.a}. Te escribiremos para presentarlos.`; toast.classList.add("on");
-    clearTimeout(toast._t); toast._t=setTimeout(()=>toast.classList.remove("on"),3600);
+    const it=data.items[sel];
+    meet.innerHTML=`<div class="meet-c">
+      <div class="kicker label">Match ${String(sel+1).padStart(2,"0")} · ${it.v}% de afinidad</div>
+      <h3>Siguiente paso: <b>una reunión.</b></h3>
+      <p>Al aceptar, Seven Sides coordina un encuentro directo para conversar a fondo cómo se alinearían. Ahí se revelan nombres y contactos.</p>
+      <div class="f"><span class="q">¿Cómo prefieres reunirte?</span><div class="chips" data-single><button type="button" class="chip" aria-pressed="true">Videollamada</button><button type="button" class="chip" aria-pressed="false">Llamada</button><button type="button" class="chip" aria-pressed="false">Reunión presencial</button></div></div>
+      <div class="f"><label for="mt-${box.dataset.list}">Disponibilidad o comentarios</label><textarea id="mt-${box.dataset.list}" placeholder="Ej. martes y jueves por la tarde (hora de Ecuador)"></textarea></div>
+      <div class="start"><button type="button" class="glass btn" data-cancel>Cancelar</button><button type="button" class="glass tint btn" data-ok>Confirmar match</button></div></div>`;
+    meet.classList.add("on");
+    $("[data-cancel]",meet).addEventListener("click",()=>meet.classList.remove("on"));
+    $("[data-ok]",meet).addEventListener("click",()=>{
+      const how=$('.chip[aria-pressed="true"]',meet)?.textContent||"Videollamada";
+      meet.innerHTML=`<div class="meet-c"><div class="kicker label">Match confirmado</div><h3>Listo, <b>te contactaremos.</b></h3>
+        <p>Coordinaremos una ${how.toLowerCase()} con la otra parte para hablar en profundidad de cómo se alinean. Te escribiremos al correo de tu cuenta con la propuesta de fecha.</p>
+        <div class="start"><span></span><button type="button" class="glass tint btn" data-done>Volver a mis matches</button></div></div>`;
+      $("[data-done]",meet).addEventListener("click",()=>meet.classList.remove("on"));
+    });
   });
 });
-
 
 /* ----- heptágono + ventanas de pilares ----- */
 (function(){
