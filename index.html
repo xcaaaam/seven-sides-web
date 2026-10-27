@@ -60,10 +60,11 @@ body::after{ /* grano */
   position:relative;flex:none;height:var(--card);width:var(--card);
   border-radius:var(--radius);overflow:hidden;background:var(--bgc);
   box-shadow:0 20px 40px -24px rgba(0,0,0,.45);outline:none;
-  transition:width .9s var(--ease);will-change:filter,transform;
+  will-change:filter,transform;
 }
-.card.is-open{width:min(calc(var(--card)*2.1),78vw)}
-.card video,.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scale(1.02)}
+.card .media{position:absolute;inset:0;transition:filter .8s var(--ease),transform 1.2s var(--ease)}
+.card.is-open .media{filter:blur(14px) brightness(.72) saturate(1.15);transform:scale(1.12)}
+.card video,.card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .card video~.num{text-shadow:0 1px 6px rgba(0,0,0,.5)}
 .card .orb{position:absolute;width:140%;aspect-ratio:1;left:-20%;top:-20%;border-radius:50%;
   background:radial-gradient(closest-side,rgba(255,255,255,.2),transparent 70%);animation:drift 14s ease-in-out infinite alternate}
@@ -73,24 +74,22 @@ body::after{ /* grano */
 .card .slot::before{content:"";width:0;height:0;border-left:6px solid currentColor;border-top:4px solid transparent;border-bottom:4px solid transparent}
 .card.light .num,.card.light .slot{color:rgba(13,18,15,.6)}
 
-/* capa de vidrio que entra al abrir la tarjeta */
-.card .layer{
-  position:absolute;top:0;bottom:0;left:calc(var(--card) - 22px);right:0;
-  padding:clamp(14px,1.4vw,22px);
-  display:flex;flex-direction:column;justify-content:space-between;gap:10px;
-  border-radius:var(--radius);color:var(--ink);
-  background:linear-gradient(135deg,rgba(255,255,255,.72),rgba(255,255,255,.48));
-  -webkit-backdrop-filter:blur(16px) saturate(170%);backdrop-filter:blur(16px) saturate(170%);
-  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.95),inset -1px -1px 1px -.5px rgba(255,255,255,.5),inset 0 0 0 1px rgba(255,255,255,.35),-18px 0 40px -20px rgba(0,0,0,.35);
-  opacity:0;transform:translateX(30px);transition:opacity .5s .15s var(--ease), transform .7s .1s var(--ease);
+/* idea que aparece sobre la tarjeta al pasar el cursor */
+.card .idea{
+  position:absolute;inset:0;padding:clamp(20px,2vw,30px);
+  display:flex;flex-direction:column;justify-content:flex-end;gap:12px;color:#fff;
+  background:linear-gradient(180deg,transparent 25%,rgba(0,0,0,.28));
+  opacity:0;transform:translateY(14px);transition:opacity .55s .1s var(--ease),transform .8s .05s var(--ease);pointer-events:none;
 }
-.card.is-open .layer{opacity:1;transform:none}
-.layer .label{color:rgba(13,18,15,.55)}
-.layer h3{font-weight:300;font-size:clamp(20px,2vw,32px);line-height:1.12;letter-spacing:-.01em}
-.layer h3 em{font-style:normal;font-weight:400;color:var(--green-hi)}
-.layer .tags{display:flex;flex-wrap:wrap;gap:5px}
-.layer .tags span{font-size:10px;padding:4px 8px;border-radius:999px;background:rgba(13,153,68,.12);color:var(--green-deep)}
-.layer p{font-size:12px;line-height:1.5;color:rgba(13,18,15,.6);font-weight:300}
+.card.is-open .idea{opacity:1;transform:none}
+.card.is-open .slot{opacity:0}
+.idea .label{color:rgba(255,255,255,.75)}
+.idea h3{font-weight:300;font-size:clamp(22px,2.1vw,34px);line-height:1.08;letter-spacing:-.02em}
+.idea p{font-size:clamp(13px,1vw,15px);line-height:1.5;font-weight:300;color:rgba(255,255,255,.9);max-width:30ch}
+.idea .tags{display:flex;flex-wrap:wrap;gap:6px}
+.idea .tags span{font-size:11px;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.12);
+  box-shadow:inset 1px 1px 1px -.5px rgba(255,255,255,.8),inset 0 0 0 1px rgba(255,255,255,.22)}
+.idea .tags span.g{background:rgba(13,153,68,.45)}
 
 /* ---------- barra inferior ---------- */
 .bar{display:grid;grid-template-columns:1fr auto;align-items:end;gap:20px;
@@ -135,7 +134,7 @@ body::after{ /* grano */
   box-shadow:inset 1.5px 1.5px 1px -.5px rgba(190,255,215,.9),inset -1px -1px 1px -.5px rgba(160,240,190,.5),inset 0 0 0 1px rgba(120,230,160,.3),inset 0 0 18px rgba(13,153,68,.25),0 8px 24px -10px rgba(0,0,0,.35)}
 .glass.tint:hover{background:rgba(13,153,68,.3)}
 .btn{padding:13px 22px;font-size:13px;font-weight:400;letter-spacing:.01em;white-space:nowrap;display:inline-flex;align-items:center;gap:8px;text-shadow:0 1px 8px rgba(0,0,0,.25)}
-.btn:focus-visible,.card:focus-visible,.chip:focus-visible,.acc-h:focus-visible{outline:2px solid #fff;outline-offset:3px}
+.btn:focus-visible,.card:focus-visible,.chip:focus-visible,.win-h:focus-visible{outline:2px solid #fff;outline-offset:3px}
 
 /* ---------- paneles ---------- */
 .scrim{position:fixed;inset:0;z-index:70;background:rgba(15,20,17,.25);
@@ -159,8 +158,14 @@ body::after{ /* grano */
 .sheet h2 b{font-weight:400;color:var(--green-hi)}
 .lead{font-size:14px;line-height:1.6;color:rgba(13,18,15,.75);font-weight:300;margin-bottom:20px}
 .lead b{font-weight:400;color:var(--green-hi)}
-.close{width:38px;height:38px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:16px;color:var(--ink);text-shadow:none}
-.close.glass{background:rgba(255,255,255,.35)}
+.close{width:40px;height:40px;flex:none;border-radius:50%;display:grid;place-items:center;font-size:15px}
+/* liquid glass sobre superficies claras (paneles): mismo acabado que los botones del inicio */
+.sheet .glass{color:var(--ink);text-shadow:none;background:rgba(255,255,255,.14);
+  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,1),inset -1px -1px 1px -.5px rgba(255,255,255,.7),inset 0 0 0 1px rgba(13,18,15,.09),inset 0 0 16px rgba(255,255,255,.45),0 8px 22px -10px rgba(0,0,0,.3)}
+.sheet .glass:hover{background:rgba(255,255,255,.3)}
+.sheet .glass.tint{color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.2);background:rgba(13,153,68,.74);
+  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(200,255,220,.95),inset -1px -1px 1px -.5px rgba(160,240,190,.6),inset 0 0 0 1px rgba(13,120,55,.35),inset 0 0 18px rgba(120,230,160,.35),0 10px 24px -10px rgba(13,153,68,.55)}
+.sheet .glass.tint:hover{background:rgba(13,153,68,.84)}
 
 form{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .f{display:flex;flex-direction:column;gap:6px}
@@ -179,10 +184,6 @@ fieldset{border:0}
 .check input{margin-top:3px;accent-color:var(--green)}
 .submit{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:6px}
 .submit small{font-size:10px;color:rgba(13,18,15,.5);letter-spacing:.06em}
-.solid{padding:13px 22px;border-radius:999px;font-size:13px;color:#fff;background:var(--green);
-  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.6),inset 0 0 0 1px rgba(255,255,255,.15),0 8px 20px -8px rgba(13,153,68,.6);transition:transform .3s var(--ease)}
-.solid:hover{transform:translateY(-1px)}
-.ghost{padding:13px 22px;border-radius:999px;font-size:13px;color:var(--ink);background:rgba(255,255,255,.5);box-shadow:inset 0 0 0 1px rgba(255,255,255,.8)}
 .done{display:none;padding:8px 0}
 .done.on{display:block}
 .done h3{font-weight:300;font-size:24px;margin-bottom:8px}
@@ -190,53 +191,69 @@ fieldset{border:0}
 .done p{font-size:14px;line-height:1.6;font-weight:300;color:rgba(13,18,15,.75)}
 
 /* ---------- ¿Qué es? (desplazamiento vertical) ---------- */
+:root{--gold:#a8822a;--gold-hi:#c9a24a}
 #about{width:min(720px,calc(100vw - 24px));height:calc(100svh - 40px);padding:0}
-.about-head{position:sticky;top:0;z-index:2;padding:clamp(22px,3vw,30px) clamp(22px,3vw,34px) 14px;
-  background:linear-gradient(180deg,rgba(236,240,237,.98) 75%,rgba(236,240,237,.9));
-  -webkit-backdrop-filter:blur(20px);backdrop-filter:blur(20px);border-radius:26px 26px 0 0}
-.about-head header{margin-bottom:14px}
-.nature{display:flex;gap:14px;align-items:center;padding:12px 16px;border-radius:16px;
-  background:linear-gradient(135deg,#d3e6d9,#e1ece4);box-shadow:inset 0 0 0 1px rgba(13,153,68,.25)}
-.nature .seed{width:12px;height:12px;flex:none;border-radius:50%;background:var(--green);box-shadow:0 0 0 5px rgba(13,153,68,.15),0 0 18px rgba(13,153,68,.7);animation:pulse 4s ease-in-out infinite}
-@keyframes pulse{50%{box-shadow:0 0 0 9px rgba(13,153,68,.08),0 0 26px rgba(13,153,68,.8)}}
-.nature strong{display:block;font-weight:400;font-size:13px;color:var(--green-deep)}
-.nature span{font-size:12px;font-weight:300;line-height:1.45;color:rgba(13,18,15,.75)}
-.about-body{padding:8px clamp(22px,3vw,34px) clamp(26px,3vw,34px)}
-.intro{display:grid;grid-template-columns:1fr 150px;gap:22px;align-items:center;margin:8px 0 22px}
-.intro .lead{margin:0}
-.hepta{width:150px;overflow:visible}
-.hepta .side{stroke:rgba(13,18,15,.75);stroke-width:1.4;fill:none;stroke-linecap:round;transition:stroke .35s,stroke-width .35s}
-.hepta .side.on{stroke:var(--green);stroke-width:4}
-.hepta text{font-size:9px;fill:rgba(13,18,15,.55);font-family:var(--font)}
-.hepta .core{fill:var(--green);filter:drop-shadow(0 0 10px rgba(13,153,68,.8))}
-.sec-t{color:rgba(13,18,15,.5);margin:6px 0 10px}
+.about-head{position:sticky;top:0;z-index:3;padding:clamp(22px,3vw,30px) clamp(22px,3vw,34px) 16px;
+  background:linear-gradient(180deg,rgba(236,240,237,.97) 70%,rgba(236,240,237,0));
+  -webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);border-radius:26px 26px 0 0}
+.about-head header{margin:0}
+.about-body{padding:0 clamp(22px,3vw,34px) clamp(26px,3vw,34px)}
+.hero-h{display:flex;flex-direction:column;align-items:center;text-align:center;gap:18px;margin:6px 0 30px}
+.hepta{width:min(300px,72vw);overflow:visible}
+.hepta .glow{fill:url(#hg)}
+.hepta .side{stroke:var(--green);stroke-width:3.2;fill:none;stroke-linecap:round;cursor:pointer;
+  filter:drop-shadow(0 0 4px rgba(13,153,68,.55));transition:stroke-width .35s var(--ease),filter .35s,stroke .35s}
+.hepta .side.on{stroke:#13b552;stroke-width:7;filter:drop-shadow(0 0 10px rgba(13,153,68,.95))}
+.hepta .hit{stroke:transparent;stroke-width:22;cursor:pointer}
+.hepta text{font-size:10px;fill:var(--green-deep);font-family:var(--font);font-weight:400;letter-spacing:.06em}
+.hepta .core{fill:var(--gold-hi);filter:drop-shadow(0 0 12px rgba(201,162,74,.9))}
+.hepta .core-ring{fill:none;stroke:rgba(201,162,74,.5);stroke-width:1;animation:ring 4s ease-out infinite;transform-origin:center}
+@keyframes ring{from{r:12;opacity:1}to{r:34;opacity:0}}
+.hero-h .lead{max-width:52ch;margin:0}
+.sec-t{color:rgba(13,18,15,.5);margin:6px 0 12px}
 
-.acc{border-top:1px solid rgba(13,18,15,.1)}
-.acc-i{border-bottom:1px solid rgba(13,18,15,.1)}
-.acc-h{width:100%;display:flex;align-items:center;gap:14px;padding:16px 4px;text-align:left;color:var(--ink);border-radius:10px}
-.acc-h .n{font-size:11px;letter-spacing:.1em;color:rgba(13,18,15,.45);width:22px}
-.acc-h .t{flex:1;font-size:clamp(16px,1.5vw,19px);font-weight:300;letter-spacing:-.01em;transition:color .25s}
-.acc-h .pm{width:26px;height:26px;border-radius:50%;position:relative;box-shadow:inset 0 0 0 1px rgba(13,18,15,.2);transition:background .3s,box-shadow .3s}
-.acc-h .pm::before,.acc-h .pm::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:1.4px;background:currentColor;transform:translate(-50%,-50%);transition:transform .35s var(--ease)}
-.acc-h .pm::after{transform:translate(-50%,-50%) rotate(90deg)}
-.acc-h:hover .t,.acc-i.open .acc-h .t{color:var(--green-hi)}
-.acc-i.open .pm{background:var(--green);color:#fff;box-shadow:none}
-.acc-i.open .pm::after{transform:translate(-50%,-50%) rotate(0)}
-.acc-p{display:grid;grid-template-rows:0fr;transition:grid-template-rows .5s var(--ease)}
-.acc-i.open .acc-p{grid-template-rows:1fr}
-.acc-p > div{overflow:hidden}
-.acc-p .in{padding:0 4px 18px 40px}
-.acc-p p{font-size:14px;line-height:1.65;font-weight:300;color:rgba(13,18,15,.78)}
-.acc-p p b{font-weight:400;color:var(--green-hi)}
-.acc-p .ex{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
-.acc-p .ex span{font-size:11.5px;font-weight:300;padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.55);box-shadow:inset 0 0 0 1px rgba(255,255,255,.8)}
+/* pilares: ventanas de vidrio que se abren */
+.wins{display:grid;gap:10px}
+.win{border-radius:20px;background:rgba(255,255,255,.32);
+  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.95),inset -1px -1px 1px -.5px rgba(255,255,255,.55),inset 0 0 0 1px rgba(255,255,255,.4),0 10px 26px -18px rgba(0,0,0,.35);
+  transition:filter .5s var(--ease),opacity .5s var(--ease),transform .5s var(--ease),background .4s}
+.wins.has-open .win:not(.open):not(.gold){filter:blur(1.5px);opacity:.6;transform:scale(.985)}
+.win.open{background:rgba(255,255,255,.62);transform:scale(1.01)}
+.win-h{width:100%;display:flex;align-items:center;gap:14px;padding:16px 18px;text-align:left;color:var(--ink);border-radius:20px}
+.win-h .n{font-size:11px;letter-spacing:.1em;color:var(--green-hi);width:22px}
+.win-h .t{flex:1;font-size:clamp(16px,1.5vw,19px);font-weight:300;letter-spacing:-.01em;transition:color .25s}
+.win-h .pm{width:30px;height:30px;border-radius:50%;position:relative;flex:none;color:var(--ink)}
+.win-h .pm i::before,.win-h .pm i::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:1.4px;background:currentColor;transform:translate(-50%,-50%);transition:transform .4s var(--ease)}
+.win-h .pm i::after{transform:translate(-50%,-50%) rotate(90deg)}
+.win-h:hover .t,.win.open .t{color:var(--green-hi)}
+.win.open .pm{color:#fff}
+.win.open .pm.glass{background:rgba(13,153,68,.74)}
+.win.open .pm i::after{transform:translate(-50%,-50%) rotate(0)}
+.win-p{display:grid;grid-template-rows:0fr;transition:grid-template-rows .6s var(--ease)}
+.win.open .win-p,.win.gold .win-p{grid-template-rows:1fr}
+.win-p > div{overflow:hidden}
+.win-p .in{padding:0 18px 18px 54px}
+.win-p p{font-size:14px;line-height:1.65;font-weight:300;color:rgba(13,18,15,.78)}
+.win-p p b{font-weight:400;color:var(--green-hi)}
+.win-p .ex{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.win-p .ex span{font-size:11.5px;font-weight:300;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.4);
+  box-shadow:inset 1px 1px 1px -.5px #fff,inset 0 0 0 1px rgba(13,18,15,.07)}
+.win.gold{background:linear-gradient(135deg,rgba(214,182,104,.28),rgba(201,162,74,.12));
+  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,248,225,1),inset 0 0 0 1px rgba(168,130,42,.4),0 0 30px -8px rgba(201,162,74,.45)}
+.win.gold .win-h{cursor:default}
+.win.gold .t{color:var(--gold);font-weight:400}
+.win.gold .n{display:grid;place-items:center}
+.win.gold .n i{width:10px;height:10px;border-radius:50%;background:var(--gold-hi);box-shadow:0 0 12px rgba(201,162,74,.9)}
+.win.gold p{color:#6e5518}
+.win.gold .win-p .in{padding-top:0}
 
-.steps{list-style:none;display:grid;gap:0;margin:8px 0 22px;counter-reset:s}
-.steps li{display:grid;grid-template-columns:40px 1fr;gap:4px;padding:14px 4px;border-bottom:1px solid rgba(13,18,15,.08)}
-.steps li::before{counter-increment:s;content:"0" counter(s);font-size:11px;letter-spacing:.1em;color:var(--green-hi);padding-top:3px}
-.steps b{display:block;font-weight:400;font-size:14px;margin-bottom:2px}
-.steps span{font-size:13px;font-weight:300;line-height:1.5;color:rgba(13,18,15,.7)}
-.about-cta{display:flex;gap:10px;flex-wrap:wrap}
+.steps{list-style:none;display:grid;gap:10px;margin:0 0 24px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:44px 1fr;gap:4px;padding:16px 18px 16px 14px;border-radius:20px;background:rgba(255,255,255,.28);
+  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.9),inset 0 0 0 1px rgba(255,255,255,.35)}
+.steps li::before{counter-increment:s;content:"0" counter(s);font-size:11px;letter-spacing:.1em;color:var(--green-hi);padding:3px 0 0 6px}
+.steps b{display:block;font-weight:400;font-size:15px;margin-bottom:4px}
+.steps span{font-size:13.5px;font-weight:300;line-height:1.55;color:rgba(13,18,15,.72)}
+.about-cta{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 
 /* ---------- responsive ---------- */
 @media (max-width:760px){
@@ -249,11 +266,11 @@ fieldset{border:0}
   .intro{grid-template-columns:1fr}
   .hepta{justify-self:center;width:130px}
   .card.is-open{width:88vw}
-  .acc-p .in{padding-left:4px}
+  .win-p .in{padding-left:18px}
 }
 @media (prefers-reduced-motion:reduce){
-  .card,.card .layer,.sheet,.glass,.acc-p{transition:none}
-  .card .orb,.nature .seed{animation:none}
+  .card .media,.card .idea,.sheet,.glass,.win,.win-p{transition:none}
+  .card .orb,.hepta .core-ring{animation:none}
 }
 </style>
 </head>
@@ -313,7 +330,7 @@ fieldset{border:0}
       </fieldset>
       <label class="check"><input type="checkbox" required> Declaro que mi empresa no realiza actividades extractivistas ni contrarias a los pilares de Seven Sides.</label>
       <label class="check"><input type="checkbox" required> Acepto el tratamiento de mis datos para fines de evaluación y contacto (RGPD).</label>
-      <div class="submit"><small>Prototipo · el envío aún no está conectado</small><button class="solid" type="submit">Enviar perfil</button></div>
+      <div class="submit"><small>Prototipo · el envío aún no está conectado</small><button class="glass tint btn" type="submit">Enviar perfil</button></div>
     </form>
   </div>
   <div class="done">
@@ -348,7 +365,7 @@ fieldset{border:0}
       <div class="f full"><label for="a8">Correo de contacto</label><input id="a8" type="email" required placeholder="contacto@proyecto.org"></div>
       <label class="check"><input type="checkbox" required> Confirmo que el proyecto respeta, conserva y preserva la naturaleza.</label>
       <label class="check"><input type="checkbox" required> Acepto el tratamiento de mis datos para fines de evaluación y contacto. La información del proyecto sigue siendo de quienes lo impulsan.</label>
-      <div class="submit"><small>Prototipo · el envío aún no está conectado</small><button class="solid" type="submit">Postular</button></div>
+      <div class="submit"><small>Prototipo · el envío aún no está conectado</small><button class="glass tint btn" type="submit">Postular</button></div>
     </form>
   </div>
   <div class="done">
@@ -367,33 +384,29 @@ fieldset{border:0}
       </div>
       <button class="glass close" data-close aria-label="Cerrar">✕</button>
     </header>
-    <div class="nature">
-      <i class="seed" aria-hidden="true"></i>
-      <div><strong>Naturaleza · el octavo lado</strong>
-      <span>No se nombra entre los siete porque está en todos: respeto, conservación y preservación. Es condición para entrar.</span></div>
-    </div>
   </div>
 
   <div class="about-body">
-    <div class="intro">
-      <p class="lead">Seven Sides une a empresas que quieren invertir con impacto y a proyectos de Latinoamérica que necesitan un socio. Evaluamos a ambos lados frente a <b>siete pilares</b> y acompañamos el primer paso, para que la cooperación internacional deje de depender de años de papeleo.</p>
-      <svg class="hepta" viewBox="-125 -125 250 250" id="hepta" aria-hidden="true"></svg>
+    <div class="hero-h">
+      <svg class="hepta" viewBox="-135 -135 270 270" id="hepta" role="img" aria-label="Los siete pilares alrededor de la naturaleza"></svg>
+      <p class="lead">Seven Sides une a empresas que quieren invertir con impacto y a proyectos de Latinoamérica que necesitan un socio. Evaluamos a ambos lados frente a <b>siete pilares</b>, con la naturaleza al centro, y acompañamos el primer paso para que la cooperación internacional deje de depender de años de papeleo.</p>
     </div>
 
     <div class="sec-t label">Los siete pilares</div>
-    <div class="acc" id="acc"></div>
+    <div class="wins" id="wins"></div>
 
-    <div class="sec-t label" style="margin-top:26px">Cómo funciona</div>
+    <div class="sec-t label" style="margin-top:30px">¿Cómo funciona si tengo un proyecto?</div>
     <ol class="steps">
-      <li><div><b>Postula</b><span>Proyectos y empresas envían su perfil.</span></div></li>
-      <li><div><b>Evaluamos</b><span>Revisamos a ambos lados frente a los pilares y la naturaleza.</span></div></li>
-      <li><div><b>Match</b><span>La empresa ve los proyectos alineados y acepta; ahí se da el contacto.</span></div></li>
-      <li><div><b>Acompañamos</b><span>Seguimiento cercano para preparar una etapa más profunda en territorio.</span></div></li>
+      <li><div><b>Postula tu necesidad</b><span>Cuéntanos qué necesita tu comunidad u organización. Puede ser una idea o un proyecto en marcha; solo pedimos respaldo oficial: municipio, junta parroquial, ONG o universidad.</span></div></li>
+      <li><div><b>La evaluamos contigo</b><span>Revisamos la propuesta frente a los siete pilares y la naturaleza. Si hace falta, te ayudamos a afinarla.</span></div></li>
+      <li><div><b>Te presentamos a empresas</b><span>Tu proyecto se muestra a empresas alineadas de Europa y Latinoamérica. Tus datos de contacto solo se comparten cuando una empresa acepta el match.</span></div></li>
+      <li><div><b>Acuerdan la cooperación</b><span>Definen juntos la forma de apoyo: financiamiento, tecnología, capacitación o compra de producción. Lo que se construya es de quienes participan.</span></div></li>
+      <li><div><b>Te acompañamos</b><span>Seguimos el proyecto de cerca y preparamos el paso a una etapa más profunda en territorio.</span></div></li>
     </ol>
 
     <div class="about-cta">
-      <button class="solid" data-open="coop">Unirme como cooperante</button>
-      <button class="ghost" data-open="apply">Postular mi proyecto</button>
+      <button class="glass tint btn" data-open="apply">Postular mi proyecto</button>
+      <button class="glass btn" data-open="coop">Soy una empresa</button>
     </div>
   </div>
 </section>
@@ -403,11 +416,11 @@ fieldset{border:0}
    Para poner un video: copia el archivo en assets/media/ y cambia media:null por media:"assets/media/archivo.mp4"
    Los títulos son ejemplos provisionales hasta tener los proyectos reales. */
 const PROJECTS = [
-  { title:"Bosque comunitario",      place:"Comunidad · Latinoamérica", pillars:["Alimentación","Salud"],         bg:"linear-gradient(160deg,#3c5a45,#0f1a13)", media:"assets/media/bosque.mp4", poster:"assets/media/bosque.jpg" },
-  { title:"Energía solar rural",      place:"Proyecto · Latinoamérica",  pillars:["Energía","Infraestructura"],    bg:"linear-gradient(160deg,#b9b49c,#6f6b55)", media:null, light:true },
-  { title:"Escuela conectada",        place:"Comunidad · Latinoamérica", pillars:["Educación","Innovación"],       bg:"linear-gradient(160deg,#0d9944,#0a3d22)", media:null },
-  { title:"Agua para la comunidad",   place:"Proyecto · Latinoamérica",  pillars:["Infraestructura","Salud"],      bg:"linear-gradient(160deg,#47646a,#152225)", media:null },
-  { title:"Agricultura regenerativa", place:"Cooperativa · Latinoamérica",pillars:["Alimentación","Economía"],     bg:"linear-gradient(160deg,#e8ebe8,#c1c8c2)", media:null, light:true },
+  { title:"Bosque comunitario", idea:"Una comunidad que protege su bosque y vive de él.",      place:"Comunidad · Latinoamérica", pillars:["Alimentación","Salud"],         bg:"linear-gradient(160deg,#3c5a45,#0f1a13)", media:"assets/media/bosque.mp4", poster:"assets/media/bosque.jpg" },
+  { title:"Energía solar rural", idea:"Luz limpia para casas, escuelas y talleres sin red eléctrica.",      place:"Proyecto · Latinoamérica",  pillars:["Energía","Infraestructura"],    bg:"linear-gradient(160deg,#b9b49c,#6f6b55)", media:null, light:true },
+  { title:"Escuela conectada", idea:"Internet y formación digital para que nadie se quede atrás.",        place:"Comunidad · Latinoamérica", pillars:["Educación","Innovación"],       bg:"linear-gradient(160deg,#0d9944,#0a3d22)", media:null },
+  { title:"Agua para la comunidad", idea:"Agua segura, cerca de casa, gestionada por sus vecinos.",   place:"Proyecto · Latinoamérica",  pillars:["Infraestructura","Salud"],      bg:"linear-gradient(160deg,#47646a,#152225)", media:null },
+  { title:"Agricultura regenerativa", idea:"Cultivar más sano mientras la tierra se recupera.", place:"Cooperativa · Latinoamérica",pillars:["Alimentación","Economía"],     bg:"linear-gradient(160deg,#e8ebe8,#c1c8c2)", media:null, light:true },
 ];
 
 /* ===== Pilares (panel ¿Qué es?) ===== */
@@ -443,12 +456,11 @@ function cardHTML(p,i){
   const n=String(i+1).padStart(2,"0");
   const media = p.media
     ? (/\.(mp4|webm|mov)$/i.test(p.media) ? `<video src="${p.media}"${p.poster?` poster="${p.poster}"`:""} autoplay muted loop playsinline preload="auto"></video>` : `<img src="${p.media}" alt="">`)
-    : `<div class="orb"></div><span class="slot">Espacio para video</span>`;
+    : `<div class="orb"></div>`;
   return `<article class="card${p.light&&!p.media?" light":""}" tabindex="0" data-i="${i}" style="--bgc:${p.bg}" aria-label="${p.title}">
-    ${media}<span class="num">${n}</span>
-    <div class="layer"><span class="label">${p.place}</span><h3>${p.title}</h3>
-      <div><div class="tags">${p.pillars.map(t=>`<span>${t}</span>`).join("")}</div>
-      ${p.media?"":`<p style="margin-top:8px">Ejemplo provisional</p>`}</div></div>
+    <div class="media">${media}</div><span class="num">${n}</span>${p.media?"":`<span class="slot">Espacio para video</span>`}
+    <div class="idea"><span class="label">${p.place}${p.media?"":" · ejemplo"}</span><h3>${p.title}</h3><p>${p.idea}</p>
+      <div class="tags">${p.pillars.map((t,j)=>`<span${j===0?' class="g"':""}>${t}</span>`).join("")}</div></div>
   </article>`;
 }
 const set = PROJECTS.map(cardHTML).join("");
@@ -514,7 +526,7 @@ const supportsSvgBackdrop = !!(navigator.userAgentData) && CSS.supports("backdro
 function buildLiquid(){
   if(!supportsSvgBackdrop) return;
   const defs=$("#lgDefs"); defs.innerHTML="";
-  $$(".bar .glass").forEach((el,k)=>{
+  $$(".glass").forEach((el,k)=>{
     const w=Math.round(el.offsetWidth), h=Math.round(el.offsetHeight); if(!w||!h) return;
     const cv=document.createElement("canvas"); cv.width=w; cv.height=h;
     const ctx=cv.getContext("2d"), img=ctx.createImageData(w,h), d=img.data;
@@ -567,39 +579,54 @@ $$("[data-form]").forEach(f=>f.addEventListener("submit",e=>{
   $(".formwrap",s).style.display="none"; $(".done",s).classList.add("on");
 }));
 
-/* ----- heptágono + acordeón de pilares ----- */
+/* ----- heptágono + ventanas de pilares ----- */
 (function(){
-  const svg=$("#hepta"), R=90, pts=[];
+  const svg=$("#hepta"), R=96, pts=[];
   for(let i=0;i<7;i++){const a=-Math.PI/2+i*2*Math.PI/7; pts.push([R*Math.cos(a),R*Math.sin(a)]);}
-  let h="";
+  let h=`<defs><radialGradient id="hg"><stop offset="0" stop-color="#0d9944" stop-opacity=".28"/><stop offset=".7" stop-color="#0d9944" stop-opacity=".06"/><stop offset="1" stop-color="#0d9944" stop-opacity="0"/></radialGradient></defs>`;
+  h+=`<circle class="glow" r="120"/>`;
   for(let i=0;i<7;i++){
-    const [x1,y1]=pts[i],[x2,y2]=pts[(i+1)%7], k=1.27;
-    h+=`<line class="side" data-s="${i}" x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"/>`;
-    h+=`<text x="${((x1+x2)/2*k).toFixed(1)}" y="${((y1+y2)/2*k+3).toFixed(1)}" text-anchor="middle">0${i+1}</text>`;
+    const [x1,y1]=pts[i],[x2,y2]=pts[(i+1)%7], k=1.24, c=`x1="${x1.toFixed(1)}" y1="${y1.toFixed(1)}" x2="${x2.toFixed(1)}" y2="${y2.toFixed(1)}"`;
+    h+=`<line class="side" data-s="${i}" ${c}/><line class="hit" data-s="${i}" ${c}><title>${PILLARS[i].name}</title></line>`;
+    h+=`<text x="${((x1+x2)/2*k).toFixed(1)}" y="${((y1+y2)/2*k+3.5).toFixed(1)}" text-anchor="middle">0${i+1}</text>`;
   }
-  h+=`<circle class="core" r="12"/>`;
+  h+=`<circle class="core-ring" r="12"/><circle class="core" r="12"><title>Naturaleza: siempre presente</title></circle>`;
   svg.innerHTML=h;
 
-  const acc=$("#acc");
-  acc.innerHTML=PILLARS.map((p,i)=>`
-    <div class="acc-i" data-s="${i}">
-      <button class="acc-h" aria-expanded="false" aria-controls="ap${i}">
-        <span class="n">0${i+1}</span><span class="t">${p.name}</span><span class="pm" aria-hidden="true"></span>
+  const wins=$("#wins");
+  wins.innerHTML=PILLARS.map((p,i)=>`
+    <div class="win" data-s="${i}">
+      <button class="win-h" aria-expanded="false" aria-controls="wp${i}">
+        <span class="n">0${i+1}</span><span class="t">${p.name}</span><span class="pm glass" aria-hidden="true"><i></i></span>
       </button>
-      <div class="acc-p" id="ap${i}" role="region"><div><div class="in">
+      <div class="win-p" id="wp${i}" role="region"><div><div class="in">
         <p>${p.text}</p><div class="ex">${p.ex.map(e=>`<span>${e}</span>`).join("")}</div>
       </div></div></div>
-    </div>`).join("");
+    </div>`).join("") + `
+    <div class="win gold">
+      <div class="win-h"><span class="n"><i></i></span><span class="t">Naturaleza · el octavo lado</span></div>
+      <div class="win-p"><div><div class="in">
+        <p>No se nombra entre los siete porque está en todos: respeto, conservación y preservación. Es condición para entrar.</p>
+      </div></div></div>
+    </div>`;
   const side=i=>$(`.side[data-s="${i}"]`,svg);
-  $$(".acc-i",acc).forEach(item=>{
-    const btn=$(".acc-h",item), i=item.dataset.s;
-    btn.addEventListener("click",()=>{
-      const willOpen=!item.classList.contains("open");
-      $$(".acc-i.open",acc).forEach(o=>{o.classList.remove("open");$(".acc-h",o).setAttribute("aria-expanded","false");side(o.dataset.s).classList.remove("on")});
-      if(willOpen){item.classList.add("open");btn.setAttribute("aria-expanded","true");side(i).classList.add("on")}
-    });
+  function toggle(i, force){
+    const item=$(`.win[data-s="${i}"]`,wins), willOpen=force ?? !item.classList.contains("open");
+    $$(".win.open",wins).forEach(o=>{o.classList.remove("open");$(".win-h",o).setAttribute("aria-expanded","false");side(o.dataset.s).classList.remove("on")});
+    if(willOpen){item.classList.add("open");$(".win-h",item).setAttribute("aria-expanded","true");side(i).classList.add("on")}
+    wins.classList.toggle("has-open",willOpen);
+    return item;
+  }
+  $$(".win[data-s]",wins).forEach(item=>{
+    const i=item.dataset.s;
+    $(".win-h",item).addEventListener("click",()=>toggle(i));
     item.addEventListener("mouseenter",()=>side(i).classList.add("on"));
     item.addEventListener("mouseleave",()=>{ if(!item.classList.contains("open")) side(i).classList.remove("on") });
+  });
+  $$(".hit",svg).forEach(l=>{
+    l.addEventListener("click",()=>{ const it=toggle(l.dataset.s,true); setTimeout(()=>it.scrollIntoView({behavior:"smooth",block:"center"}),80); });
+    l.addEventListener("mouseenter",()=>side(l.dataset.s).classList.add("on"));
+    l.addEventListener("mouseleave",()=>{ if(!$(`.win[data-s="${l.dataset.s}"]`,wins).classList.contains("open")) side(l.dataset.s).classList.remove("on") });
   });
 })();
 </script>
