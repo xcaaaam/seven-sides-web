@@ -184,14 +184,14 @@ fieldset{border:0}
 
 
 /* ventanas de introducción */
-.need{list-style:none;display:grid;gap:8px;margin:0 0 20px}
-.need li{display:grid;grid-template-columns:28px 1fr;gap:6px;align-items:start;padding:13px 16px;border-radius:18px;font-size:14px;line-height:1.5;font-weight:300;
-  background:rgba(255,255,255,.14);box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.35)}
-.need li::before{content:"";width:8px;height:8px;margin-top:7px;border-radius:50%;background:var(--green);box-shadow:0 0 10px rgba(13,153,68,.7)}
+.need{list-style:none;display:grid;margin:0 0 22px;border-top:1px solid rgba(13,18,15,.12)}
+.need li{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:start;padding:12px 2px;font-size:14.5px;line-height:1.55;font-weight:300;border-bottom:1px solid rgba(13,18,15,.12)}
+.need li::before{content:"";width:7px;height:7px;margin-top:8px;border-radius:50%;background:var(--green)}
 .need li b{font-weight:400;color:var(--green-hi)}
-.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 22px;font-size:13px;font-weight:300;color:rgba(13,18,15,.86)}
-.flow span{padding:7px 12px;border-radius:999px;background:rgba(255,255,255,.18);box-shadow:inset 1px 1px 1px -.5px #fff,inset 0 0 0 1px rgba(13,18,15,.07)}
-.flow i{font-style:normal;color:var(--green-hi)}
+.flow{list-style:none;counter-reset:fl;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:4px 0 24px}
+.flow li{counter-increment:fl;position:relative;padding-top:12px;font-size:13.5px;font-weight:400;line-height:1.4;color:var(--ink);border-top:2px solid rgba(13,153,68,.55)}
+.flow li::before{content:"0" counter(fl);display:block;font-size:11px;letter-spacing:.12em;color:var(--green-hi);margin-bottom:4px}
+@media (max-width:560px){.flow{grid-template-columns:1fr 1fr}}
 .start{display:flex;justify-content:space-between;align-items:center;gap:14px}
 .start>small,.start>span{flex:1;min-width:0}
 .start>.btn,.start>button{flex:none;margin-left:auto}
@@ -199,6 +199,9 @@ fieldset{border:0}
 .start small{font-size:12px;font-weight:300;color:rgba(13,18,15,.74)}
 .start .btn{padding:14px 30px;font-size:14px}
 .back{padding:9px 14px;font-size:12px;margin-bottom:12px}
+.start>*:first-child{margin-left:0}
+.start .sp{text-align:right}
+.linkb{font-size:13px;color:var(--green-hi);text-decoration:underline;text-underline-offset:3px;padding:0 6px}
 .have{margin-top:16px;font-size:12.5px;font-weight:300;color:rgba(13,18,15,.74)}
 .have button{font-size:inherit;color:var(--green-hi);text-decoration:underline;text-underline-offset:3px}
 
@@ -530,7 +533,7 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
     <li><span>Relaciones de <b>largo plazo</b>, basadas en confianza y en un intercambio real de conocimiento, no solo producción tercerizada.</span></li>
   </ul>
   <div class="sec-t label">Qué pasa después</div>
-  <div class="flow"><span>Completas el formulario</span><i>→</i><span>Evaluamos tu perfil</span><i>→</i><span>Ves proyectos alineados</span><i>→</i><span>Aceptas el match</span></div>
+  <ol class="flow"><li>Completas el formulario</li><li>Evaluamos tu perfil</li><li>Ves proyectos alineados</li><li>Aceptas el match</li></ol>
   <div class="start"><small>Toma unos 3 minutos.</small><button class="glass tint btn" data-open="coop">Iniciar</button></div>
   <p class="have">¿Ya postulaste? <button type="button" data-account>Entra a tu cuenta</button> para ver tu evaluación.</p>
 </section>
@@ -553,7 +556,7 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
     <li><span>Una necesidad concreta: qué les falta y a cuántas personas beneficia.</span></li>
   </ul>
   <div class="sec-t label">Qué pasa después</div>
-  <div class="flow"><span>Postulas</span><i>→</i><span>Evaluamos contigo</span><i>→</i><span>Te presentamos a empresas</span><i>→</i><span>Contacto cuando aceptan</span></div>
+  <ol class="flow"><li>Postulas</li><li>Evaluamos contigo</li><li>Te presentamos a empresas</li><li>Contacto cuando aceptan</li></ol>
   <div class="start"><small>Toma unos 5 minutos. Ten a mano el nombre de quien respalda el proyecto.</small><button class="glass tint btn" data-open="apply">Iniciar</button></div>
   <p class="have">¿Ya postulaste? <button type="button" data-account>Entra a tu cuenta</button> para ver tu evaluación.</p>
 </section>
@@ -728,7 +731,7 @@ form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20p
     <button class="glass close" data-close aria-label="Cerrar">✕</button>
   </header>
   <form class="acc-form" id="loginForm" novalidate>
-    <div class="f full"><label for="l1">Correo o número de usuario</label><input id="l1" required placeholder="nombre@correo.com o #8923jfjsdf"></div>
+    <div class="f full"><label for="l1">Correo o número de usuario</label><input id="l1" required placeholder="nombre@correo.com o #48203917"></div>
     <div class="f full"><label for="l2">Contraseña</label><input id="l2" type="password" required placeholder="••••••••"></div>
     <p class="err" id="loginErr" role="alert"></p>
     <div class="start"><small>¿Aún no postulas? Hazlo desde “Unirme como cooperante” o “Postular mi proyecto”.</small><button class="glass tint btn" type="submit">Entrar</button></div>
@@ -1132,7 +1135,17 @@ let memStore={}, session=null;
 const loadAcc=()=>{ try{ return JSON.parse(localStorage.getItem(STORE_KEY)||"{}"); }catch(e){ return memStore; } };
 const saveAcc=a=>{ memStore=a; try{ localStorage.setItem(STORE_KEY,JSON.stringify(a)); }catch(e){} };
 async function hash(s){ try{ const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(s)); return [...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,"0")).join(""); }catch(e){ return btoa(unescape(encodeURIComponent(s))); } }
-function newId(){ const L="abcdefghijkmnpqrstuvwxyz"; let s=String(1000+Math.floor(Math.random()*9000)); for(let i=0;i<6;i++) s+=L[Math.floor(Math.random()*L.length)]; return "#"+s; }
+function newId(){ let s=String(1+Math.floor(Math.random()*9)); for(let i=0;i<7;i++) s+=Math.floor(Math.random()*10); return "#"+s; }
+/* cuentas de demostración para ver cada estado */
+(function seedDemo(){
+  const acc=loadAcc(), now=Date.now();
+  const demo=[
+    {id:"#20260001",email:"empresa.matches@sevensides.demo",role:"empresa",name:"Empresa demo",verifiedAt:now-86400000},
+    {id:"#20260002",email:"proyecto.matches@sevensides.demo",role:"proyecto",name:"Proyecto demo",verifiedAt:now-86400000},
+    {id:"#20260003",email:"proyecto.evaluacion@sevensides.demo",role:"proyecto",name:"Proyecto en evaluación",verifiedAt:now+10*365*86400000},
+  ];
+  hash("sevensides").then(h=>{ demo.forEach(d=>{ acc[d.id]={...d,pw:h,created:now}; }); saveAcc(acc); });
+})();
 const statusOf=a=> !a.verifiedAt ? "unverified" : (Date.now()-a.verifiedAt>EVAL_MS ? "matches" : "evaluating");
 const esc=s=>String(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
 
@@ -1181,9 +1194,10 @@ function renderEval(box, step, ctx){
       <form class="acc-form" novalidate>
         <div class="f full"><label>Código de verificación</label><input class="code" inputmode="numeric" maxlength="6" placeholder="······" name="code" autocomplete="one-time-code"></div>
         <p class="err" role="alert"></p>
-        <div class="start"><button type="button" class="glass btn" data-resend>Reenviar código</button><button class="glass tint btn" type="submit">Verificar</button></div>
+        <div class="start"><button type="button" class="glass btn" data-back>‹ Atrás</button><span class="sp"><button type="button" class="linkb" data-resend>Reenviar código</button></span><button class="glass tint btn" type="submit">Verificar</button></div>
       </form></div>`;
     $("[data-resend]",box).addEventListener("click",e=>{ e.target.textContent="Código reenviado"; });
+    $("[data-back]",box).addEventListener("click",()=>renderEval(box,"id",ctx));
     $("form",box).addEventListener("submit",e=>{
       e.preventDefault(); const v=e.target.code.value.trim(), err=$(".err",e.target);
       if(!/^\d{6}$/.test(v)){ err.textContent="El código tiene 6 dígitos."; err.classList.add("on"); return; }
