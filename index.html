@@ -179,11 +179,6 @@ fieldset{border:0}
 .check input{margin-top:3px;accent-color:var(--green)}
 .submit{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:6px}
 .submit small{font-size:10px;color:rgba(13,18,15,.5);letter-spacing:.06em}
-.done{display:none;padding:8px 0}
-.done.on{display:block}
-.done h3{font-weight:300;font-size:24px;margin-bottom:8px}
-.done h3 b{font-weight:400;color:var(--green-hi)}
-.done p{font-size:14px;line-height:1.6;font-weight:300;color:rgba(13,18,15,.75)}
 
 
 /* ventanas de introducción */
@@ -267,6 +262,106 @@ fieldset{border:0}
 .steps span{font-size:13.5px;font-weight:300;line-height:1.55;color:rgba(13,18,15,.72)}
 .about-cta{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
 
+
+/* ---------- ventanas grandes: encuesta y matches ---------- */
+.sheet.big{width:min(1120px,calc(100vw - 24px));height:calc(100svh - 40px);max-height:none;display:flex;flex-direction:column;padding:0;overflow:hidden}
+.wz-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding:clamp(20px,2.6vw,30px) clamp(20px,3vw,40px) 0}
+.wz-top .back{margin-bottom:14px}
+.wz-steps{list-style:none;display:flex;gap:10px;padding:20px clamp(20px,3vw,40px) 6px}
+.wz-steps li{flex:1;position:relative;padding-top:12px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:rgba(13,18,15,.45);transition:color .4s}
+.wz-steps li::before{content:"";position:absolute;left:0;right:0;top:0;height:3px;border-radius:3px;background:rgba(13,18,15,.12);transition:background .5s var(--ease)}
+.wz-steps li.done,.wz-steps li.on{color:var(--green-hi)}
+.wz-steps li.done::before,.wz-steps li.on::before{background:var(--green);box-shadow:0 0 10px rgba(13,153,68,.5)}
+form.wz{display:block;flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 20px;overscroll-behavior:contain}
+.wz-pane{display:none;grid-template-columns:repeat(6,1fr);gap:16px 18px;border:0;min-width:0}
+.wz-pane.on{display:grid;animation:paneIn .55s var(--ease)}
+@keyframes paneIn{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
+.wz-pane.back-in{animation-name:paneBack}
+@keyframes paneBack{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
+.wz-pane h3{grid-column:1/-1;font-weight:300;font-size:clamp(20px,1.8vw,26px);letter-spacing:-.01em;margin:4px 0 2px}
+.wz-pane h3 b{font-weight:400;color:var(--green-hi)}
+.wz-pane .f{grid-column:span 2}
+.wz-pane .f.w3{grid-column:span 3}
+.wz-pane .f.full,.wz-pane .check{grid-column:1/-1}
+.q{font-size:13px;font-weight:400;color:rgba(13,18,15,.8)}
+.chips.invalid .chip{box-shadow:inset 0 0 0 1px rgba(179,38,30,.55)}
+.f input:invalid.touched,.f select:invalid.touched,.f textarea:invalid.touched{box-shadow:inset 0 0 0 1.5px rgba(179,38,30,.7)}
+.err{display:none;margin-top:14px;font-size:12.5px;color:#9b2219}
+.err.on{display:block}
+.wz-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px clamp(20px,3vw,40px) clamp(18px,2.4vw,26px);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45)}
+.wz-count{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:rgba(13,18,15,.5)}
+.wz-nav .btn[disabled]{opacity:.35;pointer-events:none}
+.eval{display:none;flex:1;overflow:auto;padding:24px clamp(20px,3vw,40px) 34px}
+.sheet.evaluating .wz,.sheet.evaluating .wz-nav,.sheet.evaluating .wz-steps,.sheet.evaluating .wz-top{display:none}
+.sheet.evaluating .eval{display:flex;flex-direction:column;justify-content:center;max-width:720px;margin:0 auto;width:100%;animation:paneIn .6s var(--ease)}
+.eval h2{font-weight:300;font-size:clamp(28px,3vw,42px);letter-spacing:-.02em;line-height:1.05;margin-bottom:14px}
+.eval h2 b{font-weight:400;color:var(--green-hi)}
+.tl{list-style:none;display:grid;gap:0;margin:10px 0 30px;position:relative}
+.tl li{position:relative;padding:0 0 22px 40px}
+.tl li::before{content:"";position:absolute;left:6px;top:4px;width:14px;height:14px;border-radius:50%;background:rgba(255,255,255,.4);box-shadow:inset 0 0 0 1.5px rgba(13,18,15,.25)}
+.tl li::after{content:"";position:absolute;left:12.5px;top:22px;bottom:2px;width:1.5px;background:rgba(13,18,15,.15)}
+.tl li:last-child::after{display:none}
+.tl li.done::before{background:var(--green);box-shadow:0 0 0 4px rgba(13,153,68,.15)}
+.tl li.done::after{background:var(--green)}
+.tl li.now::before{background:#fff;box-shadow:inset 0 0 0 4px var(--green);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{50%{box-shadow:inset 0 0 0 4px var(--green),0 0 0 8px rgba(13,153,68,.15)}}
+.tl b{display:block;font-weight:400;font-size:16px;margin-bottom:3px}
+.tl li.now b{color:var(--green-hi)}
+.tl span{font-size:13.5px;font-weight:300;line-height:1.55;color:rgba(13,18,15,.7)}
+
+/* matches: lista interactiva con vista previa */
+.m-body{flex:1;overflow:auto;padding:14px clamp(20px,3vw,40px) 10px}
+.ilp{position:relative;border-radius:22px;overflow:hidden;background:rgba(255,255,255,.12);
+  box-shadow:inset 1.5px 1.5px 1px -.5px rgba(255,255,255,.95),inset 0 0 0 1px rgba(255,255,255,.35)}
+.ilp-hl{position:absolute;left:0;right:0;top:0;height:0;opacity:0;z-index:1;pointer-events:none;background:rgba(13,153,68,.88);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.4);transition:transform .35s cubic-bezier(.16,1,.3,1),height .35s cubic-bezier(.16,1,.3,1),opacity .35s ease-out}
+.ilp-imgs{position:absolute;inset:0;z-index:2;pointer-events:none;will-change:transform}
+.ilp-img{position:absolute;left:35%;top:50%;width:15rem;height:17.5rem;margin-top:-8.75rem;border-radius:18px;overflow:hidden;
+  visibility:hidden;clip-path:inset(50%);box-shadow:0 30px 60px -20px rgba(0,0,0,.5);will-change:clip-path,opacity}
+.ilp-img img,.ilp-img .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.ilp-img .ph{display:grid;place-items:end start;padding:18px;color:#fff;font-size:22px;font-weight:300;line-height:1.1}
+.ilp table{position:relative;z-index:3;width:100%;table-layout:fixed;border-collapse:collapse}
+.ilp th{padding:16px 24px 10px;text-align:left;font-size:10px;font-weight:400;letter-spacing:.14em;text-transform:uppercase;color:rgba(13,18,15,.45)}
+.ilp td{padding:20px 24px;font-size:12px;letter-spacing:.12em;text-transform:uppercase;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--ink);
+  border-top:1px solid rgba(13,18,15,.07);transition:color .35s ease-out}
+.ilp th:nth-child(3),.ilp td:nth-child(3){text-align:center}
+.ilp tbody tr{cursor:pointer}
+.ilp tr.act td{color:#fff;border-top-color:transparent}
+.ilp td .ck{display:inline-block;width:16px;height:16px;margin-right:10px;vertical-align:-3px;border-radius:50%;box-shadow:inset 0 0 0 1.5px currentColor;opacity:.5;position:relative}
+.ilp tr.sel td .ck{opacity:1;background:var(--green);box-shadow:inset 0 0 0 1.5px #fff}
+.ilp tr.sel td .ck::after{content:"";position:absolute;left:5px;top:2.5px;width:4px;height:8px;border:solid #fff;border-width:0 1.5px 1.5px 0;transform:rotate(45deg)}
+.ilp .aff{display:inline-flex;align-items:center;gap:8px}
+.ilp .aff i{display:inline-block;width:42px;height:3px;border-radius:3px;background:rgba(13,18,15,.12);position:relative;overflow:hidden}
+.ilp .aff i::after{content:"";position:absolute;inset:0;width:var(--v);background:currentColor;opacity:.8}
+.ilp-m{display:none}
+.m-sel{font-size:13px;font-weight:300;color:rgba(13,18,15,.7)}
+.m-sel b{font-weight:400;color:var(--green-hi)}
+.toast{position:absolute;left:50%;bottom:96px;transform:translate(-50%,20px);opacity:0;pointer-events:none;z-index:5;
+  padding:14px 20px;border-radius:999px;font-size:13.5px;color:#fff;background:rgba(13,153,68,.86);
+  -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);box-shadow:inset 1.5px 1.5px 1px -.5px rgba(200,255,220,.9),0 14px 30px -12px rgba(13,153,68,.6);
+  transition:opacity .4s var(--ease),transform .5s var(--ease)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+@media (pointer:coarse),(max-width:760px){
+  .ilp table,.ilp-imgs,.ilp-hl{display:none}
+  .ilp-m{display:block}
+  .ilp-m .row{display:flex;border-top:1px solid rgba(13,18,15,.08);cursor:pointer}
+  .ilp-m .row:first-child{border-top:0}
+  .ilp-m .tx{width:55%;padding:16px;display:flex;flex-direction:column;gap:5px}
+  .ilp-m .tx b{font-weight:500;font-size:13px;letter-spacing:.1em;text-transform:uppercase}
+  .ilp-m .tx em{font-style:normal;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:rgba(13,18,15,.55)}
+  .ilp-m .tx span{font-size:12.5px;font-weight:300;line-height:1.45;color:rgba(13,18,15,.7)}
+  .ilp-m .im{position:relative;width:45%;min-height:150px}
+  .ilp-m .im img,.ilp-m .im .ph{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+  .ilp-m .im .ph{display:grid;place-items:end start;padding:12px;color:#fff;font-size:15px;font-weight:300}
+  .ilp-m .row.sel{background:rgba(13,153,68,.14)}
+}
+@media (max-width:760px){
+  .wz-pane{grid-template-columns:1fr}
+  .wz-pane .f,.wz-pane .f.w3{grid-column:1/-1}
+  .wz-steps li{font-size:0;padding-top:6px}
+}
+
 /* ---------- responsive ---------- */
 @media (max-width:760px){
   :root{--card:clamp(220px,68vw,320px)}
@@ -327,7 +422,7 @@ fieldset{border:0}
     <li><span>Empresas de Europa o Latinoamérica que quieran invertir con <b>valor compartido</b>, no como filantropía.</span></li>
     <li><span>Una actividad compatible con los siete pilares y con la naturaleza. <b>No aceptamos empresas extractivistas.</b></span></li>
     <li><span>Disposición a cooperar con financiamiento, tecnología, capacitación o compra de producción.</span></li>
-    <li><span>Interés en un acompañamiento cercano y en conocer el proyecto en territorio.</span></li>
+    <li><span>Relaciones de <b>largo plazo</b>, basadas en confianza y en un intercambio real de conocimiento, no solo producción tercerizada.</span></li>
   </ul>
   <div class="sec-t label">Qué pasa después</div>
   <div class="flow"><span>Completas el formulario</span><i>→</i><span>Evaluamos tu perfil</span><i>→</i><span>Ves proyectos alineados</span><i>→</i><span>Aceptas el match</span></div>
@@ -355,77 +450,192 @@ fieldset{border:0}
   <div class="start"><small>Toma unos 5 minutos. Ten a mano el nombre de quien respalda el proyecto.</small><button class="glass tint btn" data-open="apply">Iniciar</button></div>
 </section>
 
-<!-- ============ Cooperante ============ -->
-<section class="sheet" id="coop" role="dialog" aria-modal="true" aria-labelledby="coopT">
-  <button class="glass btn back" data-open="coop-intro">‹ Volver</button>
-  <header>
+<!-- ============ Encuesta cooperante (ventana grande) ============ -->
+<section class="sheet big" id="coop" role="dialog" aria-modal="true" aria-labelledby="coopT" data-wizard>
+  <div class="wz-top">
     <div>
+      <button class="glass btn back" data-open="coop-intro">‹ Volver</button>
       <div class="kicker label">Para empresas · Cooperantes</div>
       <h2 id="coopT">Invierte donde tu empresa <b>también crece.</b></h2>
     </div>
     <button class="glass close" data-close aria-label="Cerrar">✕</button>
-  </header>
-  <div class="formwrap">
-    <p class="lead">Cuéntanos quién eres. Revisamos tu perfil y te mostramos proyectos y comunidades alineados con tus pilares. No es filantropía: es <b>valor compartido.</b></p>
-    <form data-form>
-      <div class="f"><label for="c1">Empresa</label><input id="c1" required placeholder="Nombre de la empresa"></div>
-      <div class="f"><label for="c2">País</label><input id="c2" required placeholder="Italia, España, Alemania…"></div>
-      <div class="f"><label for="c3">Sector</label><input id="c3" placeholder="Energía, agroindustria, software…"></div>
-      <div class="f"><label for="c4">Correo de contacto</label><input id="c4" type="email" required placeholder="nombre@empresa.com"></div>
-      <fieldset class="f full"><legend>Pilares de interés</legend><div class="chips" data-chips="pillars"></div></fieldset>
-      <fieldset class="f full"><legend>Cómo quieres cooperar</legend>
-        <div class="chips">
-          <button type="button" class="chip" aria-pressed="false">Financiamiento</button>
-          <button type="button" class="chip" aria-pressed="false">Tecnología</button>
-          <button type="button" class="chip" aria-pressed="false">Capacitación</button>
-          <button type="button" class="chip" aria-pressed="false">Compra de producción</button>
-          <button type="button" class="chip" aria-pressed="false">Otro</button>
-        </div>
-      </fieldset>
-      <label class="check"><input type="checkbox" required> Declaro que mi empresa no realiza actividades extractivistas ni contrarias a los pilares de Seven Sides.</label>
-      <label class="check"><input type="checkbox" required> Acepto el tratamiento de mis datos para fines de evaluación y contacto (RGPD).</label>
-      <div class="submit"><small>Prototipo · el envío aún no está conectado</small><button class="glass tint btn" type="submit">Enviar perfil</button></div>
-    </form>
   </div>
-  <div class="done">
-    <h3>Perfil <b>recibido.</b></h3>
-    <p>Evaluaremos tu empresa frente a los siete pilares. Si es aprobada, verás los proyectos y comunidades alineados con tus intereses.</p>
+  <ol class="wz-steps"><li>Tu empresa</li><li>Valor compartido</li><li>Cooperación</li><li>Compromiso</li></ol>
+  <form class="wz" data-form novalidate>
+    <fieldset class="wz-pane">
+      <h3>Cuéntanos sobre <b>tu empresa</b></h3>
+      <div class="f w3"><label for="c1">Empresa *</label><input id="c1" required placeholder="Nombre de la empresa"></div>
+      <div class="f w3"><label for="c2">País *</label><input id="c2" required placeholder="Países Bajos, España, Italia…"></div>
+      <div class="f"><label for="c3">Sector *</label><input id="c3" required placeholder="Mobiliario, energía, alimentos…"></div>
+      <div class="f"><label for="c4">Tamaño</label><select id="c4"><option value="">Selecciona…</option><option>1–10 personas</option><option>11–50 personas</option><option>51–250 personas</option><option>Más de 250</option></select></div>
+      <div class="f"><label for="c5">Sitio web</label><input id="c5" type="url" placeholder="https://"></div>
+      <div class="f"><label for="c6">Persona de contacto *</label><input id="c6" required placeholder="Nombre y apellido"></div>
+      <div class="f"><label for="c7">Cargo</label><input id="c7" placeholder="CEO, sostenibilidad…"></div>
+      <div class="f"><label for="c8">Correo *</label><input id="c8" type="email" required placeholder="nombre@empresa.com"></div>
+    </fieldset>
+
+    <fieldset class="wz-pane">
+      <h3>Cómo entiendes el <b>valor compartido</b></h3>
+      <div class="f full"><span class="q">¿Integrarías comunidades locales en tu cadena de valor? *</span>
+        <div class="chips" data-required><button type="button" class="chip" aria-pressed="false">Producción</button><button type="button" class="chip" aria-pressed="false">Abastecimiento de materiales</button><button type="button" class="chip" aria-pressed="false">Capacitación</button><button type="button" class="chip" aria-pressed="false">Aún no lo sé</button></div></div>
+      <div class="f full"><span class="q">Para tu empresa, la sostenibilidad es… *</span>
+        <div class="chips" data-single data-required><button type="button" class="chip" aria-pressed="false">Principalmente ambiental</button><button type="button" class="chip" aria-pressed="false">Ambiental y socioeconómica</button><button type="button" class="chip" aria-pressed="false">Parte de todas nuestras decisiones</button></div></div>
+      <div class="f full"><span class="q">¿Tu modelo de negocio ya genera a la vez valor económico e impacto social o ambiental?</span>
+        <div class="chips" data-single><button type="button" class="chip" aria-pressed="false">Todavía no</button><button type="button" class="chip" aria-pressed="false">En parte</button><button type="button" class="chip" aria-pressed="false">Es parte del modelo</button></div></div>
+      <div class="f full"><label for="c9">¿Qué materiales, productos o servicios podrías obtener de una comunidad?</label><textarea id="c9" placeholder="Ej. fibras naturales, madera certificada, producción artesanal, reciclaje…"></textarea></div>
+    </fieldset>
+
+    <fieldset class="wz-pane">
+      <h3>Cómo quieres <b>cooperar</b></h3>
+      <div class="f full"><span class="q">Formas de cooperación *</span>
+        <div class="chips" data-required><button type="button" class="chip" aria-pressed="false">Financiamiento</button><button type="button" class="chip" aria-pressed="false">Tecnología</button><button type="button" class="chip" aria-pressed="false">Capacitación</button><button type="button" class="chip" aria-pressed="false">Compra de producción</button><button type="button" class="chip" aria-pressed="false">Otra</button></div></div>
+      <div class="f full"><span class="q">Pilares de interés *</span><div class="chips" data-chips="pillars" data-required></div></div>
+      <div class="f full"><span class="q">Países de interés</span>
+        <div class="chips"><button type="button" class="chip" aria-pressed="false">Ecuador</button><button type="button" class="chip" aria-pressed="false">Perú</button><button type="button" class="chip" aria-pressed="false">Colombia</button><button type="button" class="chip" aria-pressed="false">Bolivia</button><button type="button" class="chip" aria-pressed="false">México</button><button type="button" class="chip" aria-pressed="false">Brasil</button><button type="button" class="chip" aria-pressed="false">Chile</button><button type="button" class="chip" aria-pressed="false">Abierto a cualquiera</button></div></div>
+      <div class="f w3"><span class="q">Horizonte de la cooperación</span>
+        <div class="chips" data-single><button type="button" class="chip" aria-pressed="false">Menos de 1 año</button><button type="button" class="chip" aria-pressed="false">1 a 3 años</button><button type="button" class="chip" aria-pressed="false">Más de 3 años</button></div></div>
+      <div class="f w3"><label for="c10">Inversión orientativa</label><select id="c10"><option>Por definir</option><option>Menos de 10.000 €</option><option>10.000 – 50.000 €</option><option>50.000 – 200.000 €</option><option>Más de 200.000 €</option></select></div>
+      <div class="f full"><label for="c11">¿Qué condiciones necesitas para cooperar con una comunidad?</label><textarea id="c11" placeholder="Ej. claridad en expectativas, consistencia en calidad, tiempos realistas…"></textarea></div>
+      <div class="f full"><span class="q">Principales barreras que ves</span>
+        <div class="chips"><button type="button" class="chip" aria-pressed="false">Infraestructura</button><button type="button" class="chip" aria-pressed="false">Consistencia en calidad</button><button type="button" class="chip" aria-pressed="false">Confianza entre socios</button><button type="button" class="chip" aria-pressed="false">Logística</button><button type="button" class="chip" aria-pressed="false">Regulación</button><button type="button" class="chip" aria-pressed="false">Otra</button></div></div>
+    </fieldset>
+
+    <fieldset class="wz-pane">
+      <h3>Último paso: <b>compromiso</b></h3>
+      <div class="f full"><label for="c12">¿Algo más que debamos saber?</label><textarea id="c12" placeholder="Proyectos actuales, certificaciones, expectativas…"></textarea></div>
+      <label class="check"><input type="checkbox" required> Declaro que mi empresa no realiza actividades extractivistas ni contrarias a los pilares de Seven Sides.</label>
+      <label class="check"><input type="checkbox" required> Entiendo que Seven Sides evaluará a mi empresa antes de mostrarle proyectos.</label>
+      <label class="check"><input type="checkbox" required> Acepto el tratamiento de mis datos para fines de evaluación y contacto (RGPD).</label>
+    </fieldset>
+    <p class="err" role="alert">Completa los campos marcados con * para continuar.</p>
+  </form>
+  <div class="wz-nav">
+    <button class="glass btn" data-prev>Anterior</button>
+    <span class="wz-count"></span>
+    <button class="glass tint btn" data-next>Siguiente</button>
+  </div>
+  <div class="eval">
+    <div class="kicker label">Perfil recibido</div>
+    <h2>Ahora <b>evaluamos tu empresa.</b></h2>
+    <p class="lead">Revisamos tu actividad frente a los siete pilares y la naturaleza. Te escribiremos al correo que nos dejaste con el resultado.</p>
+    <ol class="tl">
+      <li class="done"><b>Perfil recibido</b><span>Tus respuestas llegaron a Seven Sides.</span></li>
+      <li class="now"><b>Evaluación de empresa</b><span>Verificamos que tu actividad sea compatible con los pilares y que no sea extractivista.</span></li>
+      <li><b>Matches</b><span>Cuando haya proyectos alineados, los verás en tu panel de matches.</span></li>
+    </ol>
+    <div class="start"><small>Prototipo · así se verá el panel cuando tengas matches.</small><button class="glass tint btn" data-open="matches-coop">Ver ejemplo de matches</button></div>
   </div>
 </section>
 
-<!-- ============ Postular ============ -->
-<section class="sheet" id="apply" role="dialog" aria-modal="true" aria-labelledby="applyT">
-  <button class="glass btn back" data-open="apply-intro">‹ Volver</button>
-  <header>
+<!-- ============ Encuesta proyecto (ventana grande) ============ -->
+<section class="sheet big" id="apply" role="dialog" aria-modal="true" aria-labelledby="applyT" data-wizard>
+  <div class="wz-top">
     <div>
+      <button class="glass btn back" data-open="apply-intro">‹ Volver</button>
       <div class="kicker label">Para proyectos · Comunidades · Organizaciones</div>
       <h2 id="applyT">Tu proyecto merece <b>un socio, no un trámite.</b></h2>
     </div>
     <button class="glass close" data-close aria-label="Cerrar">✕</button>
-  </header>
-  <div class="formwrap">
-    <p class="lead">Postula tu necesidad, sea una idea o un proyecto en marcha. La evaluamos y, cuando una empresa acepta el match, <b>las conectamos.</b></p>
-    <form data-form>
-      <div class="f"><label for="a1">Nombre del proyecto</label><input id="a1" required placeholder="Ej. Bosque comunitario"></div>
-      <div class="f"><label for="a2">Organización o comunidad</label><input id="a2" required placeholder="Quién lo impulsa"></div>
-      <div class="f"><label for="a3">Tipo</label>
-        <select id="a3" required><option value="">Selecciona…</option><option>Organización constituida</option><option>Comunidad con respaldo oficial</option></select></div>
-      <div class="f"><label for="a4">Respaldo oficial</label>
-        <select id="a4" required><option value="">Selecciona…</option><option>Gobierno local / municipio</option><option>Junta parroquial</option><option>ONG</option><option>Universidad</option><option>Otro</option></select></div>
-      <div class="f"><label for="a5">País</label><input id="a5" required placeholder="Ecuador, Perú, Colombia…"></div>
-      <div class="f"><label for="a6">Etapa</label>
-        <select id="a6" required><option value="">Selecciona…</option><option>Idea</option><option>En marcha</option></select></div>
-      <fieldset class="f full"><legend>Pilares que impacta</legend><div class="chips" data-chips="pillars"></div></fieldset>
-      <div class="f full"><label for="a7">¿Qué necesitan?</label><textarea id="a7" required placeholder="Describe la necesidad y a cuántas personas beneficia."></textarea></div>
-      <div class="f full"><label for="a8">Correo de contacto</label><input id="a8" type="email" required placeholder="contacto@proyecto.org"></div>
+  </div>
+  <ol class="wz-steps"><li>El proyecto</li><li>Respaldo y comunidad</li><li>La necesidad</li><li>Contacto</li></ol>
+  <form class="wz" data-form novalidate>
+    <fieldset class="wz-pane">
+      <h3>Cuéntanos sobre <b>el proyecto</b></h3>
+      <div class="f w3"><label for="a1">Nombre del proyecto *</label><input id="a1" required placeholder="Ej. Bosque comunitario"></div>
+      <div class="f w3"><label for="a2">Organización o comunidad *</label><input id="a2" required placeholder="Quién lo impulsa"></div>
+      <div class="f"><label for="a3">Tipo *</label><select id="a3" required><option value="">Selecciona…</option><option>Organización constituida</option><option>Comunidad con respaldo oficial</option></select></div>
+      <div class="f"><label for="a4">País *</label><input id="a4" required placeholder="Ecuador, Perú, Colombia…"></div>
+      <div class="f"><label for="a5">Provincia o región *</label><input id="a5" required placeholder="Ej. Azuay"></div>
+      <div class="f w3"><span class="q">Etapa *</span><div class="chips" data-single data-required><button type="button" class="chip" aria-pressed="false">Idea</button><button type="button" class="chip" aria-pressed="false">En marcha</button></div></div>
+      <div class="f w3"><label for="a6">Tiempo en funcionamiento</label><select id="a6"><option>Aún no empieza</option><option>Menos de 1 año</option><option>1 a 3 años</option><option>Más de 3 años</option></select></div>
+    </fieldset>
+
+    <fieldset class="wz-pane">
+      <h3>Respaldo y <b>comunidad</b></h3>
+      <div class="f"><label for="a7">Respaldo oficial *</label><select id="a7" required><option value="">Selecciona…</option><option>Gobierno local / municipio</option><option>Junta parroquial</option><option>ONG</option><option>Universidad</option><option>Otro</option></select></div>
+      <div class="f"><label for="a8">Nombre de la entidad *</label><input id="a8" required placeholder="Quién respalda el proyecto"></div>
+      <div class="f"><label for="a9">Personas beneficiadas</label><input id="a9" type="number" min="0" placeholder="Aproximado"></div>
+      <div class="f full"><span class="q">¿Qué ofrece la comunidad?</span>
+        <div class="chips"><button type="button" class="chip" aria-pressed="false">Producción agrícola</button><button type="button" class="chip" aria-pressed="false">Artesanía y oficios</button><button type="button" class="chip" aria-pressed="false">Materiales naturales</button><button type="button" class="chip" aria-pressed="false">Turismo</button><button type="button" class="chip" aria-pressed="false">Conocimiento ancestral</button><button type="button" class="chip" aria-pressed="false">Mano de obra capacitada</button><button type="button" class="chip" aria-pressed="false">Otro</button></div></div>
+      <div class="f full"><label for="a10">Cuéntanos brevemente quiénes son</label><textarea id="a10" placeholder="Historia de la comunidad u organización, qué hacen hoy…"></textarea></div>
+    </fieldset>
+
+    <fieldset class="wz-pane">
+      <h3>La <b>necesidad</b></h3>
+      <div class="f full"><span class="q">Pilares que impacta *</span><div class="chips" data-chips="pillars" data-required></div></div>
+      <div class="f full"><label for="a11">¿Qué necesitan? *</label><textarea id="a11" required placeholder="Describe la necesidad y a quién beneficia."></textarea></div>
+      <div class="f full"><span class="q">Tipo de apoyo que buscan</span>
+        <div class="chips"><button type="button" class="chip" aria-pressed="false">Financiamiento</button><button type="button" class="chip" aria-pressed="false">Tecnología</button><button type="button" class="chip" aria-pressed="false">Capacitación</button><button type="button" class="chip" aria-pressed="false">Compra de producción</button><button type="button" class="chip" aria-pressed="false">Infraestructura</button></div></div>
+      <div class="f full"><span class="q">¿Qué les falta para crecer?</span>
+        <div class="chips"><button type="button" class="chip" aria-pressed="false">Infraestructura</button><button type="button" class="chip" aria-pressed="false">Conectividad</button><button type="button" class="chip" aria-pressed="false">Capacitación</button><button type="button" class="chip" aria-pressed="false">Acceso a mercados</button><button type="button" class="chip" aria-pressed="false">Financiamiento</button></div></div>
+      <div class="f full"><span class="q">¿Recibirían visitas y acompañamiento en territorio?</span>
+        <div class="chips" data-single><button type="button" class="chip" aria-pressed="false">Sí</button><button type="button" class="chip" aria-pressed="false">Por conversar</button></div></div>
+    </fieldset>
+
+    <fieldset class="wz-pane">
+      <h3>Contacto y <b>compromiso</b></h3>
+      <div class="f w3"><label for="a12">Persona de contacto *</label><input id="a12" required placeholder="Nombre y apellido"></div>
+      <div class="f w3"><label for="a13">Cargo o rol</label><input id="a13" placeholder="Presidente, coordinadora…"></div>
+      <div class="f w3"><label for="a14">Correo *</label><input id="a14" type="email" required placeholder="contacto@proyecto.org"></div>
+      <div class="f w3"><label for="a15">Teléfono o WhatsApp</label><input id="a15" type="tel" placeholder="+593…"></div>
       <label class="check"><input type="checkbox" required> Confirmo que el proyecto respeta, conserva y preserva la naturaleza.</label>
       <label class="check"><input type="checkbox" required> Acepto el tratamiento de mis datos para fines de evaluación y contacto. La información del proyecto sigue siendo de quienes lo impulsan.</label>
-      <div class="submit"><small>Prototipo · el envío aún no está conectado</small><button class="glass tint btn" type="submit">Postular</button></div>
-    </form>
+    </fieldset>
+    <p class="err" role="alert">Completa los campos marcados con * para continuar.</p>
+  </form>
+  <div class="wz-nav">
+    <button class="glass btn" data-prev>Anterior</button>
+    <span class="wz-count"></span>
+    <button class="glass tint btn" data-next>Siguiente</button>
   </div>
-  <div class="done">
-    <h3>Postulación <b>recibida.</b></h3>
-    <p>Tu proyecto pasa a evaluación. Te contactaremos cuando una empresa alineada acepte el match.</p>
+  <div class="eval">
+    <div class="kicker label">Postulación recibida</div>
+    <h2>Ahora <b>evaluamos tu proyecto.</b></h2>
+    <p class="lead">Revisamos la propuesta frente a los siete pilares y la naturaleza. Si hace falta, te contactaremos para afinarla.</p>
+    <ol class="tl">
+      <li class="done"><b>Postulación recibida</b><span>Tus respuestas llegaron a Seven Sides.</span></li>
+      <li class="now"><b>Evaluación del proyecto</b><span>Verificamos el respaldo oficial, la necesidad y el impacto en los pilares.</span></li>
+      <li><b>Matches</b><span>Tu proyecto se muestra a empresas alineadas. El contacto se comparte cuando una acepta.</span></li>
+    </ol>
+    <div class="start"><small>Prototipo · así se verá el panel cuando tengas matches.</small><button class="glass tint btn" data-open="matches-proj">Ver ejemplo de matches</button></div>
+  </div>
+</section>
+
+<!-- ============ Matches cooperante ============ -->
+<section class="sheet big" id="matches-coop" role="dialog" aria-modal="true" aria-labelledby="mcT">
+  <div class="wz-top">
+    <div>
+      <div class="kicker label">Tus matches · ejemplo</div>
+      <h2 id="mcT">Proyectos <b>alineados con tu empresa.</b></h2>
+    </div>
+    <button class="glass close" data-close aria-label="Cerrar">✕</button>
+  </div>
+  <div class="m-body">
+    <p class="lead">Pasa el cursor para ver cada proyecto y selecciona uno para aceptar el match. Al aceptarlo, compartimos el contacto con ambas partes.</p>
+    <div class="ilp" data-list="coop"></div>
+  </div>
+  <div class="wz-nav m-nav">
+    <span class="m-sel">Ningún proyecto seleccionado</span>
+    <button class="glass tint btn" data-accept disabled>Aceptar match</button>
+  </div>
+</section>
+
+<!-- ============ Matches proyecto ============ -->
+<section class="sheet big" id="matches-proj" role="dialog" aria-modal="true" aria-labelledby="mpT">
+  <div class="wz-top">
+    <div>
+      <div class="kicker label">Tus matches · ejemplo</div>
+      <h2 id="mpT">Empresas <b>interesadas en tu proyecto.</b></h2>
+    </div>
+    <button class="glass close" data-close aria-label="Cerrar">✕</button>
+  </div>
+  <div class="m-body">
+    <p class="lead">Estas empresas ya aceptaron tu proyecto. Selecciona una para confirmar el match y empezar la conversación.</p>
+    <div class="ilp" data-list="proj"></div>
+  </div>
+  <div class="wz-nav m-nav">
+    <span class="m-sel">Ninguna empresa seleccionada</span>
+    <button class="glass tint btn" data-accept disabled>Confirmar match</button>
   </div>
 </section>
 
@@ -634,12 +844,113 @@ addEventListener("keydown",e=>{ if(e.key==="Escape") closeSheets(); });
 $$('[data-chips="pillars"]').forEach(box=>{
   box.innerHTML=PILLARS.map(p=>`<button type="button" class="chip" aria-pressed="false">${p.short}</button>`).join("");
 });
-document.addEventListener("click",e=>{const c=e.target.closest(".chip"); if(c) c.setAttribute("aria-pressed", c.getAttribute("aria-pressed")!=="true");});
+document.addEventListener("click",e=>{
+  const c=e.target.closest(".chip"); if(!c) return;
+  const g=c.closest(".chips"), on=c.getAttribute("aria-pressed")!=="true";
+  if(g?.hasAttribute("data-single")) $$(".chip",g).forEach(x=>x.setAttribute("aria-pressed","false"));
+  c.setAttribute("aria-pressed", on);
+});
 
-$$("[data-form]").forEach(f=>f.addEventListener("submit",e=>{
-  e.preventDefault(); const s=f.closest(".sheet");
-  $(".formwrap",s).style.display="none"; $(".done",s).classList.add("on");
-}));
+$$("[data-form]").forEach(f=>f.addEventListener("submit",e=>e.preventDefault()));
+/* ----- encuestas por pasos ----- */
+$$("[data-wizard]").forEach(sh=>{
+  const panes=$$(".wz-pane",sh), steps=$$(".wz-steps li",sh), prev=$("[data-prev]",sh), next=$("[data-next]",sh), count=$(".wz-count",sh), err=$(".err",sh), form=$("form",sh);
+  let i=0;
+  function show(n,dir=1){
+    panes.forEach((p,k)=>{p.classList.toggle("on",k===n);p.classList.toggle("back-in",k===n&&dir<0)});
+    steps.forEach((s,k)=>{s.classList.toggle("on",k===n);s.classList.toggle("done",k<n)});
+    prev.disabled=n===0; next.textContent=n===panes.length-1?"Enviar":"Siguiente";
+    count.textContent=`Paso ${n+1} de ${panes.length}`; err.classList.remove("on"); form.scrollTop=0; i=n;
+  }
+  function valid(p){
+    let ok=true;
+    $$("input,select,textarea",p).forEach(el=>{ if(!el.checkValidity()){ ok=false; el.classList.add("touched"); } });
+    $$(".chips[data-required]",p).forEach(c=>{ const has=!!$('.chip[aria-pressed="true"]',c); c.classList.toggle("invalid",!has); if(!has) ok=false; });
+    return ok;
+  }
+  next.addEventListener("click",()=>{
+    if(!valid(panes[i])){ err.classList.add("on"); return; }
+    if(i<panes.length-1) show(i+1,1); else { sh.classList.add("evaluating"); sh.scrollTop=0; }
+  });
+  prev.addEventListener("click",()=>{ if(i>0) show(i-1,-1); });
+  sh.addEventListener("click",e=>{ const c=e.target.closest(".chips.invalid"); if(c && $('.chip[aria-pressed="true"]',c)) c.classList.remove("invalid"); });
+  sh._reset=()=>{ sh.classList.remove("evaluating"); show(0); };
+  show(0);
+});
+
+/* ----- matches: lista interactiva (highlight que se desliza, imagen que se revela con clip-path y sigue al puntero) ----- */
+const MATCHES = {
+  coop: { label:["Proyecto","Lugar","Afinidad","Necesidad"], noun:"proyecto", items:[
+    { a:"Bosque comunitario", b:"Comunidad · Latinoamérica", v:94, d:"Capacitación en manejo forestal y compra de producción sostenible", img:"assets/media/bosque.jpg" },
+    { a:"Agroforestería", b:"Cooperativa · Latinoamérica", v:91, d:"Fibras y materiales naturales para cadenas de producción responsables", img:"assets/media/selva.jpg" },
+    { a:"Costas que viven del mar", b:"Comunidad costera", v:86, d:"Recolección y reciclaje de plástico marino con la comunidad", img:"assets/media/costa.jpg" },
+    { a:"Ciudades conectadas", b:"Ciudad · Latinoamérica", v:78, d:"Talleres de oficios y conectividad para artesanos locales", img:"assets/media/ciudad.jpg" },
+    { a:"Agua de alta montaña", b:"Comunidad andina", v:72, d:"Infraestructura y monitoreo de fuentes de agua", img:"assets/media/montana.jpg" },
+  ]},
+  proj: { label:["Empresa","País","Afinidad","Cómo coopera"], noun:"empresa", items:[
+    { a:"Mobiliario sostenible", b:"Países Bajos", v:93, d:"Compra de producción · Capacitación en oficios", bg:"linear-gradient(160deg,#7b705e,#2e2820)" },
+    { a:"Energía renovable", b:"España", v:88, d:"Tecnología · Financiamiento", bg:"linear-gradient(160deg,#b9b49c,#6f6b55)" },
+    { a:"Alimentos orgánicos", b:"Italia", v:84, d:"Compra de producción", bg:"linear-gradient(160deg,#3c5a45,#0f1a13)" },
+    { a:"Software educativo", b:"Alemania", v:79, d:"Tecnología · Capacitación", bg:"linear-gradient(160deg,#47646a,#152225)" },
+    { a:"Textil circular", b:"Ecuador", v:75, d:"Materiales · Compra de producción", bg:"linear-gradient(160deg,#0d9944,#0a3d22)" },
+  ]},
+};
+$$(".ilp").forEach(box=>{
+  const data=MATCHES[box.dataset.list], sh=box.closest(".sheet");
+  const vis=it=> it.img ? `<img src="${it.img}" alt="">` : `<div class="ph" style="background:${it.bg}">${it.a}</div>`;
+  box.innerHTML=`<div class="ilp-hl"></div>
+    <div class="ilp-imgs">${data.items.map(it=>`<div class="ilp-img">${vis(it)}</div>`).join("")}</div>
+    <table><colgroup><col style="width:24%"><col style="width:20%"><col style="width:16%"><col style="width:40%"></colgroup>
+      <thead><tr>${data.label.map(l=>`<th>${l}</th>`).join("")}</tr></thead>
+      <tbody>${data.items.map((it,k)=>`<tr data-k="${k}"><td><span class="ck"></span>${it.a}</td><td>${it.b}</td><td><span class="aff">${it.v}% <i style="--v:${it.v}%"></i></span></td><td>${it.d}</td></tr>`).join("")}</tbody></table>
+    <div class="ilp-m">${data.items.map((it,k)=>`<div class="row" data-k="${k}"><div class="tx"><b>${it.a}</b><em>${it.b} · ${it.v}%</em><span>${it.d}</span></div><div class="im">${vis(it)}</div></div>`).join("")}</div>`;
+  const hl=$(".ilp-hl",box), wrap=$(".ilp-imgs",box), imgs=$$(".ilp-img",box), rows=$$("tbody tr",box), table=$("table",box);
+  const DUR=600, rm=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let active=null, z=10, cur={x:0,y:0}, tgt={x:0,y:0};
+  const anim=[], pending=[];
+  function reveal(k){
+    const el=imgs[k]; anim[k]?.cancel(); pending[k]=false;
+    el.style.zIndex=++z; el.style.visibility="visible";
+    anim[k]=el.animate(rm?[{opacity:0,clipPath:"inset(0%)"},{opacity:1,clipPath:"inset(0%)"}]:[{clipPath:"inset(50%)",opacity:1},{clipPath:"inset(0%)",opacity:1}],
+      {duration:rm?250:DUR,easing:"cubic-bezier(.45,0,.55,1)",fill:"forwards"});
+    anim[k].onfinish=()=>{ if(pending[k]){ pending[k]=false; hide(k); } };
+  }
+  function hide(k){
+    const el=imgs[k];
+    if(anim[k] && anim[k].playState==="running"){ pending[k]=true; return; }
+    anim[k]?.cancel();
+    anim[k]=el.animate(rm?[{opacity:1},{opacity:0}]:[{clipPath:"inset(0%)",opacity:1},{clipPath:"inset(50%)",opacity:0}],
+      {duration:rm?250:DUR,easing:"cubic-bezier(.65,0,.35,1)",fill:"forwards"});
+    anim[k].onfinish=()=>{ el.style.visibility="hidden"; };
+  }
+  rows.forEach((r,k)=>{
+    r.addEventListener("mouseenter",()=>{
+      if(active!==null && active!==k) rows[active].classList.remove("act");
+      active=k; r.classList.add("act"); reveal(k);
+      const tb=table.getBoundingClientRect(), rb=r.getBoundingClientRect(), bb=box.getBoundingClientRect();
+      hl.style.transform=`translateY(${rb.top-bb.top}px)`; hl.style.height=rb.height+"px"; hl.style.opacity=1;
+    });
+    r.addEventListener("mouseleave",()=>hide(k));
+  });
+  table.addEventListener("mouseleave",()=>{ if(active!==null) rows[active].classList.remove("act"); active=null; hl.style.opacity=0; tgt={x:0,y:0}; });
+  box.addEventListener("mousemove",e=>{ if(rm) return; const b=box.getBoundingClientRect(); tgt={x:((e.clientX-b.left)/b.width-.5)*20, y:((e.clientY-b.top)/b.height-.5)*20}; });
+  (function tick(){ if(!rm){ cur.x+=(tgt.x-cur.x)*.18; cur.y+=(tgt.y-cur.y)*.18; wrap.style.transform=`translate3d(${cur.x}px,${cur.y}px,0)`; } requestAnimationFrame(tick); })();
+
+  // selección y aceptación
+  const selTxt=$(".m-sel",sh), accept=$("[data-accept]",sh);
+  let toast=$(".toast",sh); if(!toast){ toast=document.createElement("div"); toast.className="toast"; sh.appendChild(toast); }
+  function select(k){
+    $$("[data-k]",box).forEach(x=>x.classList.toggle("sel",+x.dataset.k===k));
+    selTxt.innerHTML=`Seleccionado: <b>${data.items[k].a}</b>`; accept.disabled=false; accept.dataset.k=k;
+  }
+  $$("[data-k]",box).forEach(x=>x.addEventListener("click",()=>select(+x.dataset.k)));
+  accept.addEventListener("click",()=>{
+    const it=data.items[+accept.dataset.k];
+    toast.textContent=`Match aceptado con ${it.a}. Te escribiremos para presentarlos.`; toast.classList.add("on");
+    clearTimeout(toast._t); toast._t=setTimeout(()=>toast.classList.remove("on"),3600);
+  });
+});
+
 
 /* ----- heptágono + ventanas de pilares ----- */
 (function(){
